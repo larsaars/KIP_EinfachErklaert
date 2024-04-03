@@ -9,11 +9,10 @@
 - Aufgabe evaluieren -> Mit Prof sprechen
 - Rechereche zu Nachrichtenquellen
 - Historischer vs aktueller Scraper
-- SQL Datenbank aufbauen -> OTH Postgres
 - zusammenschliessen mit der anderen Gruppe
 
 ## Prozess
-Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach Möglichkeit auch mit der anderen Gruppe, die das gleiche Projekt macht, zusammenschließen, damit keine doppelte Arbeit geschieht. Nachdem die Datenbank erstellt wurde, sollen wir noch Passagen
+Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach Möglichkeit auch mit der anderen Gruppe, die das gleiche Projekt macht, zusammenschließen, damit keine doppelte Arbeit geschieht. Sobald wir die Daten haben, haben wir viel Freiraum, was wir machen könnten. Ein Vorschlag von Prof. Baumann war eine Coreference Analysis (gucken, was Bezüge sind "er"->"der Innenminister", wie gut funzt das bei leichter, wie gut bei schwerer Sprache, wie kann man ein einfaches Modell ausweiten angewandt auf schwerer Sprache), diesen Teil können wir uns aber in der "Forschungsphase" des Projekts noch überlegen.
 
 ### Datenbank
 Eine Datenbank (wie Postgres) an sich sollen wir nicht anlegen; sondern ein Ordnerschema, z.B.:
@@ -36,8 +35,18 @@ einfacherklaert/
 
 Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen. Wir verwenden eine Ordnerstruktur, da plain files einfacher zu benutzen sind und nicht "altern".
 
+### Scraper
 
-### Matchen von normalen und leichten Artikeln
+Die Daten dieser Datenbank werden mithilfe von scrapern verschiedener Quellen gesammelt. Es reicht, wenn Artikel gleicher Organisationen gemacht werden. Also:
+
+- [nachrichtenleicht](https://nachrichtenleicht.de) und [deutschlandfunk](https://deutschlandfunk.de)
+- gerne erweitern mit NDR, das von den oesterreichern
+
+Es soll jeweils zu jeder Quelle im Optimalfall einen scraper geben, der historische Daten sammelt, und einer der laufen gelassen werden kann in Zukunft, wenn neue Artikel gepublisht werden.
+
+### Matchen von normalen und leichten Artikeln (KI-Anteil)
+
+Wir können hierfür verwenden, was wir wollen.
 
 - Metadata
 	+ Datetime of Release
@@ -50,11 +59,9 @@ Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen. Wir v
 - Datetime of Scraping
 - Source
 - ID of Scraper
+- Vielleicht Bildähnlichkeiten
 
-## Eigene Datenbank für Verknüfung leicht zu schwer
-
-
-## Fragen und Antworten
+## FAQ
 
 - Was ist die Abgabe?
 	+ Datensatz?
