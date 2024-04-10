@@ -3,19 +3,16 @@
 ## TODO
 
 - Scraper für verschiedene Seiten
-- Deutschlandfunk anschreiben
 - Wie Audios speichern? -> erstmal nicht speichern
 - Schema für Matching überlegen
-- Aufgabe evaluieren -> Mit Prof sprechen
 - Rechereche zu Nachrichtenquellen
 - Historischer vs aktueller Scraper
-- zusammenschliessen mit der anderen Gruppe
+- Zusammenschliessen mit der anderen Gruppe
 
 ## Prozess
 Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach Möglichkeit auch mit der anderen Gruppe, die das gleiche Projekt macht, zusammenschließen, damit keine doppelte Arbeit geschieht. Sobald wir die Daten haben, haben wir viel Freiraum, was wir machen könnten. Ein Vorschlag von Prof. Baumann war eine Coreference Analysis (gucken, was Bezüge sind "er"->"der Innenminister", wie gut funzt das bei leichter, wie gut bei schwerer Sprache, wie kann man ein einfaches Modell ausweiten angewandt auf schwerer Sprache), diesen Teil können wir uns aber in der "Forschungsphase" des Projekts noch überlegen.
 
-### Datenbank
-Eine Datenbank (wie Postgres) an sich sollen wir nicht anlegen; sondern ein Ordnerschema, z.B.:
+### Ordnerschema
 
 ```
 einfacherklaert/
@@ -80,3 +77,18 @@ Wir können hierfür verwenden, was wir wollen.
 -> beides wenn möglich, zwei einzelne scraper
 - Wäre es ok wenn wir die Daten direkt anfragen ohne Scraping?
 -> ja, er meinte aber er hat da keine Hoffnungen, dass die uns das bereitstellen bzw überhaupt so sortiert haben, wie wir es bräuchten aber vielleicht haben wir ja glück
+
+## Nachrichtenquellen
+
+SAFE
+- Deutschlandfunk
+
+VIELLEICHT
+- APA Österreich -> kein audio/ gutes matching/ 2 sprachlevel/ evtl. österreichischer dialekt
+- infoeasy -> kein audio/ gutes matching
+- kurier.at -> kein audio/ feed/ link zum original
+- orf tagesfeed
+- wien.orf.at/radio/tags/einfach/
+
+- X MDR -> teilweise link zum original aber vom radio (nur audio) 
+- X NDR -> nicht so nice/ kein feed
