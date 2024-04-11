@@ -157,8 +157,8 @@ def main():
     easy_articles = get_articles_from_feed(get_soup(easy_feed_url))
     hard_articles = get_articles_from_feed(get_soup(hard_feed_url))
     for e_article, h_article in zip(easy_articles, hard_articles):
-        save_article(get_nachrichtenleicht_article(e_article['url']), "./data/easy")
-        save_article(get_deutschlandfunk_article(h_article['url']), "./data/hard")
+        save_article(get_nachrichtenleicht_article(e_article['url']), "./data/deutschlandfunk/easy")
+        save_article(get_deutschlandfunk_article(h_article['url']), "./data/deutschlandfunk/hard")
     
     
 if __name__ == "__main__":

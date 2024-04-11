@@ -7,7 +7,6 @@
 - Schema für Matching überlegen
 - Rechereche zu Nachrichtenquellen
 - Historischer vs aktueller Scraper
-- Zusammenschliessen mit der anderen Gruppe
 
 ## Prozess
 Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach Möglichkeit auch mit der anderen Gruppe, die das gleiche Projekt macht, zusammenschließen, damit keine doppelte Arbeit geschieht. Sobald wir die Daten haben, haben wir viel Freiraum, was wir machen könnten. Ein Vorschlag von Prof. Baumann war eine Coreference Analysis (gucken, was Bezüge sind "er"->"der Innenminister", wie gut funzt das bei leichter, wie gut bei schwerer Sprache, wie kann man ein einfaches Modell ausweiten angewandt auf schwerer Sprache), diesen Teil können wir uns aber in der "Forschungsphase" des Projekts noch überlegen.
@@ -16,18 +15,21 @@ Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach M
 
 ```
 einfacherklaert/
-├─ easy/
-│  ├─ article-abcdef/
-│  │  ├─ content.txt
-│  │  ├─ audio.mp3
-│  │  ├─ metadata.json
-│  ├─ article-ghasdf/
-├─ hard/
-│  ├─ article-sdfdgd/
-│  │  ├─ content.txt
-│  │  ├─ audio.mp3
-│  │  ├─ metadata.json
+├─ deutschlandfunk/
+│  ├─ easy/
+│  │  ├─ article-abcdef/
+│  │  │  ├─ content.txt
+│  │  │  ├─ audio.mp3
+│  │  │  ├─ metadata.json
+│  │  ├─ article-ghasdf/
+│  │  
+│  ├─ hard/
+│  │  ├─ article-sdfdgd/
+│  │  │  ├─ content.txt
+│  │  │  ├─ audio.mp3
+│  │  │  ├─ metadata.json
 ├─ matchings.txt
+
 ```
 
 Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen. Wir verwenden eine Ordnerstruktur, da plain files einfacher zu benutzen sind und nicht "altern".
