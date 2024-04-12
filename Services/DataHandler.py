@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 import numpy as np
+from datetime import datetime
+import json
 
 """
 einfacherklaert/
@@ -28,6 +30,7 @@ class DataHandler:
             # TODO : Adapt this to the directory from which this script is executed
             self.root = os.path.join("..", "data", "deutschlandfunk")
 
+    # ----- READING ----
     def head(self, n, dir):
         """
         Args:
@@ -79,11 +82,8 @@ class DataHandler:
         dir_path = os.path.join(
             self.root, "easy" if dir == "e" or dir == "easy" else "hard"
         )
-        n = self.__len(dir_path)
+        n = self.__dir_len(dir_path)
         return self.head(n, dir)
-
-    def write_article(self, url, title, text, date):
-        pass
 
     def __read_article_from_folder(self, article_path):
         """
@@ -110,8 +110,59 @@ class DataHandler:
         else:
             raise Exception(article_path + " is not existing")
 
-    def __len(self, dir):
+    def __dir_len(self, dir):
         return len(
             [name for name in os.listdir(dir) if os.path.isdir(os.path.join(dir, name))]
         )
 
+    # ----- WRITE -----
+
+    def save_article(self, dir, metadata, content, audio=None):
+        # Error Handling
+        if dir not in ("e", "h", "easy", "hard"):
+            raise Exception(dir + " is not a valid directory")
+
+        dir_path = os.path.join(
+            self.root, "easy" if dir == "e" or dir == "easy" else "hard"
+        )
+
+        self.__create_filepath(dir_path, metadata["date"], metadata["title"])
+        self.__save_content(content, dir_path)
+        self.__save_metadata(metadata, dir_path)
+        self.__save_audio(metadata, dir_path)
+
+    def __create_filepath(self, directory, date, title):
+        title = self.__clean_file_path(title)
+        date = datetime.strptime(date, "%d.%m.%Y").strftime("%Y-%m-%d")
+        filepath = os.path.join(directory, date + "-" + title.replace(" ", "_"))
+        # init directory
+        if not os.path.exists(filepath):
+            os.makedirs(filepath)
+
+    def __save_content(self, content, filepath):
+        filepath = os.path.join(filepath, "content.txt")
+        with open(filepath, "w") as file:
+            file.write(content)
+
+    def __save_audio(self, audio, filepath):
+        filepath = os.path.join(filepath, "audio.mp3")
+        with open(filepath, "wb") as file:
+            file.write(audio.content)
+
+    def __save_metadata(self, metadata, filepath):
+        filepath = os.path.join(filepath, "metadata.json")
+        with open(filepath, "w") as file:
+            file.write(json.dumps(metadata, indent=4))
+            
+    def __clean_file_path(self, input_string):
+        """
+        Removes all characters not allowed in Windows or Linux file paths from the input string.
+        Linux all except '/' and null character.
+        Windows all except  '<', '>', ':', '"', '/', '\\', '|', '?', '*', and invalid Unicode characters.
+        
+        This function will remove characters not allowed in both operating systems for compatibility.
+        """
+  
+        invalid_chars = set('<>:"/\\|?*') | {'\0'}
+        cleaned_string = ''.join(c for c in input_string if c not in invalid_chars)
+        return cleaned_string
