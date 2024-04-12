@@ -28,7 +28,7 @@ class DataHandler:
             self.root, "easy" if dir == "e" or dir == "easy" else "hard"
         )
         articles_df = pd.DataFrame(
-            index=np.arange(n), columns=["url", "title", "text", "date"]
+            index=np.arange(n), columns=["url", "title", "date", "text"]
         )
 
         article_dirs = sorted(os.listdir(dir_path))[:n]
@@ -68,28 +68,35 @@ class DataHandler:
 
     def __read_article_from_folder(self, article_path):
         """
+        Reads metadata and text content from an article folder and returns it as a pandas DataFrame.
+        Keeps only specified columns from the metadata.
+        
         Args:
-            article_path: os.path to folder which stores the article
+            article_path: Path to the folder containing the article's files.
+            
         Returns:
-            Pandas Data Frame: Article specified by dir path and article dir
+            pandas.DataFrame: A DataFrame with a single row containing specified article metadata and text.
         """
-        # read metadata
-        content_path = os.path.join(article_path, "metadata.json")
-        if os.path.exists(article_path):
-            with open(content_path, "r", encoding='utf-8', errors='replace') as file:
-                temp = pd.read_json(file).iloc[0].to_dict()
-
-                # read text only if metadata avaliable
-                content_path = os.path.join(article_path, "content.txt")
-                if os.path.exists(content_path):
-                    with open(content_path, "r") as content_file:
-                        temp["text"] = content_file.read()
-                else:
-                    temp["text"] = np.nan
-
-                return temp
+        if not os.path.exists(article_path):
+            raise FileNotFoundError(f"{article_path} does not exist")
+        
+        columns_to_keep = ["url", "title", "date"]
+        
+        metadata_path = os.path.join(article_path, "metadata.json")
+        with open(metadata_path, "r", encoding='utf-8', errors='replace') as file:
+            metadata = pd.read_json(file, typ='series')[columns_to_keep]
+        
+        content_path = os.path.join(article_path, "content.txt")
+        if os.path.exists(content_path):
+            with open(content_path, "r", encoding='utf-8', errors='replace') as content_file:
+                text_content = content_file.read()
         else:
-            raise Exception(article_path + " is not existing")
+            text_content = np.nan
+        
+        metadata["text"] = text_content
+        
+        return pd.DataFrame([metadata])
+
 
     def __dir_len(self, dir):
         return len(
