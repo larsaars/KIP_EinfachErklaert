@@ -76,7 +76,7 @@ class DataHandler:
         # read metadata
         content_path = os.path.join(article_path, "metadata.json")
         if os.path.exists(article_path):
-            with open(content_path, "r") as file:
+            with open(content_path, "r", encoding='utf-8', errors='replace') as file:
                 temp = pd.read_json(file).iloc[0].to_dict()
 
                 # read text only if metadata avaliable

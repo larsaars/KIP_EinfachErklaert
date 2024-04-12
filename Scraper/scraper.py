@@ -181,8 +181,8 @@ def initialize_directory(filepath):
 
 def save_content(content, filepath):
     filepath = os.path.join(filepath, "content.txt")
-    file = open(filepath, "w")
-    file.write(content)
+    with open(filepath, "w", encoding='utf-8', errors='replace') as file:
+        file.write(content)
 
 
 def save_audio(metadata, filepath):
@@ -196,8 +196,9 @@ def save_audio(metadata, filepath):
 
 def save_metadata(metadata, filepath):
     filepath = os.path.join(filepath, "metadata.json")
-    file = open(filepath, "w")
-    file.write(json.dumps(metadata, indent=4))
+    with open(filepath, "w", encoding='utf-8', errors='replace') as file:
+        file.write(json.dumps(metadata, indent=4))
+
 
 
 def save_article(article_data, directory):
