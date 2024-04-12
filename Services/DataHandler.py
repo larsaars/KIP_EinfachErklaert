@@ -4,25 +4,6 @@ import numpy as np
 from datetime import datetime
 import json
 
-"""
-einfacherklaert/
-├─ deutschlandfunk/
-│  ├─ easy/
-│  │  ├─ article-abcdef/
-│  │  │  ├─ content.txt
-│  │  │  ├─ audio.mp3
-│  │  │  ├─ metadata.json
-│  │  ├─ article-ghasdf/
-│  │  
-│  ├─ hard/
-│  │  ├─ article-sdfdgd/
-│  │  │  ├─ content.txt
-│  │  │  ├─ audio.mp3
-│  │  │  ├─ metadata.json
-├─ matchings.txt
-"""
-
-
 class DataHandler:
     def __init__(self, source):
         # deutschlandfunk/ nachrichten leicht
@@ -129,7 +110,8 @@ class DataHandler:
         self.__create_filepath(dir_path, metadata["date"], metadata["title"])
         self.__save_content(content, dir_path)
         self.__save_metadata(metadata, dir_path)
-        self.__save_audio(metadata, dir_path)
+        if audio:
+            self.__save_audio(metadata, dir_path)
 
     def __create_filepath(self, directory, date, title):
         title = self.__clean_file_path(title)
@@ -159,8 +141,6 @@ class DataHandler:
         Removes all characters not allowed in Windows or Linux file paths from the input string.
         Linux all except '/' and null character.
         Windows all except  '<', '>', ':', '"', '/', '\\', '|', '?', '*', and invalid Unicode characters.
-        
-        This function will remove characters not allowed in both operating systems for compatibility.
         """
   
         invalid_chars = set('<>:"/\\|?*') | {'\0'}
