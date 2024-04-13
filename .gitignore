@@ -1,1 +1,5 @@
 data/
+
+# python cache and jupyter nb cache
+__pycache__/
+.ipynb_checkpoints/
