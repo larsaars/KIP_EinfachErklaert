@@ -94,3 +94,7 @@ VIELLEICHT
 
 - X MDR -> teilweise link zum original aber vom radio (nur audio) 
 - X NDR -> nicht so nice/ kein feed
+
+## zu Besprechen im nächsten Meeting
+- reduzierung von gescrapten artikeln, für kürzere Laufzeit später
+- 
