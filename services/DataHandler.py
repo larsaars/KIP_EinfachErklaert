@@ -196,6 +196,7 @@ class DataHandler:
             "Ä": "Ae",
             "Ö": "Oe",
             "Ü": "Ue",
+            "ß": "ss"
         }
 
         invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}') | {"\0"}
