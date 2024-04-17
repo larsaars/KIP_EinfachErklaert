@@ -40,8 +40,7 @@ Die Daten dieser Datenbank werden mithilfe von scrapern verschiedener Quellen ge
 
 - [nachrichtenleicht](https://nachrichtenleicht.de) und [deutschlandfunk](https://deutschlandfunk.de)
 - [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) und [MDR](https://www.mdr.de/nachrichten/index.html)
-- gerne erweitern mit NDR, das von den oesterreichern
-
+- 
 Es soll jeweils zu jeder Quelle im Optimalfall einen scraper geben, der historische Daten sammelt, und einer der laufen gelassen werden kann in Zukunft, wenn neue Artikel gepublisht werden.
 
 ### Matchen von normalen und leichten Artikeln (KI-Anteil)
