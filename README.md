@@ -39,6 +39,7 @@ Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen. Wir v
 Die Daten dieser Datenbank werden mithilfe von scrapern verschiedener Quellen gesammelt. Es reicht, wenn Artikel gleicher Organisationen gemacht werden. Also:
 
 - [nachrichtenleicht](https://nachrichtenleicht.de) und [deutschlandfunk](https://deutschlandfunk.de)
+- [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) und [MDR](https://www.mdr.de/nachrichten/index.html)
 - gerne erweitern mit NDR, das von den oesterreichern
 
 Es soll jeweils zu jeder Quelle im Optimalfall einen scraper geben, der historische Daten sammelt, und einer der laufen gelassen werden kann in Zukunft, wenn neue Artikel gepublisht werden.
@@ -79,18 +80,6 @@ Wir können hierfür verwenden, was wir wollen.
 -> beides wenn möglich, zwei einzelne scraper
 - Wäre es ok wenn wir die Daten direkt anfragen ohne Scraping?
 -> ja, er meinte aber er hat da keine Hoffnungen, dass die uns das bereitstellen bzw überhaupt so sortiert haben, wie wir es bräuchten aber vielleicht haben wir ja glück
-
-## Nachrichtenquellen
-
-SAFE
-- Deutschlandfunk
-
-VIELLEICHT
-- APA Österreich -> kein audio/ gutes matching/ 2 sprachlevel/ evtl. österreichischer dialekt
-- infoeasy -> kein audio/ gutes matching
-- kurier.at -> kein audio/ feed/ link zum original
-- orf tagesfeed
-- wien.orf.at/radio/tags/einfach/
 
 - X MDR -> teilweise link zum original aber vom radio (nur audio) 
 - X NDR -> nicht so nice/ kein feed
