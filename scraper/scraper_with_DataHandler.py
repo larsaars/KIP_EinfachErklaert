@@ -1,9 +1,7 @@
-import pandas as pd
-import os
 import requests
 from bs4 import BeautifulSoup
-from datetime import datetime
-import json
+import logging
+from services.DataHandler import DataHandler
 
 
 hard_feed_url = "https://www.deutschlandfunk.de/nachrichten-100.html"
@@ -153,79 +151,36 @@ def get_nachrichtenleicht_article(url):
     return article_data
 
 
-# ---- SAVING FUNCTIONS ----
-
-
-def create_filepath(directory, date, title):
-    title = clean_file_path(title)
-    date = datetime.strptime(date, "%d.%m.%Y").strftime("%Y-%m-%d")
-    return os.path.join(directory, date + "-" + title.replace(" ", "_"))
-
-
-def clean_file_path(input_string):
-    """
-    Removes all characters not allowed in Windows or Linux file paths from the input string.
-    Linux all except '/' and null character.
-    Windows all except  '<', '>', ':', '"', '/', '\\', '|', '?', '*', and invalid Unicode characters.
-    """
-    invalid_chars = set('<>:"/\\|?*') | {"\0"}
-    cleaned_string = "".join(c for c in input_string if c not in invalid_chars)
-
-    return cleaned_string
-
-
-def initialize_directory(filepath):
-    if not os.path.exists(filepath):
-        os.makedirs(filepath)
-
-
-def save_content(content, filepath):
-    filepath = os.path.join(filepath, "content.txt")
-    with open(filepath, "w", encoding='utf-8', errors='replace') as file:
-        file.write(content)
-
-
-def save_audio(metadata, filepath):
-    filepath = os.path.join(filepath, "audio.mp3")
-    audio = metadata["audio"]
-    if audio:
-        mp3 = requests.get(audio["download_url"])
-        with open(filepath, "wb") as file:
-            file.write(mp3.content)
-
-
-def save_metadata(metadata, filepath):
-    filepath = os.path.join(filepath, "metadata.json")
-    with open(filepath, "w", encoding='utf-8', errors='replace') as file:
-        file.write(json.dumps(metadata, indent=4))
-
-
-
-def save_article(article_data, directory):
-    metadata = article_data["metadata"]
-    filepath = create_filepath(directory, metadata["date"], metadata["title"])
-    initialize_directory(filepath)
-    save_content(article_data["content"], filepath)
-    save_metadata(metadata, filepath)
-    save_audio(metadata, filepath)
-
-
 # ---- MAIN ----
 
-
+# run with python3 -m scraper.scraper_with_DataHandler from KIP_EinfachErklaert
 def main():
+    # scrape articles
     easy_articles = get_articles_from_feed(get_soup(easy_feed_url))
     hard_articles = get_articles_from_feed(get_soup(hard_feed_url))
-    for e_article, h_article in zip(easy_articles, hard_articles):
-        save_article(
-            get_nachrichtenleicht_article(e_article["url"]),
-            os.path.join(".", "data", "deutschlandfunk", "easy"),
-        )
-        save_article(
-            get_deutschlandfunk_article(h_article["url"]),
-            os.path.join(".", "data", "deutschlandfunk", "hard"),
-        )
-
+    
+    dh = DataHandler("dlf")
+    
+    # safe easy (nachrichtenleicht)
+    for e_article in easy_articles:
+        
+        article_data_dict = get_nachrichtenleicht_article(e_article["url"])
+        metadata = article_data_dict["metadata"]
+        content = article_data_dict["content"] # content = main text
+        # pass metadata as dict and content as string to safe_article
+        # for now passing in the the right data types is the scapers job
+        dh.save_article("easy", metadata, content, download_audio=True)
+        
+    # safe hard (deutschlandfunk)
+    for h_article in hard_articles:
+        
+        article_data_dict = get_deutschlandfunk_article(h_article["url"])
+        metadata = article_data_dict["metadata"]
+        content = article_data_dict["content"] 
+        dh.save_article("hard", metadata, content, download_audio=True)
+        
+    print("SCRAPING AND SAVING FINISHED!")
 
 if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     main()

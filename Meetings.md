@@ -36,5 +36,5 @@
     + Deutschlandfunk Kontakt -> Ben
     + Data Handler und Scraper auf KIS aufsetzen -> Ben
     + MDR schreiben -> Ben
-    + 
+    + Deutschlandfunk Scraper ausbauen -> Simon
 
