@@ -17,7 +17,7 @@ class DataHandler:
                 Raises:
                     Exception: If an invalid source is provided.
         """
-        
+
         if source == "dlf":
             self.root = os.path.join(".", "data", "deutschlandfunk")
         elif source == "mdr":
@@ -26,12 +26,7 @@ class DataHandler:
             raise Exception(
                 f"Invalid source '{source}' provided. Valid sources are 'dlf' and 'mdr'."
             )
-        
-        # lookup file we might need later
-        lookup_file_name = "lookup.csv"
-        self.lookup_easy = os.path.join(self.root, "easy", lookup_file_name)
-        self.lookup_hard = os.path.join(self.root, "hard", lookup_file_name)
-        
+
     # ----- READING ----
     def head(self, n, dir):
         """
@@ -142,21 +137,20 @@ class DataHandler:
         if dir not in ("e", "h", "easy", "hard"):
             raise Exception(dir + " is not a valid directory")
 
-        dir_path = os.path.join(
+        path = os.path.join(
             self.root, "easy" if dir == "e" or dir == "easy" else "hard"
         )
-        
-        dir_path = self.__create_filepath(dir_path, metadata["date"], metadata["title"])
-        
-        # check if article was already scraped by if folder existed
+
+        dir_path = self.__create_filepath(path, metadata["date"], metadata["title"])
+
+        # check if article was already saved by if folder existed
         if dir_path is None:
-            logging.info(f'Already scraped {metadata["url"]} ')
+            logging.info(f'Already saved {metadata["url"]} ')
             return
-        
-        logging.info(f'Scraping {metadata["url"]}')
-        
-        # if it was not scraped 
-        self.__update_lookup_file(dir, str(dir_path), metadata["url"])
+
+        logging.info(f'Saving {metadata["url"]}')
+
+        self.__update_lookup_file(path, str(dir_path), metadata["url"])
         self.__save_content(content, dir_path)
         self.__save_metadata(metadata, dir_path)
         if download_audio:
@@ -170,7 +164,7 @@ class DataHandler:
         if not os.path.exists(filepath):
             os.makedirs(filepath)
             return filepath
-        else: 
+        else:
             return None
 
     def __save_content(self, content, filepath):
@@ -209,17 +203,8 @@ class DataHandler:
             umlaut_mapping.get(c, c) for c in input_string if c not in invalid_chars
         )
         return cleaned_string
-        
-    def __update_lookup_file(self, dir, path, url):
-        
-        if dir in ("e", "easy"):
-            file = self.lookup_easy
-        else:
-            file = self.lookup_hard
-            
-        with open(file,'a') as f:
-            f.write(f'{path}, {url}\n')
-            
-            
 
-        
+    def __update_lookup_file(self, dir_path, article_path_string, url):
+        table = os.path.join(dir_path, "lookup.csv")
+        with open(table, "a") as f:
+            f.write(f"{article_path_string}, {url}\n")
