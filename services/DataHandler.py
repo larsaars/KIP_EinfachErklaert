@@ -150,6 +150,6 @@ class DataHandler:
         Windows all except  '<', '>', ':', '"', '/', '\\', '|', '?', '*', and invalid Unicode characters.
         """
   
-        invalid_chars = set('<>:"/\\|?*') | {'\0'}
+        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}') | {'\0'}
         cleaned_string = ''.join(c for c in input_string if c not in invalid_chars)
         return cleaned_string

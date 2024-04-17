@@ -97,4 +97,5 @@ VIELLEICHT
 
 ## zu Besprechen im nächsten Meeting
 - reduzierung von gescrapten artikeln, für kürzere Laufzeit später
-- 
+- Data Handler
+- E-Mail

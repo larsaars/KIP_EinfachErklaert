@@ -22,3 +22,19 @@
     + Scraper für historische Artikel deutschlandfunk -> Lars
     + Scraper für historische Artikel nachrichtenleicht -> Lars
 
+## Meeting 17.04.24
+
+- DataHandler Vorstellung
+- Historischer Scraper Deutschlandfunk: Abwarten auf E-Mail Antwort warten
+- Lookup Table für gescrapte Artikel um abgleichen zu können ob de Artikel schon gecraped wurde -> Url ändert sich
+- Zweite Nachrichtenquelle: MDR
+- Midterm Review 08.05
+- Aufgabenteilung bis nächste Woche:
+    + Data Handler weiter ausbauen, besonders in Verbindung mit Scraper -> Felix
+    + Aktueller Scraper MDR -> Lars
+    + Kommunikation mit anderer Gruppe -> Ben
+    + Deutschlandfunk Kontakt -> Ben
+    + Data Handler und Scraper auf KIS aufsetzen -> Ben
+    + MDR schreiben -> Ben
+    + 
+
