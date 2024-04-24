@@ -6,12 +6,14 @@
 2. [Prozess](#prozess)
 3. [FAQ](#faq)
 
-### 0. TODO <a name="todo"></a>
+<a name="todo"></a>
+### 0. TODO 
 
 - Scraper für verschiedene Seiten
 - Schema für Matching überlegen
 
-### 1. Ordnerschema <a name="ordner"></a>
+<a name="ordner"></a>
+### 1. Ordnerschema 
 
 ```
 einfacherklaert/
@@ -34,7 +36,8 @@ einfacherklaert/
 
 Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen.
 
-### 2. Scraper  <a name="scraper"></a>
+<a name="scraper"></a>
+### 2. Scraper  
 
 Es reicht, wenn Artikel gleicher Organisationen gemacht werden. Es soll jeweils zu jeder Quelle im Optimalfall einen scraper geben, der historische Daten sammelt, und einer der laufen gelassen werden kann in Zukunft, wenn neue Artikel gepublisht werden. 
 
@@ -43,12 +46,13 @@ Quellen:
 - [nachrichtenleicht](https://nachrichtenleicht.de) und [deutschlandfunk](https://deutschlandfunk.de)
 - [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) und [MDR](https://www.mdr.de/nachrichten/index.html)
 
-
-### 3. Prozess <a name="prozess"></a>
+<a name="prozess"></a>
+### 3. Prozess 
 
 Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach Möglichkeit auch mit der anderen Gruppe, die das gleiche Projekt macht, zusammenschließen, damit keine doppelte Arbeit geschieht. Sobald wir die Daten haben, haben wir viel Freiraum, was wir machen könnten. Ein Vorschlag von Prof. Baumann war eine Coreference Analysis (gucken, was Bezüge sind "er"->"der Innenminister", wie gut funzt das bei leichter, wie gut bei schwerer Sprache, wie kann man ein einfaches Modell ausweiten angewandt auf schwerer Sprache), diesen Teil können wir uns aber in der "Forschungsphase" des Projekts noch überlegen.
 
-## 3. FAQ <a name="faq"></a>
+<a name="faq"></a>
+### 3. FAQ 
 
 - Was ist die Abgabe? Datensatz? Scraping Tool? Matching Tool?
 > abzugeben ist alles was wir machen, also so wie wir dachten das matching tool und auch noch alle modelle die danach entstehen sollten wir so weit kommen

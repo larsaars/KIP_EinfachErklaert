@@ -38,3 +38,27 @@
     + MDR schreiben -> Ben
     + Deutschlandfunk Scraper ausbauen -> Simon
 
+## Meeting 24.04.24
+
+- Midterm Review
+    - Struktur:
+        - Problemstellung
+        - Herausforderungen
+        - "Projektmanagment"
+        - Wie haben wir angefangen
+        - Ansätze (Scraper {Lars + Simon}, DataHandler + Dateisystem {Felix, 2S})
+        - Kommunikation mit Nachrichtenquellen {Ben}
+        - Aktueller Stand
+        - Ziele für zweite Hälfte
+        - Verbessungspunkte
+    - Format: Markdown
+- Vorstellung Projekte von letzter Woche
+    - Lars: MDR scraper
+    - Felix: DataHandler
+- Aufgabenteilung bis nächste Woche:
+    - Lars: MDR Scraper fertig + Bericht
+    - Felix: DataHandler ausbauen (save_matching + bessere read funktion) + Bericht
+    - Simon: Deutschlandfunk Scraper fertig + Bericht
+    - Ben: Basic matching Struktur + Bericht
+- Für Meeting nächste Woche
+    - Midterm Review (was würde schon geschrieben, was müssen wir noch machen)
