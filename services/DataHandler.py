@@ -237,7 +237,10 @@ class DataHandlerHelper(DataHandler):
             + ".csv"
         )
         path = os.path.join(dir_path, filename)
-        df = pd.read_csv(path, header=None, names=["path", "url"], dtype={"path": "string", "url":"string"})
+        try:
+            df = pd.read_csv(path, header=None, names=["path", "url"], dtype={"path": "string", "url":"string"})
+        except:
+            return False
         res = df.loc[df["url"].str.contains(url), "path"]
         if not res.empty:
             return res.iloc[0]
