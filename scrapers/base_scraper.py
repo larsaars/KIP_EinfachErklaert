@@ -31,6 +31,16 @@ def base_metadata_dict():
         'match': None,
     }
 
+def base_audio_dict():
+    """
+    Returns a dictionary with the basic audio metadata fields.
+    """
+    return {
+        'audio_url': None,
+        'download_url': None,
+        'duration': None,
+    }
+
 
 class BaseScraper:
     def __init__(self, feed_url, data_handler_source=None):
