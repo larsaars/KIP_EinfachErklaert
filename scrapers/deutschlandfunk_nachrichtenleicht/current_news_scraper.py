@@ -5,9 +5,12 @@ Scrapes the current articles from Deutschlandfunk and Nachrichtenleicht and save
 """
 
 import sys
-sys.path.append('../..')
+import os
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(root_dir)
+from services.DataHandler import DataHandler
 
-from scraper.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
+from scrapers.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
 from bs4 import BeautifulSoup
 
 dsf_feed_url = "https://www.deutschlandfunk.de/nachrichten-100.html"
@@ -53,9 +56,10 @@ class DeutschlandfunkScraper(BaseScraper):
 
     def scrape(self) -> list:
         for article_url in self._fetch_articles_from_feed():
-            content, metadata = self._get_metadata_and_content(article_url)
-            content = "\n".join(content)
-            self.data_handler.save_article('hard', metadata, content, download_audio=False)
+            if not self.data_handler.is_already_safed("hard", article_url):
+                content, metadata = self._get_metadata_and_content(article_url)
+                content = "\n".join(content)
+                self.data_handler.save_article('hard', metadata, content, download_audio=False)
 
 class NachrichtenleichtScraper(BaseScraper):
     def __init__(self):
@@ -111,9 +115,10 @@ class NachrichtenleichtScraper(BaseScraper):
 
     def scrape(self) -> list:
         for article_url in self._fetch_articles_from_feed():
-            content, metadata = self._get_metadata_and_content(article_url)
-            content = "\n".join(content)
-            self.data_handler.save_article('easy', metadata, content, download_audio=False)
+            if not self.data_handler.is_already_safed("easy", article_url):
+                content, metadata = self._get_metadata_and_content(article_url)
+                content = "\n".join(content)
+                self.data_handler.save_article('easy', metadata, content, download_audio=False)
 
 def get_article_content(article_soup) -> list:
     """
@@ -139,4 +144,4 @@ def find_string(article, *args, **kwargs):
 
 if __name__ == '__main__':
     DeutschlandfunkScraper().scrape()
-    NachrichtenleichtScraper().scrape()  
+    NachrichtenleichtScraper().scrape()
