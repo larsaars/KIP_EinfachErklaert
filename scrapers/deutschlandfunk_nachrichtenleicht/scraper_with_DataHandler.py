@@ -1,6 +1,12 @@
 import requests
 from bs4 import BeautifulSoup
 import logging
+import sys
+import os
+
+# import root dir to easily import data handler
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(root_dir)
 from services.DataHandler import DataHandler
 
 
