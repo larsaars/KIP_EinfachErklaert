@@ -5,6 +5,7 @@ import requests
 import logging
 from datetime import datetime
 
+
 class DataHandler:
     """
     Methods:
@@ -15,6 +16,7 @@ class DataHandler:
     - search_by(dir, metadata_attribute, attribute_value): Searches articles by a metadata attribute.
     - is_already_safed(dir, url): Returns bool if url is already safed as article
     """
+
     def __init__(self, source):
         """
         source (str): The data source. Should be either "dlf" for deutschlandfunk/nachrichten leicht or "mdr" for MDR.
@@ -24,8 +26,10 @@ class DataHandler:
         elif source == "mdr":
             self.root = os.path.join(".", "data", "mdr")
         else:
-            raise Exception(f"Invalid source '{source}' provided. Valid sources are 'dlf' and 'mdr'.")
-        
+            raise Exception(
+                f"Invalid source '{source}' provided. Valid sources are 'dlf' and 'mdr'."
+            )
+
         self.helper = DataHandlerHelper(self.root)
 
     # -------------------------- READ --------------------------
@@ -71,7 +75,9 @@ class DataHandler:
             download_audio (bool): Whether to download audio files associated with the article.
         """
         path = self.helper._get_e_or_h_path(dir)
-        dir_path = self.helper._create_filepath(path, metadata["date"], metadata["title"])
+        dir_path = self.helper._create_filepath(
+            path, metadata["date"], metadata["title"]
+        )
 
         if dir_path is None:
             logging.info(f'Already saved {metadata["url"]} ')
@@ -83,8 +89,7 @@ class DataHandler:
         self.helper._save_metadata(metadata, dir_path)
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
-            
-            
+
     # -------------------------- SEARCH --------------------------
     def search_by(self, dir, metadata_attribute, attribute_value):
         """
@@ -94,21 +99,27 @@ class DataHandler:
             attribute_value (str): The value to match in the metadata field.
         """
         path = self.helper._get_e_or_h_path(dir)
-        for art in os.listdir(path):
-            art_path = os.path.join(path, art)
-            if os.path.isdir(art_path):
-                metadata_path = os.path.join(art_path, "metadata.json")
-                try:
-                    with open(metadata_path, "r", encoding="utf-8", errors="replace") as f:
-                        metadata = json.load(f)
-                        if metadata.get(metadata_attribute) == attribute_value:
-                            return art_path  
-                except FileNotFoundError:
-                    print(f"No metadata.json found in {art_path}")
-                except json.JSONDecodeError:
-                    print(f"Invalid JSON in {metadata_path}")
-        return None 
-    
+        if metadata_attribute == "url":
+            return self.helper._search_url_in_lookup(path, attribute_value)
+        else:
+            path = self.helper._get_e_or_h_path(dir)
+            for art in os.listdir(path):
+                art_path = os.path.join(path, art)
+                if os.path.isdir(art_path):
+                    metadata_path = os.path.join(art_path, "metadata.json")
+                    try:
+                        with open(
+                            metadata_path, "r", encoding="utf-8", errors="replace"
+                        ) as f:
+                            metadata = json.load(f)
+                            if metadata.get(metadata_attribute) == attribute_value:
+                                return art_path
+                    except FileNotFoundError:
+                        print(f"No metadata.json found in {art_path}")
+                    except json.JSONDecodeError:
+                        print(f"Invalid JSON in {metadata_path}")
+            return None
+
     def is_already_safed(self, dir, url):
         """
         Args:
@@ -119,14 +130,14 @@ class DataHandler:
             return False
         else:
             return True
-        
-        
-        
+
+
 class DataHandlerHelper(DataHandler):
     """
     for better readbility of the DataHandler class this class contains all functions
     that are not functions for the Datahandler interface but needed intern in the DataHandler
     """
+
     def __init__(self, root):
         self.root = root
 
@@ -144,8 +155,8 @@ class DataHandlerHelper(DataHandler):
 
         metadata_path = os.path.join(article_path, "metadata.json")
         with open(metadata_path, "r", encoding="utf-8") as file:
-            metadata = json.load(file)  
-            metadata_df = pd.json_normalize(metadata, sep='_')
+            metadata = json.load(file)
+            metadata_df = pd.json_normalize(metadata, sep="_")
 
         content_path = os.path.join(article_path, "content.txt")
         with open(content_path, "r", encoding="utf-8") as content_file:
@@ -175,10 +186,10 @@ class DataHandlerHelper(DataHandler):
             file.write(content)
 
     def _save_audio(self, metadata, filepath):
-        if 'audio' in metadata and metadata['audio']:
+        if "audio" in metadata and metadata["audio"]:
             filepath = os.path.join(filepath, "audio.mp3")
-            audio = metadata['audio']
-            mp3 = requests.get(audio['download_url'])
+            audio = metadata["audio"]
+            mp3 = requests.get(audio["download_url"])
             with open(filepath, "wb") as file:
                 file.write(mp3.content)
 
@@ -204,7 +215,31 @@ class DataHandlerHelper(DataHandler):
         return cleaned_string
 
     def _update_lookup_file(self, dir_path, article_path_string, url):
-        filename = "lookup" + dir_path.replace("./data", "").replace(".\\data", "").replace("/", "_").replace("\\", "_") + ".csv"
+        filename = (
+            "lookup"
+            + dir_path.replace("./data", "")
+            .replace(".\\data", "")
+            .replace("/", "_")
+            .replace("\\", "_")
+            + ".csv"
+        )
         table = os.path.join(dir_path, filename)
         with open(table, "a") as f:
             f.write(f"{article_path_string}, {url}\n")
+
+    def _search_url_in_lookup(self, dir_path, url):
+        filename = (
+            "lookup"
+            + dir_path.replace("./data", "")
+            .replace(".\\data", "")
+            .replace("/", "_")
+            .replace("\\", "_")
+            + ".csv"
+        )
+        path = os.path.join(dir_path, filename)
+        df = pd.read_csv(path, header=None, names=["path", "url"], dtype={"path": "string", "url":"string"})
+        res = df.loc[df["url"].str.contains(url), "path"]
+        if not res.empty:
+            return res.iloc[0]
+        else:
+            return None
