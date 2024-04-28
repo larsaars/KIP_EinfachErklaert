@@ -14,7 +14,7 @@ class DataHandler:
     - get_all(dir): Retrieves all articles from the specified directory.
     - save_article(dir, metadata, content, download_audio=True): Saves an article along with its metadata and optional audio.
     - search_by(dir, metadata_attribute, attribute_value): Searches articles by a metadata attribute.
-    - is_already_safed(dir, url): Returns bool if url is already safed as article
+    - is_already_saved(dir, url): Returns bool if url is already saved as article
     """
 
     def __init__(self, source):
@@ -120,7 +120,7 @@ class DataHandler:
                         print(f"Invalid JSON in {metadata_path}")
             return None
 
-    def is_already_safed(self, dir, url):
+    def is_already_saved(self, dir, url):
         """
         Args:
             dir (str): The directory to search within.
