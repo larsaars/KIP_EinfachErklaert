@@ -45,6 +45,7 @@
         - Problemstellung
         - Herausforderungen
         - "Projektmanagment"
+        - Über den KI-Server
         - Wie haben wir angefangen
         - Ansätze (Scraper {Lars + Simon}, DataHandler + Dateisystem {Felix, 2S})
         - Kommunikation mit Nachrichtenquellen {Ben}
