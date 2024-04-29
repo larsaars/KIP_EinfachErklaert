@@ -56,7 +56,7 @@ class DeutschlandfunkScraper(BaseScraper):
 
     def scrape(self) -> list:
         for article_url in self._fetch_articles_from_feed():
-            if not self.data_handler.is_already_safed("hard", article_url):
+            if not self.data_handler.is_already_saved("hard", article_url):
                 content, metadata = self._get_metadata_and_content(article_url)
                 content = "\n".join(content)
                 self.data_handler.save_article('hard', metadata, content, download_audio=False)
