@@ -63,3 +63,9 @@
 - Für Meeting nächste Woche
     - Midterm Review (was würde schon geschrieben, was müssen wir noch machen)
     - Felix (29.04): MidtermReview evtl doch LaTeX (zB keine guten Bildunterschriften in Markdown)
+
+## Meeting 30.04.24
+
+### zu besprechen
+
+- Felix: Der DataHandler sollte vielleicht nicht das Datum formattieren, sondern eher der Scraper. Außerdem ist es blöd, wenn der DataHandler das ganze Download Unterordner (sprich dem relativen Pfad, in dem der scraper ausgeführt wird= speichert. Vielleicht einen Mechanismus einbauen, der versichert, dass der `data` Ordner auf root Ebene des Projektes speichert.
