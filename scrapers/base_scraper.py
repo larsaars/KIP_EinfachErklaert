@@ -75,6 +75,26 @@ class BaseScraper:
     
         return BeautifulSoup(response.text, 'html.parser')
 
+    def _fetch_articles_from_feed(self) -> list:
+        """
+        Fetches the articles from the feed.
+
+        Returns:
+            list: list of article urls
+        """
+
+        pass
+
+    def _get_metadata_and_content(self, url):
+        """
+        Get the metadata and content of the article.
+
+        Args:
+            url (str): url of the article
+        """
+
+        pass
+
     def scrape(self):
         """
         Scrape the page and save the data to the database.

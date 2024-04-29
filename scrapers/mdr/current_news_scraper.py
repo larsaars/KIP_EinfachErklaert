@@ -14,7 +14,7 @@ import json
 import xml.etree.ElementTree as ET
 import requests
 
-from scrapers.base_scraper import BaseScraper, base_metadata_dict
+from scrapers.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
 from bs4 import BeautifulSoup
 
 from selenium import webdriver
@@ -75,6 +75,7 @@ class MDREasyScraper(BaseScraper):
         """
 
         metadata = base_metadata_dict()  # metadata dict to be returned
+        audio = base_audio_dict()  # audio dict to be returned
         
         self.driver.get(url)  # open the article in the browser (for js execution)
 
