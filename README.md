@@ -36,8 +36,6 @@
 │   └── matches_mdr.csv
 ```
 
-```
-
 Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen.
 
 <a name="scraper"></a>
