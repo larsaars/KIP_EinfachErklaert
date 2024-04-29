@@ -62,3 +62,4 @@
     - Ben: Basic matching Struktur + Bericht
 - Für Meeting nächste Woche
     - Midterm Review (was würde schon geschrieben, was müssen wir noch machen)
+    - Felix (29.04): MidtermReview evtl doch LaTeX (zB keine guten Bildunterschriften in Markdown)

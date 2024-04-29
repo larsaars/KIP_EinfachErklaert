@@ -16,21 +16,25 @@
 ### 1. Ordnerschema 
 
 ```
-einfacherklaert/
-├─ deutschlandfunk/
-│  ├─ easy/
-│  │  ├─ article-abcdef/
-│  │  │  ├─ content.txt
-│  │  │  ├─ audio.mp3
-│  │  │  ├─ metadata.json
-│  │  ├─ article-ghasdf/
-│  │  
-│  ├─ hard/
-│  │  ├─ article-sdfdgd/
-│  │  │  ├─ content.txt
-│  │  │  ├─ audio.mp3
-│  │  │  ├─ metadata.json
-├─ matchings.txt
+├── data
+│   ├── deutschlandfunk
+│   │   ├── easy
+│   │   │   ├── 2024-03-15-Bundes-Wehr_beteiligt_sich_an_Luft-Bruecke_fuer_den_Gaza-Streifen_
+│   │   │   │   ├── audio.mp3
+│   │   │   │   ├── content.txt
+│   │   │   │   └── metadata.json
+│   │   │   └── lookup_deutschlandfunk_easy.csv
+│   │   └── hard
+│   │       ├── 2024-04-25-Angebliche_Drohnenangriffe_Belarus_erhebt_Vorwuerfe_gegen_Litauen_-_Dementi_aus_Vilnius
+│   │       │   ├── content.txt
+│   │       │   └── metadata.json
+│   │       └── lookup_deutschlandfunk_hard.csv
+│   └── matches_deutschlandfunk.csv
+│   ├── mdr
+│   │   ├── easy
+│   │   ├── hard
+│   └── matches_mdr.csv
+```
 
 ```
 

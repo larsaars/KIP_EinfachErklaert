@@ -41,7 +41,10 @@ class DataHandler:
         """
         dir_path = self.helper._get_e_or_h_path(dir)
         results = []
-        article_dirs = sorted(os.listdir(dir_path))[:n]
+        try:
+            article_dirs = sorted(os.listdir(dir_path))[:n]
+        except:
+            return None
 
         for article_dir in article_dirs:
             article_path = os.path.join(dir_path, article_dir)
