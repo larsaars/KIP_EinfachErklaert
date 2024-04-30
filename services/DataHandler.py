@@ -160,18 +160,18 @@ class DataHandlerHelper(DataHandler):
         # Check and initialize the CSV file
         csv_path = os.path.join(self.root, "matches_" + source + ".csv")
         if not os.path.isfile(csv_path):
-            df = pd.DataFrame(columns=["EASY_PATH", "HARD_PATH"])
+            df = pd.DataFrame(columns=["easy", "hard"])
             df.to_csv(csv_path, index=False)
             
         # init lookup
         self.lookup_easy_path = os.path.join(self.root, "easy", "lookup_" + source + "_easy.csv")
         if not os.path.isfile(self.lookup_easy_path):
-            df = pd.DataFrame(columns=["PATH", "URL"])
+            df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_easy_path, index=False)
         
         self.lookup_hard_path = os.path.join(self.root, "hard", "lookup_" + source + "_hard.csv")
         if not os.path.isfile(self.lookup_hard_path):
-            df = pd.DataFrame(columns=["PATH", "URL"])
+            df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_hard_path, index=False)
             
 
