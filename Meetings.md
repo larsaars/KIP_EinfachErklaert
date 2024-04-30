@@ -69,8 +69,34 @@
 
 - Lars: 
     + DataHandler sollte vielleicht nicht das Datum formatieren
-    + Mechanismus einbauen, der versichert, dass der `data` Ordner auf root Ebene des Projektes speichert.
+    + Mechanismus einbauen, der versichert, dass der data Ordner auf root Ebene des Projektes speichert.
 - MDR Scraper (Audio Download schwierig)
 - BaseMatcher und SimpleMatcher
-- Aufteilung von MidtermReview
-    + 
+- Aufteilung von MidtermReview {10 Seiten, 2.5 p.P.}
+    + Einleitung {Ben}
+    + Allgemein
+        + Herausforderungen {Felix}
+        + Projektmanagment {Lars}
+    + Was bisher geschah/ Aktueller Stand
+        + DONE Scraper {Lars + Simon} 
+        + DONE Datenstruktur {Felix} 
+        + Kommunikation mit Nachrichtenquellen {Ben}
+        + Über den KI-Server -> Mi auf Server {Ben} 
+    + Ziele für zweite Hälfte
+        + Matching {Ben}
+            + Base und SimpleMatcher {Felix}
+            + named entity recognition {Ben}
+            + BERT {Ben}
+            + Suche auf HuggingFace? {Ben}
+        + Verbessungspunkte {Simon}
+            + Risikos/ Zukünftige Herausforderungen 
+                + Historische Artikel {Simon}
+                + Skalierbarkeit des Projekt (DataHandler bei vielen Daten) {Simon}
+                + MDR Scraper geht nur über UI {Lars}
+- Präsentation: PowerPoint
+    + alle Zoom Präsentation? -> Felix frägt
+- nächstes Meeting vorgezogen auf Montag 06.05. 9:00Uhr
+- Ben: Update DLF Kommunikation 
+- evtl. Gespräch mit Prof. Baumann
+
+## Meeting 06.05.24
