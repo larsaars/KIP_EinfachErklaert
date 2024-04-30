@@ -10,7 +10,7 @@ root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(root_dir)
 from services.DataHandler import DataHandler
 
-from scrapers.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
+from scrapers.base.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
 from bs4 import BeautifulSoup
 
 dsf_feed_url = "https://www.deutschlandfunk.de/nachrichten-100.html"

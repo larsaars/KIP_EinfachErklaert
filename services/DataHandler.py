@@ -4,6 +4,7 @@ import json
 import requests
 import logging
 from datetime import datetime
+import subprocess
 
 
 class DataHandler:
@@ -21,16 +22,20 @@ class DataHandler:
         """
         source (str): The data source. Should be either "dlf" for deutschlandfunk/nachrichten leicht or "mdr" for MDR.
         """
-        if source == "dlf":
-            self.root = os.path.join(".", "data", "deutschlandfunk")
-        elif source == "mdr":
-            self.root = os.path.join(".", "data", "mdr")
-        else:
-            raise Exception(
-                f"Invalid source '{source}' provided. Valid sources are 'dlf' and 'mdr'."
-            )
+        # get git root (that is where the data folder should be stored)    
+        try:
+            git_root = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=True).strip()
+        except subprocess.CalledProcessError as e:
+            logging.error("This directory is not part of a Git repository.")
+            raise e
 
-        self.helper = DataHandlerHelper(self.root)
+        if source not in ["dlf", "mdr"]:
+            raise ValueError(f"Invalid source '{source}'. Valid sources are 'dlf' and 'mdr'.")
+
+        self.root = os.path.join(git_root, "data", source)
+        self.helper = DataHandlerHelper(self.root)   
+        self.helper._init_files_and_dirs(source)
+
 
     # -------------------------- READ --------------------------
     def head(self, dir, n):
@@ -87,7 +92,7 @@ class DataHandler:
             return
 
         logging.info(f'Saving {metadata["url"]}')
-        self.helper._update_lookup_file(path, str(dir_path), metadata["url"])
+        self.helper._update_lookup_file(dir, dir_path, metadata["url"])
         self.helper._save_content(content, dir_path)
         self.helper._save_metadata(metadata, dir_path)
         if download_audio:
@@ -103,7 +108,7 @@ class DataHandler:
         """
         path = self.helper._get_e_or_h_path(dir)
         if metadata_attribute == "url":
-            return self.helper._search_url_in_lookup(path, attribute_value)
+            return self.helper._search_url_in_lookup(dir, attribute_value)
         else:
             path = self.helper._get_e_or_h_path(dir)
             for art in os.listdir(path):
@@ -118,9 +123,9 @@ class DataHandler:
                             if metadata.get(metadata_attribute) == attribute_value:
                                 return art_path
                     except FileNotFoundError:
-                        print(f"No metadata.json found in {art_path}")
+                        logging.error(f"No metadata.json found in {art_path}")
                     except json.JSONDecodeError:
-                        print(f"Invalid JSON in {metadata_path}")
+                        logging.error(f"Invalid JSON in {metadata_path}")
             return None
 
     def is_already_saved(self, dir, url):
@@ -143,6 +148,32 @@ class DataHandlerHelper(DataHandler):
 
     def __init__(self, root):
         self.root = root
+        self.lookup_easy_path = None
+        self.lookup_hard_path = None
+      
+    def _init_files_and_dirs(self, source):    
+        # make shure data and data/easy and data/hard exist
+        os.makedirs(self.root, exist_ok=True)
+        os.makedirs(os.path.join(self.root, "easy"), exist_ok=True)
+        os.makedirs(os.path.join(self.root, "hard"), exist_ok=True)
+        
+        # Check and initialize the CSV file
+        csv_path = os.path.join(self.root, "matches_" + source + ".csv")
+        if not os.path.isfile(csv_path):
+            df = pd.DataFrame(columns=["EASY_PATH", "HARD_PATH"])
+            df.to_csv(csv_path, index=False)
+            
+        # init lookup
+        self.lookup_easy_path = os.path.join(self.root, "easy", "lookup_" + source + "_easy.csv")
+        if not os.path.isfile(self.lookup_easy_path):
+            df = pd.DataFrame(columns=["PATH", "URL"])
+            df.to_csv(self.lookup_easy_path, index=False)
+        
+        self.lookup_hard_path = os.path.join(self.root, "hard", "lookup_" + source + "_hard.csv")
+        if not os.path.isfile(self.lookup_hard_path):
+            df = pd.DataFrame(columns=["PATH", "URL"])
+            df.to_csv(self.lookup_hard_path, index=False)
+            
 
     def _get_e_or_h_path(self, dir):
         if dir not in ("e", "h", "easy", "hard"):
@@ -217,33 +248,20 @@ class DataHandlerHelper(DataHandler):
         )
         return cleaned_string
 
-    def _update_lookup_file(self, dir_path, article_path_string, url):
-        filename = (
-            "lookup"
-            + dir_path.replace("./data", "")
-            .replace(".\\data", "")
-            .replace("/", "_")
-            .replace("\\", "_")
-            + ".csv"
-        )
-        table = os.path.join(dir_path, filename)
+    def _update_lookup_file(self, dir, article_path_string, url):
+        if dir in ["e", "easy"]:
+            table = self.lookup_easy_path
+        elif dir in ["h", "hard"]:
+            table = self.lookup_hard_path
         with open(table, "a") as f:
             f.write(f"{article_path_string}, {url}\n")
 
-    def _search_url_in_lookup(self, dir_path, url):
-        filename = (
-            "lookup"
-            + dir_path.replace("./data", "")
-            .replace(".\\data", "")
-            .replace("/", "_")
-            .replace("\\", "_")
-            + ".csv"
-        )
-        path = os.path.join(dir_path, filename)
-        try:
-            df = pd.read_csv(path, header=None, names=["path", "url"], dtype={"path": "string", "url":"string"})
-        except:
-            return False
+    def _search_url_in_lookup(self, dir, url):
+        if dir in ["e", "easy"]:
+            table = self.lookup_easy_path
+        elif dir in ["h", "hard"]:
+            table = self.lookup_hard_path
+        df = pd.read_csv(table)
         res = df.loc[df["url"].str.contains(url), "path"]
         if not res.empty:
             return res.iloc[0]

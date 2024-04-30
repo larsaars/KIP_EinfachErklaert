@@ -5,16 +5,17 @@ Scrapes the current articles from WDR (easy & hard language) and saves them to t
 """
 
 import sys
-
+import os
 # add parent dir to the python path to enable importing services module (and by that BaseScraper and DataHandler)
-sys.path.append('../..')
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+sys.path.append(root_dir)
 
 from time import sleep
 import json
 import xml.etree.ElementTree as ET
 import requests
 
-from scrapers.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
+from scrapers.base.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
 from bs4 import BeautifulSoup
 
 from selenium import webdriver

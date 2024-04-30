@@ -5,7 +5,7 @@ import sys
 import os
 
 # import root dir to easily import data handler
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+root_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
 sys.path.append(root_dir)
 from services.DataHandler import DataHandler
 
@@ -175,7 +175,7 @@ def main():
         content = article_data_dict["content"] # content = main text
         # pass metadata as dict and content as string to safe_article
         # for now passing in the the right data types is the scapers job
-        dh.save_article("easy", metadata, content, download_audio=True)
+        dh.save_article("easy", metadata, content, download_audio=False)
         
     # safe hard (deutschlandfunk)
     for h_article in hard_articles:
@@ -183,7 +183,7 @@ def main():
         article_data_dict = get_deutschlandfunk_article(h_article["url"])
         metadata = article_data_dict["metadata"]
         content = article_data_dict["content"] 
-        dh.save_article("hard", metadata, content, download_audio=True)
+        dh.save_article("hard", metadata, content, download_audio=False)
         
     print("SCRAPING AND SAVING FINISHED!")
 
