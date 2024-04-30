@@ -1,4 +1,4 @@
-### Die Datenstruktur (von Felix)
+### Datenstruktur (von Felix)
 Auf Anraten von Professor Bauman wird für die Speicherung keine SQL-Datenbank benutzt sondern wie in der Abbildung dargestellt eine Ordnerstruktur.
 
 ```

@@ -67,6 +67,9 @@
 
 ## Meeting 30.04.24
 
-### zu besprechen
-
-- Felix: Der DataHandler sollte vielleicht nicht das Datum formattieren, sondern eher der Scraper. Außerdem ist es blöd, wenn der DataHandler das ganze Download Unterordner (sprich dem relativen Pfad, in dem der scraper ausgeführt wird= speichert. Vielleicht einen Mechanismus einbauen, der versichert, dass der `data` Ordner auf root Ebene des Projektes speichert.
+- Lars: 
+    + DataHandler sollte vielleicht nicht das Datum formatieren
+    + Mechanismus einbauen, der versichert, dass der `data` Ordner auf root Ebene des Projektes speichert.
+- MDR Scraper (Audio Download schwierig)
+- BaseMatcher und SimpleMatcher
+- Aufteilung von MidtermReview
