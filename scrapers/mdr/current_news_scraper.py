@@ -117,8 +117,8 @@ class MDREasyScraper(BaseScraper):
             date_text = date_text.split('\n')[1]  # get the second line (which contains the date)
             day, month, year = date_text.split()  # split the date into day, month, year
             month = month_mapping[month]  # map the month name to a number
-            year = year[:-1]  # remove the trailing comma from the year
-            metadata['date'] = f'{day}{month}.{year}'  # format the date (day already contains the trailing '.')
+            day, year = day[:-1], year[:-1]  # remove the trailing comma from the day and year
+            metadata['date'] = f'{month}-{day}-{year}'  # format the date
         except Exception:
             pass
 

@@ -1,22 +1,17 @@
 ### Datenstruktur (von Felix)
 Auf Anraten von Professor Bauman wird für die Speicherung keine SQL-Datenbank benutzt sondern wie in der Abbildung dargestellt eine Ordnerstruktur.
 
-```
-├── data
-│   ├── deutschlandfunk
-│   │   ├── easy
-│   │   │   ├── 2024-03-15-Bundes-Wehr_beteiligt_sich_an_Luft-Bruecke_fuer_den_Gaza-Streifen_
-│   │   │   │   ├── audio.mp3
-│   │   │   │   ├── content.txt
-│   │   │   │   └── metadata.json
-│   │   │   └── lookup_deutschlandfunk_easy.csv
-│   │   └── hard
-│   │       ├── 2024-04-25-Angebliche_Drohnenangriffe_Belarus_erhebt_Vorwuerfe_gegen_Litauen_-_Dementi_aus_Vilnius
-│   │       │   ├── content.txt
-│   │       │   └── metadata.json
-│   │       └── lookup_deutschlandfunk_hard.csv
-│   └── matches_deutschlandfunk.csv
-```
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
+..
 _Abbildung: Struktur des zur Speicherung genutzten Dateisystems am Beispiel von Deutschlandfunk(hard) und Nachrichtenleicht(easy) (reduziert auf jeweils einen Artikel)_
 
 
