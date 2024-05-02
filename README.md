@@ -24,16 +24,12 @@
 │   │   │   │   ├── content.txt
 │   │   │   │   └── metadata.json
 │   │   │   └── lookup_deutschlandfunk_easy.csv
-│   │   └── hard
-│   │       ├── 2024-04-25-Angebliche_Drohnenangriffe_Belarus_erhebt_Vorwuerfe_gegen_Litauen_-_Dementi_aus_Vilnius
-│   │       │   ├── content.txt
-│   │       │   └── metadata.json
-│   │       └── lookup_deutschlandfunk_hard.csv
-│   └── matches_deutschlandfunk.csv
-│   ├── mdr
-│   │   ├── easy
 │   │   ├── hard
-│   └── matches_mdr.csv
+│   │   │   ├── 2024-04-25-Angebliche_Drohnenangriffe_Belarus_erhebt_Vorwuerfe_gegen_Litauen_-_Dementi_aus_Vilnius
+│   │   │   │   ├── content.txt
+│   │   │   │   └── metadata.json
+│   │   │   └── lookup_deutschlandfunk_hard.csv
+│   │   ├── matches_deutschlandfunk.csv
 ```
 
 Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen.
@@ -73,3 +69,7 @@ Die Idee ist es zunächst, eine Datenbank zu bauen. Dafür sollen wir uns nach M
 
 - Wäre es ok wenn wir die Daten direkt anfragen ohne Scraping?
 > ja, er meinte aber er hat da keine Hoffnungen, dass die uns das bereitstellen bzw überhaupt so sortiert haben, wie wir es bräuchten aber vielleicht haben wir ja glück
+
+<a name="mid"></a>
+### 4 Midterm
+- run md to pdf with: pandoc -f markdown -t pdf midterm_review/MidtermReview.md -o midterm_review/MidtermReview.pdf
