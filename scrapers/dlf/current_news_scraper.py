@@ -17,9 +17,11 @@ dsf_feed_url = "https://www.deutschlandfunk.de/nachrichten-100.html"
 nl_feed_url  = "https://www.nachrichtenleicht.de/api/partials/PaginatedArticles_NL?drsearch:currentItems=0&drsearch:itemsPerLoad=30&drsearch:partialProps={%22sophoraId%22:%22nachrichtenleicht-nachrichten-100%22}&drsearch:_ajax=1"
 
 
-class DeutschlandfunkScraper(BaseScraper):
-    def __init__(self):
-        super().__init__(dsf_feed_url, "dlf")
+
+class DeutschlandradioScraper(BaseScraper):
+    def __init__(self, feed_url, difficulty):
+        super().__init__(feed_url, "dlf")
+        self.difficulty_level = difficulty
 
     def _fetch_articles_from_feed(self) -> list:
         articles = []
@@ -36,7 +38,7 @@ class DeutschlandfunkScraper(BaseScraper):
         Returns content and metadata dictionary.
         """
         article = self._get_soup(url).find("article", class_="b-article")
-
+        self.article = article
         content  = get_article_content(article)
         metadata = base_metadata_dict()
         
@@ -56,24 +58,21 @@ class DeutschlandfunkScraper(BaseScraper):
 
     def scrape(self) -> list:
         for article_url in self._fetch_articles_from_feed():
-            if not self.data_handler.is_already_saved("hard", article_url):
+            if not self.data_handler.is_already_saved(self.difficulty_level, article_url):
                 print("saving:", article_url)
                 content, metadata = self._get_metadata_and_content(article_url)
                 content = "\n".join(content)
-                self.data_handler.save_article('hard', metadata, content, download_audio=False)
+                self.data_handler.save_article(self.difficulty_level, metadata, content, download_audio=True)
 
-class NachrichtenleichtScraper(BaseScraper):
+
+class DeutschlandfunkScraper(DeutschlandradioScraper):
     def __init__(self):
-        super().__init__(nl_feed_url, "dlf")
+        super().__init__(dsf_feed_url, "hard")
 
-    def _fetch_articles_from_feed(self) -> list:
-        articles = []
-        for feed_article in self.feed_soup.find_all("article"):
-            try:
-                articles.append(feed_article.find("a")["href"])
-            except Exception:
-                continue
-        return articles
+
+class NachrichtenleichtScraper(DeutschlandradioScraper):
+    def __init__(self):
+        super().__init__(nl_feed_url, "easy")
 
     def _get_audio_metadata(self, article) -> dict:
         data = None
@@ -94,33 +93,11 @@ class NachrichtenleichtScraper(BaseScraper):
         Get the metadata and content of the article.
         Returns content and metadata dictionary.
         """
-        article = self._get_soup(url).find("article", class_="b-article")
-
-        content  = get_article_content(article)
-        metadata = base_metadata_dict()
-        
-        metadata["url"]    = url
-        metadata["title"]  = find_string(article, class_="article-header-title")
-        metadata["kicker"] = find_string(article, class_="headline-kicker")
-        metadata["date"]   = find_string(article, class_="article-header-author")
-        metadata["description"] = find_string(article, class_="article-header-description")
-        metadata["image_description"] = find_string(article, "figcaption")
-        metadata["audio"]  = self._get_audio_metadata(article)
-
-        try:
-            metadata["image_url"] = article.find("img")["src"]
-        except Exception:
-            pass
+        content, metadata = super()._get_metadata_and_content(url)
+        metadata["audio"]  = self._get_audio_metadata(self.article)
 
         return content, metadata
 
-    def scrape(self) -> list:
-        for article_url in self._fetch_articles_from_feed():
-            if not self.data_handler.is_already_saved("easy", article_url):
-                print("saving:", article_url)
-                content, metadata = self._get_metadata_and_content(article_url)
-                content = "\n".join(content)
-                self.data_handler.save_article('easy', metadata, content, download_audio=False)
 
 def get_article_content(article_soup) -> list:
     """
