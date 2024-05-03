@@ -6,6 +6,7 @@ Scrapes the current articles from WDR (easy & hard language) and saves them to t
 
 import sys
 import os
+import logging
 # add parent dir to the python path to enable importing services module (and by that BaseScraper and DataHandler)
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(root_dir)
@@ -181,6 +182,7 @@ class MDREasyScraper(BaseScraper):
 
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     # configure selenium (is needed for button clicking)
     driver_options = webdriver.ChromeOptions()
     driver_options.add_argument('--ignore-certificate-errors')  # ignore ssl errors

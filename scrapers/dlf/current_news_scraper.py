@@ -6,6 +6,7 @@ Scrapes the current articles from Deutschlandfunk and Nachrichtenleicht and save
 
 import sys
 import os
+import logging
 root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
 sys.path.append(root_dir)
 from services.DataHandler import DataHandler
@@ -145,5 +146,6 @@ def find_string(article, *args, **kwargs):
     return content
 
 if __name__ == '__main__':
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
     DeutschlandfunkScraper().scrape()
     NachrichtenleichtScraper().scrape()

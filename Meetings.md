@@ -100,3 +100,4 @@
 - evtl. Gespräch mit Prof. Baumann
 
 ## Meeting 06.05.24
+- MDR nicht WDR im Rewview?!?
