@@ -153,7 +153,28 @@ class MDREasyScraper(BaseScraper):
 
         # try to get the hard article url
         try:
-            metadata['match'] = 'https://mdr.de' + soup.find_all('a', class_='linkAll')[1]['href']
+            match_url = 'https://mdr.de' + soup.find_all('a', class_='linkAll')[1]['href']  # this is typically the match url
+
+            # sometimes, there is no match url in the article
+            # then the match url contains a 'nachrichten-leicht' substring
+            # or a 'mdr.de/video/mdr-videos' substring
+
+            error = False
+
+            if 'nachrichten-leicht' in match_url:
+                logging.error('Matching error: Article has no hard match')
+                error = True
+
+            if 'mdr.de/video/mdr-videos' in match_url:
+                logging.error('Matching error: Video article: Skipping')
+                error = True
+
+
+            if error:
+                metadata['match'] = None
+            else:
+                metadata['match'] = match_url  # set the match url if no error occured
+            
         except Exception:
             logging.error('Error while parsing hard article url')
 
@@ -314,15 +335,11 @@ class MDRHardScraper(BaseScraper):
             # get the easy and hard article urls from dict
             easy_url, hard_url = article['easy'], article['hard']  
 
-            logging.info(f'Scraping hard article: {hard_url}')
+            if hard_url is None:
+                logging.error('Error: Hard article url is None (no match for the easy url was found)')
+                continue
 
-            if 'nachrichten-leicht' in hard_url:
-                logging.error('Matching error: Easy article url passed to hard scraper')
-                continue
-            
-            if 'mdr.de/video/mdr-videos' in hard_url:
-                logging.error('Matching error: Video article: Skipping')
-                continue
+            logging.info(f'Scraping hard article: {hard_url}')
 
             # get the metadata and content of the hard article
             content, metadata = self._get_metadata_and_content(hard_url)  
