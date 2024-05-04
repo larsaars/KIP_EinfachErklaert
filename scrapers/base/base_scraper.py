@@ -5,9 +5,10 @@ Base scraper interface and some utility funcitons. Takes care of basic functioni
 """
 
 import sys
+import subprocess
 
-# add parent dir to the python path to enable importing services module (and by that DataHandler)
-sys.path.append('..')
+# add git root dir to the python path to enable importing services modules
+sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 
 from services.DataHandler import DataHandler
 from bs4 import BeautifulSoup

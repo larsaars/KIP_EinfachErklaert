@@ -7,8 +7,12 @@ Scrapes the current articles from Deutschlandfunk and Nachrichtenleicht and save
 import sys
 import os
 import logging
-root_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-sys.path.append(root_dir)
+import sys
+import subprocess
+
+# add git root dir to the python path to enable importing services modules
+sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
+
 from services.DataHandler import DataHandler
 
 from scrapers.base.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
