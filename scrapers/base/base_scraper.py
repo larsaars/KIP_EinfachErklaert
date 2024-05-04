@@ -54,7 +54,12 @@ class BaseScraper:
         """
 
         self.feed_url = feed_url
-        self.feed_soup = self._get_soup(feed_url)
+
+        if feed_url is None:
+            self.feed_soup = None
+        else:
+            self.feed_soup = self._get_soup(feed_url)
+
         self.data_handler = DataHandler(data_handler_source)
 
     def _get_soup(self, url):
