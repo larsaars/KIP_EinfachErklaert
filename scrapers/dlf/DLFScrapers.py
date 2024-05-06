@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Scrapes the current articles from Deutschlandfunk and Nachrichtenleicht and saves them to the database.
+Class Definitions of DeutschlandradioScraper, DeutschlandfunkScraper and NachrichtenleichtScraper.
 """
 
 import sys
@@ -64,7 +64,6 @@ class DeutschlandradioScraper(BaseScraper):
     def scrape(self) -> list:
         for article_url in self._fetch_articles_from_feed():
             if not self.data_handler.is_already_saved(self.difficulty_level, article_url):
-                print("saving:", article_url)
                 content, metadata = self._get_metadata_and_content(article_url)
                 content = "\n".join(content)
                 self.data_handler.save_article(self.difficulty_level, metadata, content, download_audio=True)
@@ -125,8 +124,3 @@ def find_string(article, *args, **kwargs):
     except Exception:
         content = None
     return content
-
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-    DeutschlandfunkScraper().scrape()
-    NachrichtenleichtScraper().scrape()
