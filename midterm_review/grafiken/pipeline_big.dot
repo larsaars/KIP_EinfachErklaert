@@ -16,7 +16,12 @@ digraph G {
     node [style=filled,color=white];
     "save_article()";
     "head()/get_all()";
-    "is_already_saved()" [label="URLs"];
+    "search_by()" ->
+    "is_already_saved()" [label="result"];
+    "is_already_saved()"-> 
+    "search_by()"
+    [label="url"];
+
     label = "DataHandler";
   }
 

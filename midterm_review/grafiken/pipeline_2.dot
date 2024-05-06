@@ -1,7 +1,7 @@
 digraph G {
     rankdir=LR; // Direction from left to right
-    scraper; // Default style for scraper
-    Datahandler [style=filled, fillcolor=green]; // Datahandler is green
+    Scraper; // Default style for scraper
+    Datahandler [style=filled, fillcolor=lightgreen]; // Datahandler is green
     Matcher; // Default style for Matcher
-    scraper -> Datahandler -> Matcher; // Define the connections
+    Scraper -> Datahandler -> Matcher; // Define the connections
 }
