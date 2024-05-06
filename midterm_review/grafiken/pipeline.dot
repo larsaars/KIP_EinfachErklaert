@@ -1,0 +1,39 @@
+digraph G {
+  
+  subgraph cluster_0 {
+    style=filled;
+    color=lightgrey;
+    node [style=filled,color=white];
+    "_fetch_articles_from_feed()" -> "_get_metadata_and_content()" [label="URLs"];
+    "_get_audio_metadata()" -> "scrape()";
+    "_get_metadata_and_content()" -> "scrape()";
+    label = "Scraper";
+  }
+
+  subgraph cluster_1 {
+    style=filled;
+    color=lightgrey;
+    node [style=filled,color=white];
+    "save_article()";
+    "is_already_saved()";
+    label = "DataHandler";
+  }
+
+  subgraph cluster_2 {
+    style=filled;
+    color=lightgrey;
+    node [style=filled,color=white];
+    "find_matches()" [label="Find Matches"];
+    "process_matches()" [label="Process Matches"];
+    label = "Matcher";
+  }
+
+  // Flow modifications
+  "_fetch_articles_from_feed()" -> "is_already_saved()" [label="Check if Saved"];
+  "is_already_saved()" -> "_get_metadata_and_content()" [label="Fetch if not saved"];
+  "scrape()" -> "save_article()" [label="metadata, content and audio"];
+
+  // Connections for Matcher cluster
+  "save_article()" -> "find_matches()";
+  "find_matches()" -> "process_matches()";
+}

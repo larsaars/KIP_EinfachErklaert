@@ -73,26 +73,26 @@
 - MDR Scraper (Audio Download schwierig)
 - BaseMatcher und SimpleMatcher
 - Aufteilung von MidtermReview {10 Seiten, 2.5 p.P.}
-    + Einleitung {Ben}
+    + TODO Einleitung {Ben}
     + Allgemein
-        + Herausforderungen {Felix}
-        + Projektmanagment {Lars}
+        + DONE Herausforderungen {Felix}
+        + DONE Projektmanagment {Lars}
     + Was bisher geschah/ Aktueller Stand
         + DONE Scraper {Lars + Simon} 
         + DONE Datenstruktur {Felix} 
-        + Kommunikation mit Nachrichtenquellen {Ben}
-        + Über den KI-Server -> Mi auf Server {Ben} 
+        + DONE Kommunikation mit Nachrichtenquellen {Ben}
+        + DONE Über den KI-Server -> Mi auf Server {Ben} 
     + Ziele für zweite Hälfte
         + Matching {Ben}
-            + Base und SimpleMatcher {Felix}
-            + named entity recognition {Ben}
-            + BERT {Ben}
-            + Suche auf HuggingFace? {Ben}
+            + DONE Base und SimpleMatcher {Felix}
+            + DONE named entity recognition {Ben}
+            + TODO BERT {Ben}
+            + DONE Suche auf HuggingFace? {Ben}
         + Verbessungspunkte {Simon}
             + Risikos/ Zukünftige Herausforderungen 
-                + Historische Artikel {Simon}
-                + Skalierbarkeit des Projekt (DataHandler bei vielen Daten) {Simon}
-                + MDR Scraper geht nur über UI {Lars}
+                + DONE Historische Artikel {Simon}
+                + DONE Skalierbarkeit des Projekt (DataHandler bei vielen Daten) {Simon}
+                + DONE MDR Scraper geht nur über UI {Lars}
 - Präsentation: PowerPoint
     + alle Zoom Präsentation? -> Felix frägt
 - nächstes Meeting vorgezogen auf Montag 06.05. 9:00Uhr
@@ -100,4 +100,51 @@
 - evtl. Gespräch mit Prof. Baumann
 
 ## Meeting 06.05.24
-- MDR nicht WDR im Rewview?!?
+
+### Midterm
++ TODO Einleitung {Ben}
++ Allgemein
+    + DONE Herausforderungen {Felix}
+    + DONE Projektmanagment {Lars}
++ Was bisher geschah/ Aktueller Stand
+    + DONE Scraper {Lars + Simon} 
+    + DONE Datenstruktur {Felix} 
+    + DONE Kommunikation mit Nachrichtenquellen {Ben}
+    + DONE Über den KI-Server -> Mi auf Server {Ben} 
++ Ziele für zweite Hälfte
+    + Matching {Ben}
+        + DONE Base und SimpleMatcher {Felix}
+        + DONE named entity recognition {Ben}
+        + TODO BERT {Ben}
+        + DONE Suche auf HuggingFace? {Ben}
+    + Risikos/ Zukünftige Herausforderungen 
+        + DONE Historische Artikel {Simon}
+        + DONE Skalierbarkeit des Projekt (DataHandler bei vielen Daten) {Simon}
+        + DONE MDR Scraper geht nur über UI {Lars}
+
+### Präsentation (max. 20 min)
+- Zuständigkeit
+    + Ben: Nachrichtenquellen + Ausblick (Matching) + Einleitung
+    + Simon: DLR Scraper
+    + Lars: MDR Scraper + Pipeline
+    + Felix: Datahandler + organisatiorische Herausforderungen
+
+- Reihenfolge:
+    + Einleitung
+        + Wie sind wir auf die Quellen gekommen
+        + Kommunikation?
+    + Pipeline
+    + Datahandler: nur sagen dass es unser Interface ist
+    + Scraper
+        + DLF
+        + MDR
+    + Matcher
+ 
+- Felix Teil (seperat):
+    + organisatorische herausforderungen
+    + DataHandler
+
+- Morgen Meeting: 14:00Uhr?
+    + Review und Präsi? zusammenfügen
+
+## Meeting 07.05.24

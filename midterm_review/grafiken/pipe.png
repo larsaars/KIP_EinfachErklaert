@@ -1,0 +1,122 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="953pt" height="397pt" viewBox="0.00 0.00 953.00 397.00">
+<g id="graph0" class="graph" transform="translate(4,393) scale(1)" data-name="G">
+
+<polygon fill="white" stroke="none" points="-4,4 -4,-393 949,-393 949,4 -4,4" style=""/>
+<g id="clust1" class="cluster" data-name="cluster_0">
+
+<polygon fill="lightgrey" stroke="lightgrey" points="8,-81 8,-381 494,-381 494,-81 8,-81" style=""/>
+<text text-anchor="middle" x="251" y="-364.4" font-family="Times,serif" font-size="14.00" style="">Scraper</text>
+</g>
+<g id="clust2" class="cluster" data-name="cluster_1">
+
+<polygon fill="lightgrey" stroke="lightgrey" points="595,-192.6 595,-269.4 925,-269.4 925,-192.6 595,-192.6" style=""/>
+<text text-anchor="middle" x="760" y="-252.8" font-family="Times,serif" font-size="14.00" style="">DataHandler</text>
+</g>
+<g id="clust3" class="cluster" data-name="cluster_2">
+
+<polygon fill="lightgrey" stroke="lightgrey" points="769,-8 769,-157.8 937,-157.8 937,-8 769,-8" style=""/>
+<text text-anchor="middle" x="853" y="-141.2" font-family="Times,serif" font-size="14.00" style="">Matcher</text>
+</g>
+<!-- _fetch_articles_from_feed() -->
+<g id="node1" class="node" pointer-events="visible" data-name="_fetch_articles_from_feed()">
+
+<ellipse fill="white" stroke="white" cx="364" cy="-330.2" rx="119.2" ry="18" style=""/>
+<text text-anchor="middle" x="364" y="-326" font-family="Times,serif" font-size="14.00" style="">_fetch_articles_from_feed()</text>
+</g>
+<!-- _get_metadata_and_content() -->
+<g id="node2" class="node" pointer-events="visible" data-name="_get_metadata_and_content()">
+
+<ellipse fill="white" stroke="white" cx="360" cy="-218.6" rx="125.6" ry="18" style=""/>
+<text text-anchor="middle" x="360" y="-214.4" font-family="Times,serif" font-size="14.00" style="">_get_metadata_and_content()</text>
+</g>
+<!-- _fetch_articles_from_feed()&#45;&gt;_get_metadata_and_content() -->
+<g id="edge1" class="edge" data-name="_fetch_articles_from_feed()-&gt;_get_metadata_and_content()">
+
+<path fill="none" stroke="black" d="M363.38,-312.07C362.75,-295.04 361.79,-268.6 361.05,-248.35" style=""/>
+<polygon fill="black" stroke="black" points="364.55,-248.34 360.69,-238.48 357.56,-248.6 364.55,-248.34" style=""/>
+<text text-anchor="middle" x="378.72" y="-281.6" font-family="Times,serif" font-size="14.00" style="">URLs</text>
+</g>
+<!-- is_already_saved() -->
+<g id="node6" class="node" pointer-events="visible" data-name="is_already_saved()">
+
+<ellipse fill="white" stroke="white" cx="687" cy="-218.6" rx="83.94" ry="18" style=""/>
+<text text-anchor="middle" x="687" y="-214.4" font-family="Times,serif" font-size="14.00" style="">is_already_saved()</text>
+</g>
+<!-- _fetch_articles_from_feed()&#45;&gt;is_already_saved() -->
+<g id="edge4" class="edge" data-name="_fetch_articles_from_feed()-&gt;is_already_saved()">
+
+<path fill="none" stroke="black" d="M410.97,-313.26C469.81,-293.3 570.45,-259.15 632.58,-238.06" style=""/>
+<polygon fill="black" stroke="black" points="633.56,-241.43 641.91,-234.9 631.31,-234.8 633.56,-241.43" style=""/>
+<text text-anchor="middle" x="557.77" y="-281.6" font-family="Times,serif" font-size="14.00" style="">Check if Saved</text>
+</g>
+<!-- scrape() -->
+<g id="node4" class="node" pointer-events="visible" data-name="scrape()">
+
+<ellipse fill="white" stroke="white" cx="360" cy="-107" rx="42.26" ry="18" style=""/>
+<text text-anchor="middle" x="360" y="-102.8" font-family="Times,serif" font-size="14.00" style="">scrape()</text>
+</g>
+<!-- _get_metadata_and_content()&#45;&gt;scrape() -->
+<g id="edge3" class="edge" data-name="_get_metadata_and_content()-&gt;scrape()">
+
+<path fill="none" stroke="black" d="M360,-200.47C360,-183.44 360,-157 360,-136.75" style=""/>
+<polygon fill="black" stroke="black" points="363.5,-136.88 360,-126.88 356.5,-136.88 363.5,-136.88" style=""/>
+</g>
+<!-- _get_audio_metadata() -->
+<g id="node3" class="node" pointer-events="visible" data-name="_get_audio_metadata()">
+
+<ellipse fill="white" stroke="white" cx="116" cy="-218.6" rx="100.11" ry="18" style=""/>
+<text text-anchor="middle" x="116" y="-214.4" font-family="Times,serif" font-size="14.00" style="">_get_audio_metadata()</text>
+</g>
+<!-- _get_audio_metadata()&#45;&gt;scrape() -->
+<g id="edge2" class="edge" data-name="_get_audio_metadata()-&gt;scrape()">
+
+<path fill="none" stroke="black" d="M152,-201.43C197.38,-181.04 275.07,-146.15 321.57,-125.26" style=""/>
+<polygon fill="black" stroke="black" points="322.77,-128.56 330.45,-121.27 319.9,-122.18 322.77,-128.56" style=""/>
+</g>
+<!-- save_article() -->
+<g id="node5" class="node" pointer-events="visible" data-name="save_article()">
+
+<ellipse fill="white" stroke="white" cx="853" cy="-218.6" rx="63.66" ry="18" style=""/>
+<text text-anchor="middle" x="853" y="-214.4" font-family="Times,serif" font-size="14.00" style="">save_article()</text>
+</g>
+<!-- scrape()&#45;&gt;save_article() -->
+<g id="edge6" class="edge" data-name="scrape()-&gt;save_article()">
+
+<path fill="none" stroke="black" d="M395.12,-117.21C455.43,-132.73 582.74,-164.18 691.95,-182.6 730.79,-189.15 741.58,-183.95 780,-192.6 788.45,-194.5 797.29,-197.04 805.78,-199.77" style=""/>
+<polygon fill="black" stroke="black" points="804.66,-203.08 815.25,-202.95 806.88,-196.45 804.66,-203.08" style=""/>
+<text text-anchor="middle" x="769.52" y="-170" font-family="Times,serif" font-size="14.00" style="">metadata, content and audio</text>
+</g>
+<!-- find_matches() -->
+<g id="node7" class="node" pointer-events="visible" data-name="find_matches()">
+
+<ellipse fill="white" stroke="white" cx="853" cy="-107" rx="63.75" ry="18" style=""/>
+<text text-anchor="middle" x="853" y="-102.8" font-family="Times,serif" font-size="14.00" style="">Find Matches</text>
+</g>
+<!-- save_article()&#45;&gt;find_matches() -->
+<g id="edge7" class="edge" data-name="save_article()-&gt;find_matches()">
+
+<path fill="none" stroke="black" d="M853,-200.47C853,-183.44 853,-157 853,-136.75" style=""/>
+<polygon fill="black" stroke="black" points="856.5,-136.88 853,-126.88 849.5,-136.88 856.5,-136.88" style=""/>
+</g>
+<!-- is_already_saved()&#45;&gt;_get_metadata_and_content() -->
+<g id="edge5" class="edge" data-name="is_already_saved()-&gt;_get_metadata_and_content()">
+
+<path fill="none" stroke="black" d="M602.57,-218.6C570.39,-218.6 532.83,-218.6 497.01,-218.6" style=""/>
+<polygon fill="black" stroke="black" points="497.47,-215.1 487.47,-218.6 497.47,-222.1 497.47,-215.1" style=""/>
+<text text-anchor="middle" x="544.41" y="-225.8" font-family="Times,serif" font-size="14.00" style="">Fetch if not saved</text>
+</g>
+<!-- process_matches() -->
+<g id="node8" class="node" pointer-events="visible" data-name="process_matches()">
+
+<ellipse fill="white" stroke="white" cx="853" cy="-34" rx="75.84" ry="18" style=""/>
+<text text-anchor="middle" x="853" y="-29.8" font-family="Times,serif" font-size="14.00" style="">Process Matches</text>
+</g>
+<!-- find_matches()&#45;&gt;process_matches() -->
+<g id="edge8" class="edge" data-name="find_matches()-&gt;process_matches()">
+
+<path fill="none" stroke="black" d="M853,-88.81C853,-81.23 853,-72.1 853,-63.54" style=""/>
+<polygon fill="black" stroke="black" points="856.5,-63.54 853,-53.54 849.5,-63.54 856.5,-63.54" style=""/>
+</g>
+</g>
+</svg>
