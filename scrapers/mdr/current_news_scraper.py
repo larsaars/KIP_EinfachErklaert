@@ -359,6 +359,7 @@ if __name__ == '__main__':
     driver_options = webdriver.ChromeOptions()
     driver_options.add_argument('--ignore-certificate-errors')  # ignore ssl errors
     driver_options.add_argument('--incognito')  # private mode
+    driver_options.add_argument('--headless')  # no sandbox
     # options.add_argument('--headless')  # no browser window
     driver = webdriver.Chrome(options=driver_options)  # create the driver
 
