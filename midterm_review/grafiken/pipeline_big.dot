@@ -40,6 +40,7 @@ digraph G {
   "scrape()" -> "save_article()" [label="metadata, content and audio"];
 
   // Connections for Matcher cluster
-  "head()/get_all()" -> "find_matches()";
+  "head()/get_all()" -> "find_matches()"[label="data"];
   "find_matches()" -> "process_matches()";
+
 }
