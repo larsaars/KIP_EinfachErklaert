@@ -19,7 +19,6 @@ Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 07.05.24
    1. Matching
 5. Fazit (alle)
 
-<div style="page-break-after: always;"></div>
 
 ## 1. Einleitung
 
