@@ -16,7 +16,8 @@ Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 07.05.24
    7. KI-Server (Ben)
    8. Technische Herausforderungen (Simon)
 4. Ausblick
-   1. Matching
+   1. Einfaches Matching
+   2. Komplexes Matching
 5. Fazit (alle)
 
 
