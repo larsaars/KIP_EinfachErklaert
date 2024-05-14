@@ -148,3 +148,33 @@
     + Review und Präsi? zusammenfügen
 
 ## Meeting 07.05.24
+
+## Meeting 15.05.24
+- Datumsformat ändern weil besser für sortierung
+- Fehler bei DLF Scraper beheben, bzw im Data Handler
+- benreher@im-kigs:/data/projects/einfach/KIP_EinfachErklaert/scrapers/dlf$ python3 scrape_Deutschlandfunk.py 
+Traceback (most recent call last):
+  File "/data/projects/einfach/KIP_EinfachErklaert/scrapers/dlf/scrape_Deutschlandfunk.py", line 19, in <module>
+    DeutschlandfunkScraper().scrape()
+  File "/data/projects/einfach/KIP_EinfachErklaert/scrapers/dlf/DLFScrapers.py", line 66, in scrape
+    if not self.data_handler.is_already_saved(self.difficulty_level, article_url):
+  File "/data/projects/einfach/KIP_EinfachErklaert/services/DataHandler.py", line 137, in is_already_saved
+    if self.search_by(dir, "url", url) == None:
+  File "/data/projects/einfach/KIP_EinfachErklaert/services/DataHandler.py", line 111, in search_by
+    return self.helper._search_url_in_lookup(dir, attribute_value)
+  File "/data/projects/einfach/KIP_EinfachErklaert/services/DataHandler.py", line 265, in _search_url_in_lookup
+    res = df.loc[df["url"].str.contains(url), "path"]
+  File "/usr/lib/python3/dist-packages/pandas/core/indexing.py", line 925, in __getitem__
+    return self._getitem_tuple(key)
+  File "/usr/lib/python3/dist-packages/pandas/core/indexing.py", line 1100, in _getitem_tuple
+    return self._getitem_lowerdim(tup)
+  File "/usr/lib/python3/dist-packages/pandas/core/indexing.py", line 862, in _getitem_lowerdim
+    return getattr(section, self.name)[new_key]
+  File "/usr/lib/python3/dist-packages/pandas/core/indexing.py", line 931, in __getitem__
+    return self._getitem_axis(maybe_callable, axis=axis)
+  File "/usr/lib/python3/dist-packages/pandas/core/indexing.py", line 1143, in _getitem_axis
+    elif com.is_bool_indexer(key):
+  File "/usr/lib/python3/dist-packages/pandas/core/common.py", line 139, in is_bool_indexer
+    raise ValueError(na_msg)
+ValueError: Cannot mask with non-boolean array containing NA / NaN values
+- html noch mit scrapen, response in textfile speichern 
