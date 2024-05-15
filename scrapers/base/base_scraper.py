@@ -93,7 +93,7 @@ class BaseScraper:
 
     def _get_metadata_and_content(self, url):
         """
-        Get the metadata and content of the article.
+        Get the metadata, content and html (in this order) of the article.
 
         Args:
             url (str): url of the article

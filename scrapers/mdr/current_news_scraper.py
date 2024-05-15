@@ -82,8 +82,10 @@ class MDREasyScraper(BaseScraper):
         
         self.driver.get(url)  # open the article in the browser (for js execution)
 
+        html = self.driver.page_source  # get the html of the page
+
         # get soup of the article
-        soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+        soup = BeautifulSoup(html, 'html.parser')
 
 
         paragraphs = soup.find_all('div', class_='paragraph')  # get the article paragraphs
@@ -179,7 +181,7 @@ class MDREasyScraper(BaseScraper):
             logging.error('Error while parsing hard article url')
 
 
-        return content, metadata 
+        return metadata, content, html
 
     def scrape(self) -> list:
         """
@@ -196,9 +198,9 @@ class MDREasyScraper(BaseScraper):
         for article_url in self._fetch_articles_from_feed():
             logging.info(f'Scraping easy article: {article_url}')
 
-            content, metadata = self._get_metadata_and_content(article_url)
+            metadata, content, html = self._get_metadata_and_content(article_url)
             # save the article to the database
-            self.data_handler.save_article('easy', metadata, content, download_audio=True)
+            self.data_handler.save_article('easy', metadata, content, html, download_audio=True)
             # append to the list
             easy_and_hard_articles.append({
                 'easy': metadata['url'],
@@ -236,9 +238,10 @@ class MDRHardScraper(BaseScraper):
         
         self.driver.get(url)  # open the article in the browser (for js execution)
 
+        html = self.driver.page_source  # get the html of the page
 
         # get soup of the article
-        soup = BeautifulSoup(self.driver.page_source, 'html.parser')
+        soup = BeautifulSoup(html, 'html.parser')
 
 
         # get content from the article
@@ -322,7 +325,7 @@ class MDRHardScraper(BaseScraper):
             logging.error('Error while parsing audio')
 
 
-        return content, metadata 
+        return metadata, content, html
 
     def scrape(self) -> list:
         """
@@ -342,11 +345,11 @@ class MDRHardScraper(BaseScraper):
             logging.info(f'Scraping hard article: {hard_url}')
 
             # get the metadata and content of the hard article
-            content, metadata = self._get_metadata_and_content(hard_url)  
+            metadata, content, html = self._get_metadata_and_content(hard_url)  
             # set the match to the easy article url
             metadata['match'] = easy_url  
             # save the article to the database
-            self.data_handler.save_article('hard', metadata, content, download_audio=True)
+            self.data_handler.save_article('hard', metadata, content, html, download_audio=True)
 
         return easy_and_hard_articles
 
