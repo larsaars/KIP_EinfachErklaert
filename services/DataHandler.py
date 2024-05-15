@@ -74,6 +74,7 @@ class DataHandler:
         return self.head(dir, n)
 
     # -------------------------- WRITE --------------------------
+    # TODO: save html content
     def save_article(self, dir, metadata, content, download_audio=True):
         """
         Args:
@@ -262,6 +263,7 @@ class DataHandlerHelper(DataHandler):
         elif dir in ["h", "hard"]:
             table = self.lookup_hard_path
         df = pd.read_csv(table)
+        # FIXME: this line causes error -> NAN value
         res = df.loc[df["url"].str.contains(url), "path"]
         if not res.empty:
             return res.iloc[0]
