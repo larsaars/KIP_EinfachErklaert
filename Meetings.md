@@ -169,5 +169,7 @@
         - Gruppen könnten differieren in der Art was man mit den Daten macht
         - Kein Gatekeeping zwischen Gruppen
         - Absprache über Schnittstellen
+- Beide Gruppen benutzen Datahandler 
+- Einführung KIGS für andere Gruppe
 
 

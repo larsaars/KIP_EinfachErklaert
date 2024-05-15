@@ -74,14 +74,15 @@ class DataHandler:
         return self.head(dir, n)
 
     # -------------------------- WRITE --------------------------
-    # TODO: save html content
-    def save_article(self, dir, metadata, content, download_audio=True):
+    # TODO: save html content, pass datetime obejct for date
+    def save_article(self, dir, metadata, content, html, download_audio=True):
         """
         Args:
             dir (str): The directory where the article should be saved.
             metadata (dict): Article metadata including title, date, and URL.
             content (str): The text content of the article.
             download_audio (bool): Whether to download audio files associated with the article.
+            html (str): The raw html content of the article
         """
         path = self.helper._get_e_or_h_path(dir)
         dir_path = self.helper._create_filepath(
@@ -96,6 +97,7 @@ class DataHandler:
         self.helper._update_lookup_file(dir, dir_path, metadata["url"])
         self.helper._save_content(content, dir_path)
         self.helper._save_metadata(metadata, dir_path)
+        self.helper._save_html(html, dir_path)
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
 
@@ -269,3 +271,10 @@ class DataHandlerHelper(DataHandler):
             return res.iloc[0]
         else:
             return None
+            
+    def _save_html(self, html, filepath):
+        filepath = os.path.join(filepath, "raw.html")
+        with open(filepath, "w", encoding="utf-8") as file:
+            file.write(html)
+
+
