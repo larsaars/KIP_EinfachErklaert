@@ -1,4 +1,4 @@
-benreher@im-kigs:/data/projects/einfach/KIP_EinfachErklaert/scrapers/dlf$ python3 scrape_Deutschlandfunk.py 
+benreher@im-kigs:/data/projects/einfach/KIP_EinfachErklaert/scrapers/dlf$ python3 scrape_Deutschlandfunk.py
 Traceback (most recent call last):
   File "/data/projects/einfach/KIP_EinfachErklaert/scrapers/dlf/scrape_Deutschlandfunk.py", line 19, in <module>
     DeutschlandfunkScraper().scrape()
@@ -23,3 +23,19 @@ Traceback (most recent call last):
   File "/usr/lib/python3/dist-packages/pandas/core/common.py", line 139, in is_bool_indexer
     raise ValueError(na_msg)
 ValueError: Cannot mask with non-boolean array containing NA / NaN values
+
+---
+
+The error message "Cannot mask with non-boolean array containing NA / NaN values" is raised when you try to use a pandas Series with `NaN` values as a boolean mask. In your case, it seems like the `df["url"].str.contains(url)` operation is returning a Series with `NaN` values, which cannot be used for indexing.
+
+To fix this issue, you can use the `fillna()` function to replace `NaN` values with `False` before using the Series as a mask. Here's how you can modify the `_search_url_in_lookup` method in `DataHandler.py`:
+
+```python
+def _search_url_in_lookup(self, dir, attribute_value):
+    # ... other code ...
+    mask = df["url"].str.contains(url).fillna(False)
+    res = df.loc[mask, "path"]
+    # ... other code ...
+```
+
+This code replaces `NaN` values in the mask with `False`, which means that rows with `NaN` in the "url" column will not be included in the result.
