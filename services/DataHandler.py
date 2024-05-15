@@ -215,11 +215,9 @@ class DataHandlerHelper(DataHandler):
     def _create_filepath(self, directory, date, title):
         if date is None:
             date = datetime.today().strftime("%Y-%m-%d")
-        # If title is None, use "Title_Missing"
         if title is None:
             title = "Title Missing"
         title = self._clean_file_path(title)
-        # date = datetime.strptime(date, "%d.%m.%Y").strftime("%Y-%m-%d")
         filepath = os.path.join(directory, date + "-" + title.replace(" ", "_"))
         if not os.path.exists(filepath):
             os.makedirs(filepath)
@@ -255,7 +253,7 @@ class DataHandlerHelper(DataHandler):
             "Ü": "Ue",
             "ß": "ss",
         }
-        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}') | {"\0"}
+        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}') | {"\0"} | {"\n"} | {"\t"}
         cleaned_string = "".join(
             umlaut_mapping.get(c, c) for c in input_string if c not in invalid_chars
         )
