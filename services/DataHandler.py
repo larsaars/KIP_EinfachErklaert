@@ -18,7 +18,7 @@ class DataHandler:
     - is_already_saved(dir, url): Returns bool if url is already saved as article
     """
 
-    def __init__(self, source, cwd=None):
+    def __init__(self, source):
         """
         source (str): The data source. Should be either "dlf" for deutschlandfunk/nachrichten leicht or "mdr" for MDR.
         """
@@ -213,6 +213,11 @@ class DataHandlerHelper(DataHandler):
         )
 
     def _create_filepath(self, directory, date, title):
+        if date is None:
+            date = datetime.today().strftime("%Y-%m-%d")
+        # If title is None, use "Title_Missing"
+        if title is None:
+            title = "Title Missing"
         title = self._clean_file_path(title)
         # date = datetime.strptime(date, "%d.%m.%Y").strftime("%Y-%m-%d")
         filepath = os.path.join(directory, date + "-" + title.replace(" ", "_"))
