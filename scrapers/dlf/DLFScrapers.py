@@ -17,6 +17,7 @@ from services.DataHandler import DataHandler
 
 from scrapers.base.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 dsf_feed_url = "https://www.deutschlandfunk.de/nachrichten-100.html"
 nl_feed_url  = "https://www.nachrichtenleicht.de/api/partials/PaginatedArticles_NL?drsearch:currentItems=0&drsearch:itemsPerLoad=30&drsearch:partialProps={%22sophoraId%22:%22nachrichtenleicht-nachrichten-100%22}&drsearch:_ajax=1"
@@ -39,10 +40,11 @@ class DeutschlandradioScraper(BaseScraper):
 
     def _get_metadata_and_content(self, url) -> tuple:
         """
-        Get the metadata and content of the article.
-        Returns content and metadata dictionary.
+        Get the content, metadata and html of the article.
+        Returns content, metadata dictionary and the raw html.
         """
-        article = self._get_soup(url).find("article", class_="b-article")
+        html    = self._get_soup(url)
+        article = html.find("article", class_="b-article")
         self.article = article
         content  = get_article_content(article)
         metadata = base_metadata_dict()
@@ -60,14 +62,14 @@ class DeutschlandradioScraper(BaseScraper):
         except Exception:
             pass
 
-        return content, metadata
+        return content, metadata, str(html)
 
     def scrape(self) -> list:
         for article_url in self._fetch_articles_from_feed():
             if not self.data_handler.is_already_saved(self.difficulty_level, article_url):
-                content, metadata = self._get_metadata_and_content(article_url)
+                content, metadata, html = self._get_metadata_and_content(article_url)
                 content = "\n".join(content)
-                self.data_handler.save_article(self.difficulty_level, metadata, content, download_audio=True)
+                self.data_handler.save_article(self.difficulty_level, metadata, content, html, download_audio=True)
 
 
 class DeutschlandfunkScraper(DeutschlandradioScraper):
@@ -95,13 +97,13 @@ class NachrichtenleichtScraper(DeutschlandradioScraper):
 
     def _get_metadata_and_content(self, url) -> tuple:
         """
-        Get the metadata and content of the article.
-        Returns content and metadata dictionary.
+        Get the content, metadata and html of the article.
+        Returns content, metadata dictionary and the raw html.
         """
-        content, metadata = super()._get_metadata_and_content(url)
+        content, metadata, html = super()._get_metadata_and_content(url)
         metadata["audio"]  = self._get_audio_metadata(self.article)
 
-        return content, metadata
+        return content, metadata, html
 
 
 def get_article_content(article_soup) -> list:
