@@ -168,5 +168,6 @@
         - Zusammenbinden der Paare
         - Gruppen könnten differieren in der Art was man mit den Daten macht
         - Kein Gatekeeping zwischen Gruppen
+        - Absprache über Schnittstellen
 
 
