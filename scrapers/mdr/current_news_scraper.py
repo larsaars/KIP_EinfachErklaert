@@ -121,7 +121,7 @@ class MDREasyScraper(BaseScraper):
             day, month, year = date_text.split()  # split the date into day, month, year
             month = month_mapping[month]  # map the month name to a number
             day, year = day[:-1], year[:-1]  # remove the trailing comma from the day and year
-            metadata['date'] = f'{month}-{day}-{year}'  # format the date
+            metadata['date'] = f'{year}-{month}-{day}'  # format the date
         except Exception:
             logging.error('Error while parsing date')
 
@@ -291,7 +291,7 @@ class MDRHardScraper(BaseScraper):
             day, month, year = date_text.split()  # split the date into day, month, year
             month = month_mapping[month]  # map the month name to a number
             day, year = day[:-1], year[:-1]  # remove the trailing comma from the day and year
-            metadata['date'] = f'{month}-{day}-{year}'  # format the date
+            metadata['date'] = f'{year}-{month}-{day}'  # format the date
         except Exception:
             logging.error('Error while parsing date')
 
