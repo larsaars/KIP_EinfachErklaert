@@ -22,20 +22,23 @@ class DataHandler:
         """
         source (str): The data source. Should be either "dlf" for deutschlandfunk/nachrichten leicht or "mdr" for MDR.
         """
-        # get git root (that is where the data folder should be stored)    
+        # get git root (that is where the data folder should be stored)
         try:
-            git_root = subprocess.check_output(['git', 'rev-parse', '--show-toplevel'], text=True).strip()
+            git_root = subprocess.check_output(
+                ["git", "rev-parse", "--show-toplevel"], text=True
+            ).strip()
         except subprocess.CalledProcessError as e:
             logging.error("This directory is not part of a Git repository.")
             raise e
 
         if source not in ["dlf", "mdr"]:
-            raise ValueError(f"Invalid source '{source}'. Valid sources are 'dlf' and 'mdr'.")
+            raise ValueError(
+                f"Invalid source '{source}'. Valid sources are 'dlf' and 'mdr'."
+            )
 
         self.root = os.path.join(git_root, "data", source)
-        self.helper = DataHandlerHelper(self.root)   
+        self.helper = DataHandlerHelper(self.root)
         self.helper._init_files_and_dirs(source)
-
 
     # -------------------------- READ --------------------------
     def head(self, dir, n):
@@ -74,7 +77,6 @@ class DataHandler:
         return self.head(dir, n)
 
     # -------------------------- WRITE --------------------------
-    # TODO: save html content, pass datetime obejct for date
     def save_article(self, dir, metadata, content, html, download_audio=True):
         """
         Args:
@@ -153,30 +155,33 @@ class DataHandlerHelper(DataHandler):
         self.root = root
         self.lookup_easy_path = None
         self.lookup_hard_path = None
-      
-    def _init_files_and_dirs(self, source):    
+
+    def _init_files_and_dirs(self, source):
         # make shure data and data/easy and data/hard exist
         os.makedirs(self.root, exist_ok=True)
         os.makedirs(os.path.join(self.root, "easy"), exist_ok=True)
         os.makedirs(os.path.join(self.root, "hard"), exist_ok=True)
-        
+
         # Check and initialize the CSV file
         csv_path = os.path.join(self.root, "matches_" + source + ".csv")
         if not os.path.isfile(csv_path):
             df = pd.DataFrame(columns=["easy", "hard"])
             df.to_csv(csv_path, index=False)
-            
+
         # init lookup
-        self.lookup_easy_path = os.path.join(self.root, "easy", "lookup_" + source + "_easy.csv")
+        self.lookup_easy_path = os.path.join(
+            self.root, "easy", "lookup_" + source + "_easy.csv"
+        )
         if not os.path.isfile(self.lookup_easy_path):
             df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_easy_path, index=False)
-        
-        self.lookup_hard_path = os.path.join(self.root, "hard", "lookup_" + source + "_hard.csv")
+
+        self.lookup_hard_path = os.path.join(
+            self.root, "hard", "lookup_" + source + "_hard.csv"
+        )
         if not os.path.isfile(self.lookup_hard_path):
             df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_hard_path, index=False)
-            
 
     def _get_e_or_h_path(self, dir):
         if dir not in ("e", "h", "easy", "hard"):
@@ -271,10 +276,8 @@ class DataHandlerHelper(DataHandler):
             return res.iloc[0]
         else:
             return None
-            
+
     def _save_html(self, html, filepath):
         filepath = os.path.join(filepath, "raw.html")
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(html)
-
-
