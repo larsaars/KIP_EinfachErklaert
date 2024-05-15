@@ -50,7 +50,8 @@ class DeutschlandradioScraper(BaseScraper):
         metadata["url"]    = url
         metadata["title"]  = find_string(article, class_="headline-title")
         metadata["kicker"] = find_string(article, class_="headline-kicker")
-        metadata["date"]   = find_string(article, class_="article-header-author")
+        date_str           = find_string(article, class_="article-header-author")
+        metadata["date"]   = datetime.strptime(date_str, "%d.%m.%Y").strftime("%Y-%m-%d")
         metadata["description"] = find_string(article, class_="article-header-description")
         metadata["image_description"] = find_string(article, "figcaption")
 
