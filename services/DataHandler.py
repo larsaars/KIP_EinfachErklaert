@@ -244,7 +244,8 @@ class DataHandlerHelper(DataHandler):
             file.write(json.dumps(metadata, indent=4))
 
     def _clean_file_path(self, input_string):
-        umlaut_mapping = {
+        # chars that will be replaced
+        replace_mapping = {
             "ä": "ae",
             "ö": "oe",
             "ü": "ue",
@@ -253,9 +254,11 @@ class DataHandlerHelper(DataHandler):
             "Ü": "Ue",
             "ß": "ss",
         }
-        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}') | {"\0"} | {"\n"} | {"\t"}
+        #chars that will be removed
+        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}\0\n\t\r')
         cleaned_string = "".join(
-            umlaut_mapping.get(c, c) for c in input_string if c not in invalid_chars
+            # if c is not it dict use c else use the value of the dict
+            replace_mapping.get(c, c) for c in input_string if c not in invalid_chars
         )
         return cleaned_string
 
@@ -273,7 +276,6 @@ class DataHandlerHelper(DataHandler):
         elif dir in ["h", "hard"]:
             table = self.lookup_hard_path
         df = pd.read_csv(table)
-        # FIXME: this line causes error -> NAN value
         res = df.loc[df["url"].str.contains(url), "path"]
         if not res.empty:
             return res.iloc[0]
