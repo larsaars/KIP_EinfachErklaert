@@ -172,4 +172,9 @@
 - Beide Gruppen benutzen Datahandler 
 - Einführung KIGS für andere Gruppe
 
+## Meeting 22.05.24
+- ideen wie wir wieder struktur rein bringen können
+- pläne fürs weitere vorgehen
+
+
 

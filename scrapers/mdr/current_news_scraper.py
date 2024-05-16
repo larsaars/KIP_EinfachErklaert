@@ -46,6 +46,7 @@ class MDREasyScraper(BaseScraper):
         super().__init__('https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html', 'mdr')
 
         self.driver = driver  # the selenium webdriver
+
     def _fetch_articles_from_feed(self) -> list:
         """
         Fetches the articles from the feed.
@@ -164,11 +165,15 @@ class MDREasyScraper(BaseScraper):
             error = False
 
             if 'nachrichten-leicht' in match_url:
-                logging.error('Matching error: Article has no hard match')
+                logging.error('Matching error: Article has no hard match (linking to a easy news article (feed))')
                 error = True
 
             if 'mdr.de/video/mdr-videos' in match_url:
                 logging.error('Matching error: Video article: Skipping')
+                error = True
+
+            if 'nachrichtenfeed' in match_url:
+                logging.error('Matching error: Article has no hard match (linking to a news feed)')
                 error = True
 
 
