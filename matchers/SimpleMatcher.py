@@ -46,8 +46,8 @@ class SimpleMatcher(BaseMatcher):
         rows_to_drop = []
 
         for idx, row in match_cache_df.iterrows():
-            easy_url = row["url"]
-            hard_url = row["match"]
+            easy_url = str(row["url"])
+            hard_url = str(row["match"])
             if (lookup_easy_df["url"].str.contains(easy_url).any()) and (
                 lookup_hard_df["url"].str.contains(hard_url).any()
             ):
