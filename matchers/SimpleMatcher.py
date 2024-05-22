@@ -1,4 +1,5 @@
 from BaseMatcher import BaseMatcher
+import os
 import sys
 import subprocess
 import pandas as pd
@@ -55,7 +56,12 @@ class SimpleMatcher(BaseMatcher):
 
         # delete rows that are mateched from cashe
         match_cache_df.drop(rows_to_drop, inplace=True)
-        match_cache_df.to_csv(file, index=False)
+    
+        if match_cache_df.empty:
+            os.remove(file)
+            logging.info(f"Deleted empty file: {file}")
+        else:
+            match_cache_df.to_csv(file, index=False)
 
 
 if __name__ == "__main__":
