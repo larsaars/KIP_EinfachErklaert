@@ -182,6 +182,14 @@ class DataHandlerHelper(DataHandler):
         if not os.path.isfile(self.lookup_hard_path):
             df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_hard_path, index=False)
+            
+        if source == "mdr":
+            mdr_cashe = os.path.join(
+                self.root, "match_cashe_mdr.csv"
+            )
+            if not os.path.isfile(mdr_cashe):
+                df = pd.DataFrame(columns=["url", "match"])
+                df.to_csv(mdr_cashe, index=False)
 
     def _get_e_or_h_path(self, dir):
         if dir not in ("e", "h", "easy", "hard"):

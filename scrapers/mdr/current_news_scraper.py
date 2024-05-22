@@ -187,6 +187,18 @@ class MDREasyScraper(BaseScraper):
 
 
         return metadata, content, html
+    
+    def _cashe_match(self, url, match):
+        """
+        Cashe the match of an article to a csv file.
+
+        Args:
+            url (str): url of the article
+            match (str): match url of the article
+        """
+
+        with open('data/mdr/match_cashe_mdr.csv', 'a', encoding='utf-8') as file:
+            file.write(f'{url},{match}\n')
 
     def scrape(self) -> list:
         """
@@ -204,6 +216,11 @@ class MDREasyScraper(BaseScraper):
             logging.info(f'Scraping easy article: {article_url}')
 
             metadata, content, html = self._get_metadata_and_content(article_url)
+            
+            # cashe the match of the article in csv file
+            if metadata['match'] != None:
+                self._cashe_match(metadata['url'], metadata['match'])
+                
             # save the article to the database
             self.data_handler.save_article('easy', metadata, content, html, download_audio=True)
             # append to the list

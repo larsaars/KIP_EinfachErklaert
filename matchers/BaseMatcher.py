@@ -25,5 +25,5 @@ class BaseMatcher:
         self.data_handler = DataHandler(source)
         
     def write_match(self, easy, hard):
-        with open(self.file, "w", encoding="utf-8") as f:
-            f.write(f"{easy}, {hard}")
+        with open(self.file, "a", encoding="utf-8") as f:
+            f.write(f"{easy}, {hard}\n")
