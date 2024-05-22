@@ -173,8 +173,18 @@
 - Einführung KIGS für andere Gruppe
 
 ## Meeting 22.05.24
-- ideen wie wir wieder struktur rein bringen können
-- pläne fürs weitere vorgehen
+- Themen
+    - Ideen wie wir wieder Struktur rein bringen können
+    - Pläne fürs weitere Vorgehen
+- Besprochen
+    - Datensätze von DLF und Nachrichten Leicht verbinden -> Kombination aus mehreren Dingen: Stichworte, Metadaten (BERT)
+    - Was machen wir mit den MDR Daten?
+    - MDR ist bereits gematcht -> Testmenge
+- Aufgaben für nächste Woche
+    - Lars: Historischer MDR Scraper
+    - Felix: Check MDR matches; Matches mit [Sklearn](!matchers/_ideas/sklearn_matcher.py) möglich? 
+    - Ben: Logging in File schreiben; Insta captions scrapen; Matching über Keywords ohne KI
+    - Simon: Matching approaches anschauen allgemein; DLF <-> NL händisch als Testdaten matchen
 
 
 
