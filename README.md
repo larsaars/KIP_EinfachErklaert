@@ -1,31 +1,20 @@
 ## KIP_EinfachErklaert
 
 ### Table of contents
-1. [Ordnerschema](#ordner)
+1. [Datenstruktur](#ordner)
 2. [Quellen](#sources)
 3. [FAQ](#faq)
 
 <a name="ordner"></a>
-### 1. Ordnerschema 
+### 1. Datenstruktur  
+In folgender Ordnerstruktur werden die Daten der Scraper gespeichert. Die einheitliche der Daten übernimmt das Modul [DataHandler](services/DataHandler.py)
 
-```
-├── data
-│   ├── deutschlandfunk
-│   │   ├── easy
-│   │   │   ├── 2024-03-15-Bundes-Wehr_beteiligt_sich_an_Luft-Bruecke_fuer_den_Gaza-Streifen_
-│   │   │   │   ├── audio.mp3
-│   │   │   │   ├── content.txt
-│   │   │   │   └── metadata.json
-│   │   │   └── lookup_deutschlandfunk_easy.csv
-│   │   ├── hard
-│   │   │   ├── 2024-04-25-Angebliche_Drohnenangriffe_Belarus_erhebt_Vorwuerfe_gegen_Litauen_-_Dementi_aus_Vilnius
-│   │   │   │   ├── content.txt
-│   │   │   │   └── metadata.json
-│   │   │   └── lookup_deutschlandfunk_hard.csv
-│   │   ├── matches_deutschlandfunk.csv
-```
-
-Dabei kann `matchings.txt` die Relationen zwischen article ids herstellen.
+- Unterorder für jede **Nachrichtenquelle** (dlf, mdr)
+    - **Matches** (verbindet easy und hard)
+    - Unterordner für **easy** und **hard**
+        - **Lookup-File**
+        - Ordner für jeden **Artikel** (benannt nach Erscheinungsdatum und Titel.)
+            - **Metadaten**, **Content**, **Raw** (html), **Audio** (wenn verfügbar)
 
 <a name="sources"></a>
 ### 2. Quellen  
