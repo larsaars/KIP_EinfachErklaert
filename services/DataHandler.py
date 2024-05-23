@@ -189,7 +189,7 @@ class DataHandlerHelper(DataHandler):
             df.to_csv(self.lookup_hard_path, index=False)
             
         if source == "mdr":
-            self._init_mdr_chache(source)
+            self._init_mdr_cache()
 
 
     def _init_mdr_cache(self):

@@ -34,8 +34,8 @@ class SimpleMatcher(BaseMatcher):
             logging.info(f"Writing Match: {easy} with {hard}")
             self.write_match(easy, hard)
 
-    def check_mdr_match_cashe(self):
-        file = "data/mdr/match_cashe_mdr.csv"
+    def check_mdr_match_cache(self):
+        file = "data/mdr/match_cache_mdr.csv"
         lookup_hard = "data/mdr/hard/lookup_mdr_hard.csv"
         lookup_easy = "data/mdr/easy/lookup_mdr_easy.csv"
 
@@ -54,7 +54,7 @@ class SimpleMatcher(BaseMatcher):
                 self.match_by_hand(easy_url, hard_url)
                 rows_to_drop.append(idx)
 
-        # delete rows that are mateched from cashe
+        # delete rows that are mateched from cache
         match_cache_df.drop(rows_to_drop, inplace=True)
     
         if match_cache_df.empty:
@@ -69,4 +69,4 @@ if __name__ == "__main__":
         level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
     )
     matcher = SimpleMatcher("mdr")
-    matcher.check_mdr_match_cashe()
+    matcher.check_mdr_match_cache()
