@@ -57,7 +57,7 @@ class SimpleMatcher(BaseMatcher):
         # delete rows that are mateched from cache
         match_cache_df.drop(rows_to_drop, inplace=True)
     
-        if match_cache_df.empty:
+        if match_cache_df.empty and os.path.exists(file):
             os.remove(file)
             logging.info(f"Deleted empty file: {file}")
         else:

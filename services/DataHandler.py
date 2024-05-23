@@ -172,7 +172,7 @@ class DataHandlerHelper(DataHandler):
         if not os.path.isfile(csv_path):
             df = pd.DataFrame(columns=["easy", "hard"])
             df.to_csv(csv_path, index=False)
-
+    
         # init lookup
         self.lookup_easy_path = os.path.join(
             self.root, "easy", "lookup_" + source + "_easy.csv"
