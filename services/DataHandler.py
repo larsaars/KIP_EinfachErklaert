@@ -192,7 +192,7 @@ class DataHandlerHelper(DataHandler):
             self._init_mdr_chache(source)
 
 
-    def _init_mdr_chache(self, source):
+    def _init_mdr_cache(self):
         mdr_cache = os.path.join(self.root, "match_cache_mdr.csv")
         if not os.path.isfile(mdr_cache):
             df = pd.DataFrame(columns=["url", "match"])
@@ -312,6 +312,6 @@ class DataHandlerHelper(DataHandler):
             url (str): url of the article
             match (str): match url of the article
         """
-        self._init_mdr_chache(source)
+        self._init_mdr_cache()
         with open("data/mdr/match_cache_mdr.csv", "a", encoding="utf-8") as file:
             file.write(f"{url},{match}\n")

@@ -13,7 +13,7 @@ sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split())
 
 # paths
 base_folder = 'data/mdr/easy'
-output_file = 'data/mdr/match_cashe_mdr.csv'
+output_file = 'data/mdr/match_cache_mdr.csv'
 
 data_list = []
 
