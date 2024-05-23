@@ -1,28 +1,21 @@
 ## KIP_EinfachErklaert
 
-### Table of contents
-1. [Datenstruktur](#ordner)
-2. [Quellen](#sources)
-3. [FAQ](#faq)
-
-<a name="ordner"></a>
 ### 1. Datenstruktur  
-In folgender Ordnerstruktur werden die Daten der Scraper gespeichert. Die einheitliche der Daten übernimmt das Modul [DataHandler](services/DataHandler.py)
+In folgender Ordnerstruktur werden die Daten der Scraper gespeichert. Die einheitliche Verwaltung der Daten übernimmt das Modul [DataHandler](services/DataHandler.py)
 
-- Unterorder für jede **Nachrichtenquelle** (dlf, mdr)
-    - **Matches** (verbindet easy und hard)
-    - Unterordner für **easy** und **hard**
-        - **Lookup-File**
-        - Ordner für jeden **Artikel** (benannt nach Erscheinungsdatum und Titel.)
-            - **Metadaten**, **Content**, **Raw** (html), **Audio** (wenn verfügbar)
+- data
+    - Unterorder für jede **Nachrichtenquelle** (dlf, mdr)
+        - **Matches** (verbindet easy und hard)
+        - Unterordner für **easy** und **hard**
+            - **Lookup-File**
+            - Ordner für jeden **Artikel** (benannt nach Erscheinungsdatum und Titel.)
+                - **Metadaten**, **Content**, **Raw** (html), **Audio** (wenn verfügbar)
 
-<a name="sources"></a>
 ### 2. Quellen  
 
 - [nachrichtenleicht](https://nachrichtenleicht.de) und [deutschlandfunk](https://deutschlandfunk.de)
 - [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) und [MDR](https://www.mdr.de/nachrichten/index.html)
 
-<a name="faq"></a>
 ### 3. FAQ 
 
 - Was ist die Abgabe? Datensatz? Scraping Tool? Matching Tool?

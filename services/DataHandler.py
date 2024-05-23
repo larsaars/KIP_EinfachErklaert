@@ -102,9 +102,9 @@ class DataHandler:
         self.helper._save_metadata(metadata, dir_path)
         self.helper._save_html(html, dir_path)
 
-        # cashe mdr matches
+        # cache mdr matches
         if self.source == "mdr" and dir in ["e", "easy"] and  metadata["match"] != None:
-            self.helper._cashe_match(metadata["url"], metadata["match"])
+            self.helper._cache_match(self.source, metadata["url"], metadata["match"])
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
 
@@ -187,12 +187,16 @@ class DataHandlerHelper(DataHandler):
         if not os.path.isfile(self.lookup_hard_path):
             df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_hard_path, index=False)
-
+            
         if source == "mdr":
-            mdr_cashe = os.path.join(self.root, "match_cashe_mdr.csv")
-            if not os.path.isfile(mdr_cashe):
-                df = pd.DataFrame(columns=["url", "match"])
-                df.to_csv(mdr_cashe, index=False)
+            self._init_mdr_chache(source)
+
+
+    def _init_mdr_chache(self, source):
+        mdr_cache = os.path.join(self.root, "match_cache_mdr.csv")
+        if not os.path.isfile(mdr_cache):
+            df = pd.DataFrame(columns=["url", "match"])
+            df.to_csv(mdr_cache, index=False)
 
     def _get_e_or_h_path(self, dir):
         if dir not in ("e", "h", "easy", "hard"):
@@ -300,14 +304,14 @@ class DataHandlerHelper(DataHandler):
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(html)
 
-    def _cashe_match(self, url, match):
+    def _cache_match(self, source, url, match):
         """
-        Cashe the match of an article to a csv file.
+        cache the match of an article to a csv file.
 
         Args:
             url (str): url of the article
             match (str): match url of the article
         """
-
-        with open("data/mdr/match_cashe_mdr.csv", "a", encoding="utf-8") as file:
+        self._init_mdr_chache(source)
+        with open("data/mdr/match_cache_mdr.csv", "a", encoding="utf-8") as file:
             file.write(f"{url},{match}\n")
