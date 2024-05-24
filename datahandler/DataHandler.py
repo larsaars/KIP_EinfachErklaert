@@ -73,7 +73,7 @@ class DataHandler:
         Args:
             dir (str): The directory to retrieve all articles from.
         """
-        dir_path = self._get_e_or_h_path(dir)
+        dir_path = self.helper._get_e_or_h_path(dir)
         n = self.helper._dir_len(dir_path)
         return self.head(dir, n)
 
