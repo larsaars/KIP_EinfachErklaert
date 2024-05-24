@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
 
-"""
-Scrapes the current articles from WDR (easy & hard language) and saves them to the database.
-"""
-
 import sys
 import os
 import logging
@@ -19,7 +15,7 @@ from bs4 import BeautifulSoup
 
 """Scrapes the current easy and hard articles of MDR from easy language feed url on top of the MDRBaseScraper class"""
 class MDRCurrentScraper(MDRBaseScraper):
-    def __init__(self, driver=None): 
+    def __init__(self): 
         super().__init__()
 
         # init the soup object for the feed of the easy articles
@@ -60,6 +56,7 @@ class MDRCurrentScraper(MDRBaseScraper):
             logging.info(f'Scraping easy article: {easy_article_url}')
 
             # TODO could do the scraper matching connection better here
+            # TODO should the easy article even be saved, if there is no match?
         
             # get the metadata, content and html
             easy_metadata, easy_content, easy_html = self._get_easy_article_metadata_and_content(easy_article_url)
@@ -70,7 +67,7 @@ class MDRCurrentScraper(MDRBaseScraper):
             # with the match url get the hard language article
             hard_article_url = easy_metadata['match']
 
-            logging.info('Scraping the hard article: {hard_article_url}')
+            logging.info(f'Scraping the hard article: {hard_article_url}')
 
             hard_metadata, hard_content, hard_html = self._get_hard_article_metadata_and_content(hard_article_url)
 

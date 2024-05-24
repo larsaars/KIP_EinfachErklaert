@@ -292,5 +292,6 @@ class MDRBaseScraper(BaseScraper):
 
     def __del__(self):
         # destroy webdriver
-        self._driver.quit()
+        if hasattr(self, '_driver'):
+            self._driver.quit()
     
