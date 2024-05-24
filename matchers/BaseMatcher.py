@@ -3,7 +3,7 @@ import sys
 # import root dir to easily import data handler
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(root_dir)
-from services.DataHandler import DataHandler
+from datahandler.DataHandler import DataHandler
 
 class BaseMatcher:
 

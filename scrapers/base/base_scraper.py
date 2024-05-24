@@ -11,7 +11,7 @@ import subprocess
 # add git root dir to the python path to enable importing services modules
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 
-from services.DataHandler import DataHandler
+from datahandler.DataHandler import DataHandler
 from bs4 import BeautifulSoup
 import requests
 
