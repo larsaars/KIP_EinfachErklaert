@@ -1,7 +1,7 @@
 #TODO: make captions saveable
 
 import instaloader
-import services.DataHandler as DataHandler
+import datahandler.DataHandler as DataHandler
 
 L = instaloader.Instaloader()
 username = "nachrichtenleicht"

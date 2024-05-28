@@ -36,6 +36,7 @@ class DataHandler:
                 f"Invalid source '{source}'. Valid sources are 'dlf' and 'mdr'."
             )
 
+        self.source = source
         self.root = os.path.join(git_root, "data", source)
         self.helper = DataHandlerHelper(self.root)
         self.helper._init_files_and_dirs(source)
@@ -72,7 +73,7 @@ class DataHandler:
         Args:
             dir (str): The directory to retrieve all articles from.
         """
-        dir_path = self._get_e_or_h_path(dir)
+        dir_path = self.helper._get_e_or_h_path(dir)
         n = self.helper._dir_len(dir_path)
         return self.head(dir, n)
 
@@ -100,6 +101,10 @@ class DataHandler:
         self.helper._save_content(content, dir_path)
         self.helper._save_metadata(metadata, dir_path)
         self.helper._save_html(html, dir_path)
+
+        # cache mdr matches
+        if self.source == "mdr" and dir in ["e", "easy"] and  metadata["match"] != None:
+            self.helper._cache_match(self.source, metadata["url"], metadata["match"])
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
 
@@ -167,7 +172,7 @@ class DataHandlerHelper(DataHandler):
         if not os.path.isfile(csv_path):
             df = pd.DataFrame(columns=["easy", "hard"])
             df.to_csv(csv_path, index=False)
-
+    
         # init lookup
         self.lookup_easy_path = os.path.join(
             self.root, "easy", "lookup_" + source + "_easy.csv"
@@ -182,6 +187,16 @@ class DataHandlerHelper(DataHandler):
         if not os.path.isfile(self.lookup_hard_path):
             df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_hard_path, index=False)
+            
+        if source == "mdr":
+            self._init_mdr_cache()
+
+
+    def _init_mdr_cache(self):
+        mdr_cache = os.path.join(self.root, "match_cache_mdr.csv")
+        if not os.path.isfile(mdr_cache):
+            df = pd.DataFrame(columns=["url", "match"])
+            df.to_csv(mdr_cache, index=False)
 
     def _get_e_or_h_path(self, dir):
         if dir not in ("e", "h", "easy", "hard"):
@@ -254,11 +269,13 @@ class DataHandlerHelper(DataHandler):
             "Ü": "Ue",
             "ß": "ss",
         }
-        #chars that will be removed
+        # chars that will be removed
         invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}\0\n\t\r')
         cleaned_string = "".join(
             # if c is not it dict use c else use the value of the dict
-            replace_mapping.get(c, c) for c in input_string if c not in invalid_chars
+            replace_mapping.get(c, c)
+            for c in input_string
+            if c not in invalid_chars
         )
         return cleaned_string
 
@@ -286,3 +303,15 @@ class DataHandlerHelper(DataHandler):
         filepath = os.path.join(filepath, "raw.html")
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(html)
+
+    def _cache_match(self, source, url, match):
+        """
+        cache the match of an article to a csv file.
+
+        Args:
+            url (str): url of the article
+            match (str): match url of the article
+        """
+        self._init_mdr_cache()
+        with open("data/mdr/match_cache_mdr.csv", "a", encoding="utf-8") as file:
+            file.write(f"{url},{match}\n")

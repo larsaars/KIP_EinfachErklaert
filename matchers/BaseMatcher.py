@@ -3,7 +3,7 @@ import sys
 # import root dir to easily import data handler
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(root_dir)
-from services.DataHandler import DataHandler
+from datahandler.DataHandler import DataHandler
 
 class BaseMatcher:
 
@@ -25,5 +25,5 @@ class BaseMatcher:
         self.data_handler = DataHandler(source)
         
     def write_match(self, easy, hard):
-        with open(self.file, "w", encoding="utf-8") as f:
-            f.write(f"{easy}, {hard}")
+        with open(self.file, "a", encoding="utf-8") as f:
+            f.write(f"{easy}, {hard}\n")

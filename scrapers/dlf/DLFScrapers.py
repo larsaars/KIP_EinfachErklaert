@@ -13,7 +13,7 @@ import subprocess
 # add git root dir to the python path to enable importing services modules
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 
-from services.DataHandler import DataHandler
+from datahandler.DataHandler import DataHandler
 
 from scrapers.base.base_scraper import BaseScraper, base_metadata_dict, base_audio_dict
 from bs4 import BeautifulSoup
@@ -26,7 +26,9 @@ nl_feed_url  = "https://www.nachrichtenleicht.de/api/partials/PaginatedArticles_
 
 class DeutschlandradioScraper(BaseScraper):
     def __init__(self, feed_url, difficulty):
-        super().__init__(feed_url, "dlf")
+        super().__init__("dlf")
+        self.feed_url = feed_url
+        self.feed_soup = self._get_soup(feed_url)
         self.difficulty_level = difficulty
 
     def _fetch_articles_from_feed(self) -> list:

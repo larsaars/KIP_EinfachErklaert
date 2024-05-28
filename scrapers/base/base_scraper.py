@@ -5,15 +5,18 @@ Base scraper interface and some utility funcitons. Takes care of basic functioni
 """
 
 import sys
+import logging
 import subprocess
 
 # add git root dir to the python path to enable importing services modules
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 
-from services.DataHandler import DataHandler
+from datahandler.DataHandler import DataHandler
 from bs4 import BeautifulSoup
 import requests
 
+# configure logging
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def base_metadata_dict():
     """
@@ -44,7 +47,7 @@ def base_audio_dict():
 
 
 class BaseScraper:
-    def __init__(self, feed_url, data_handler_source=None):
+    def __init__(self, data_handler_source=None):
         """
         Initialize the BaseScraper.
 
@@ -52,13 +55,6 @@ class BaseScraper:
             feed_url (str): url of the page to scrape
             data_handler_source (str): source of the data handler
         """
-
-        self.feed_url = feed_url
-
-        if feed_url is None:
-            self.feed_soup = None
-        else:
-            self.feed_soup = self._get_soup(feed_url)
 
         self.data_handler = DataHandler(data_handler_source)
 
