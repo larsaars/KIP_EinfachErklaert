@@ -13,7 +13,7 @@ dh = DataHandler.DataHandler('dlf')
 def metadata_dict(post: instaloader.Post) -> dict:
     return {
         "url": post.url,
-        "title": "" if post.title is None else post.title,
+        "title": post.caption.split()[:7] if post.title is None else post.title,
         "kicker": "",
         "date": post.date_utc.strftime("%Y-%m-%d"),
         "description": "",
@@ -23,4 +23,5 @@ def metadata_dict(post: instaloader.Post) -> dict:
 
 
 for post in profile.get_posts():
-    dh.save_article("easy", metadata_dict(post), post.caption, "", download_audio=False)
+    # dh.save_article("easy", metadata_dict(post), post.caption, "", download_audio=False)
+    print(metadata_dict(post))
