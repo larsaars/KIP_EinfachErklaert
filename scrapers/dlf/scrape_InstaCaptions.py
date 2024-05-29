@@ -20,7 +20,7 @@ def text_from_image(url):
 
 
 def base_metadata_dict(post: instaloader.Post) -> dict:
-    metadata = {"title": text_from_image(post.),
+    metadata = {"title": text_from_image(post.url),
                 "description": post.caption,
                 "url": post.url,
                 "date": post.date_utc.strftime("%Y-%m-%d"),
