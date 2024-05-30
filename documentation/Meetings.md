@@ -185,6 +185,28 @@
     - Felix: Check MDR matches; Matches mit [Sklearn](!matchers/_ideas/sklearn_matcher.py) möglich? 
     - Ben: Logging in File schreiben; Insta captions scrapen; Matching über Keywords ohne KI
     - Simon: Matching approaches anschauen allgemein; DLF <-> NL händisch als Testdaten matchen
+    - 
+## Meeting 30.05.24
+
+- Felix:
+    - Repo aufgeräumt
+    - Problem mit SKLearn Matching Ansatz
+- Simon: sein Matching Ansatz
+- was wir bis zum Ende machen müssen:
+    - Datenbank joinen mit anderem Team (sie machen das auch mit dem DataHandler) (sprechen mit Baumann nächsten Montag)
+    - Matchings testen
+          - LLM (Ben und Lars)
+          - TF-IDF (Simon)
+          - irgendwas anderes DL (N/A)
+    - Dokumentation oder QuickStart schreiben (Felix)
+    - Poster (LibreOffice, mit Vorlage) und Abschlussbericht (letzte 2 Wochen)
+- Aufgaben für nächste Woche
+    - Felix: QuickStart guide fürs Repo schreiben im README, DataHandler Pfade zu ASCII und Texte zu UTF8)
+    - Lars: MDR scraper komplett zum laufen bringen (historischen laufen lassen, current scraper verbinden mit SimpleMatcher, keep saving easy articles without match)
+    - Simon: TF-IDF Matching Ansatz verfolgen
+    - Ben, Simon, Lars: zum Baumann: andere Gruppe wir haben Kontakt gesucht, LLM Ansatz, DL andere Ansatz? hilf uns Baumann!
+    - Ben und Lars: LLM learning ansatz zum matchen (bzw. was der Baumann eben gesagt hat beim Treffen)
+
 
 
 
