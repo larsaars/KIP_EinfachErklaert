@@ -313,5 +313,6 @@ class DataHandlerHelper(DataHandler):
             match (str): match url of the article
         """
         self._init_mdr_cache()
-        with open("data/mdr/match_cache_mdr.csv", "a", encoding="utf-8") as file:
+        path = os.path.join(self.root, "match_cache_mdr.csv")
+        with open(path, "a", encoding="utf-8") as file:
             file.write(f"{url},{match}\n")
