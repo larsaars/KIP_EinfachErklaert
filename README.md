@@ -29,7 +29,7 @@ cd KIP_EinfachErklaert
 pip install -r requirements.txt
 ```
 
-### Scrapers
+#### Scrapers
 | **File**| **Functionality** |
 ----------|-------------------|
 | [`scrapers/dlf/scrape_Deutschlandfunk.py`](scrapers/dlf/scrape_Deutschlandfunk.py)| Scrapes current articles from Deutschlandfunk.|

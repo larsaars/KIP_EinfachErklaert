@@ -103,8 +103,9 @@ class DataHandler:
         self.helper._save_html(html, dir_path)
 
         # cache mdr matches
-        if self.source == "mdr" and dir in ["e", "easy"] and  metadata["match"] != None:
-            self.helper._cache_match(self.source, metadata["url"], metadata["match"])
+        # HACK: This was a hack to cache the matches of the MDR articles -> not needed anymore
+        # if self.source == "mdr" and dir in ["e", "easy"] and  metadata["match"] != None:
+        #     self.helper._cache_match(self.source, metadata["url"], metadata["match"])
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
 
