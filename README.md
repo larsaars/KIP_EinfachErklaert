@@ -1,34 +1,45 @@
 ## KIP_EinfachErklaert
 
-### 1. Datenstruktur  
-In folgender Ordnerstruktur werden die Daten der Scraper gespeichert. Die einheitliche Verwaltung der Daten übernimmt das Modul [DataHandler](services/DataHandler.py)
+### General
+
+Sources for the articles are:
+
+- [Nachrichtenleicht](https://nachrichtenleicht.de), [Nachrichtenleicht auf Instagram](https://www.instagram.com/nachrichtenleicht/) and [Deutschlandfunk](https://deutschlandfunk.de)
+- [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) and [MDR](https://www.mdr.de/nachrichten/index.html)
+
+![Pipeline](./documentation/images/pipe.png)
+
+### Scraped Data
+
+The [DataHandler](datahandler/DataHandler.py) module is responsible for managing the scraped data uniformly. The data is stored in following structure in the git root.
 
 - data
-    - Unterorder für jede **Nachrichtenquelle** (dlf, mdr)
-        - **Matches** (verbindet easy und hard)
-        - Unterordner für **easy** und **hard**
+    - Subfolder for each **News Source** (dlf, mdr)
+        - **Matches** (links easy and hard versions)
+        - Subfolders for **easy** and **hard** versions
             - **Lookup-File**
-            - Ordner für jeden **Artikel** (benannt nach Erscheinungsdatum und Titel.)
-                - **Metadaten**, **Content**, **Raw** (html), **Audio** (wenn verfügbar)
+            - Folder for each **Article** (named after the publication date and title)
+                - **Metadata**, **Content**, **Raw** (html), **Audio** (if available)
 
-### 2. Quellen  
+### Quickstart Guide
+#### Installation
+```bash
+git clone https://github.com/larsaars/KIP_EinfachErklaert.git
+cd KIP_EinfachErklaert
+pip install -r requirements.txt
+```
 
-- [nachrichtenleicht](https://nachrichtenleicht.de) und [deutschlandfunk](https://deutschlandfunk.de)
-- [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) und [MDR](https://www.mdr.de/nachrichten/index.html)
-
-### 3. FAQ 
-
-- Was ist die Abgabe? Datensatz? Scraping Tool? Matching Tool?
-> abzugeben ist alles was wir machen, also so wie wir dachten das matching tool und auch noch alle modelle die danach entstehen sollten wir so weit kommen
-
-- Soll eine KI Verarbeitung statt finden, oder nur Aufbau des Datensatzes egal wie?
-> ja er meinte wir können alles was uns hilfreich erscheint mit einbeziehen und hält es auch mit KI für am schlausten  
-
-- Sollen wir zwischen verschienen Seiten matchen, oder immer nur zwischen gleichen Anbieter (z.B Deutschlandfunk zu einfache Nachrichten).
-> nein, nur die "anbieterpaare" also zb Nachrichten leicht und DF
-
-- Soll der Scraper historische Daten abgreifen oder immer nur die aktuellsten Artikel?
-> beides wenn möglich, zwei einzelne scraper
+### Scrapers
+| **File**| **Functionality** |
+----------|-------------------|
+| [`scrapers/dlf/scrape_Deutschlandfunk.py`](scrapers/dlf/scrape_Deutschlandfunk.py)| Scrapes current articles from Deutschlandfunk.|
+| [`scrapers/dlf/scrape_Nachrichtenleicht.py`](scrapers/dlf/scrape_Nachrichtenleicht.py)| Scrapes current articles from Nachrichtenleicht.|
+| [`scrapers/dlf/scrape_InstaCaptions.py`](scrapers/dlf/scrape_InstaCaptions.py)| Scrapes Instagram captions and metadata from the "nachrichtenleicht" profile.|
+| [`scrapers/mdr/current_news_scraper.py`](scrapers/mdr/current_news_scraper.py)| Scrapes current easy and hard articles from MDR.|
+| [`scrapers/mdr/historic_news_scraper.py`](scrapers/mdr/historic_news_scraper.py)| Scrapes historic easy and hard articles from MDR.|
+| [`matchers/SimpleMatcher.py`](matchers/SimpleMatcher.py) | Manually matches articles or checks the MDR match cache.|
+| [`datahandler/reformat_date.py`](datahandler/reformat_date.py)| Renames directories by reformatting date strings in their names.|
+| [`datahandler/DataHandler.py`](datahandler/DataHandler.py) | Handles reading, writing, and searching articles, including managing metadata, content, and audio files.|
 
 
 
