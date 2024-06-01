@@ -140,8 +140,16 @@ class MDRBaseScraper(BaseScraper):
 
         # fill the base metadata dict
         metadata['url'] = url  # source url
-        metadata['title'] = soup.find('span', class_='headline').text  # title
-        metadata['kicker'] = soup.find('span', class_='dachzeile').text  # kicker
+
+        try:
+            metadata['title'] = soup.find('span', class_='headline').text  # title
+        except Exception:
+            logging.error('Error while parsing title')
+
+        try:
+            metadata['kicker'] = soup.find('span', class_='dachzeile').text  # kicker
+        except Exception:
+            logging.error('Error while parsing kicker')
 
         # try to get the date and format it (MM-DD-YYYY)
         try:

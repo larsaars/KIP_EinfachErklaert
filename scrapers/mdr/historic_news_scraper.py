@@ -25,7 +25,7 @@ class MDRHistoricScraper(MDRBaseScraper):
         self.matcher = SimpleMatcher('mdr')
 
         # init vars needed by _get_next_api_results
-        self._api_results_start_index = 0
+        self._api_results_start_index = 30
 
         # init white list of which link types are allowed
         self._api_white_list = [
@@ -119,14 +119,14 @@ class MDRHistoricScraper(MDRBaseScraper):
 
                 hard_article_url = easy_metadata['match']
 
-                # if no hard match has been found, skip saving 
-                # easy article and scraping hard
-                if hard_article_url == None:
-                    continue
 
                 # save the article to the database
                 self.data_handler.save_article('easy', easy_metadata, easy_content, easy_html, download_audio=True)
 
+                # if no hard match has been found, skip scraping hard article
+                # but still save easy article
+                if hard_article_url == None:
+                    continue
 
                 # scrape hard article
                 logging.info(f'Scraping the hard article: {hard_article_url}')
