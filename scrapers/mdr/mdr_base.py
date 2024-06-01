@@ -33,7 +33,7 @@ class MDRBaseScraper(BaseScraper):
         self._driver = self._init_selenium()  # init selenium webdriver
 
         # dict to map month names to numbers for date formatting
-        month_mapping = {
+        self.month_mapping = {
             'Januar': '01',
             'Februar': '02',
             'März': '03',

@@ -1,4 +1,3 @@
-from BaseMatcher import BaseMatcher
 import os
 import sys
 import subprocess
@@ -11,6 +10,8 @@ sys.path.append(
     .decode("utf-8")
     .strip()
 )
+
+from matchers.BaseMatcher import BaseMatcher
 
 
 class SimpleMatcher(BaseMatcher):

@@ -10,6 +10,7 @@ import json
 
 from mdr_base import MDRBaseScraper
 from bs4 import BeautifulSoup
+from matchers.SimpleMatcher import SimpleMatcher
 
 
 
@@ -22,6 +23,9 @@ class MDRCurrentScraper(MDRBaseScraper):
         # a soup for the hard articles is not needed since
         # they are referred to by easy articles
         self._easy_feed_soup = self._get_soup('https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html')
+
+        # create a simple matcher object
+        self.matcher = SimpleMatcher('mdr')
 
     def _fetch_easy_articles_from_feed(self) -> list:
         """
@@ -55,7 +59,6 @@ class MDRCurrentScraper(MDRBaseScraper):
         for easy_article_url in self._fetch_easy_articles_from_feed():
             logging.info(f'Scraping easy article: {easy_article_url}')
 
-            # TODO could do the scraper matching connection better here
         
             # get the metadata, content and html
             easy_metadata, easy_content, easy_html = self._get_easy_article_metadata_and_content(easy_article_url)
@@ -80,7 +83,8 @@ class MDRCurrentScraper(MDRBaseScraper):
             # save the hard article to the database
             self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html, download_audio=True)
 
-
+            # match the articles via simple matcher function
+            self.matcher.match_by_hand(easy_article_url, hard_article_url)
 
 
 
