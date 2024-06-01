@@ -152,5 +152,11 @@ class MDRHistoricScraper(MDRBaseScraper):
 
 if __name__ == '__main__':
     # scrape current MDR articles
-    MDRHistoricScraper().scrape()
+    try:
+        MDRHistoricScraper().scrape()
+        # don't ignore keyboard interrupts by other exceptions
+    except KeyboardInterrupt:
+        logging.info('Interrupted by user.')
+        sys.exit(0)
+
 
