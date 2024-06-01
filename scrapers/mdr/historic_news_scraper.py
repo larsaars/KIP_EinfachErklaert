@@ -12,12 +12,17 @@ import json
 from mdr_base import MDRBaseScraper
 from bs4 import BeautifulSoup
 
+from matchers.SimpleMatcher import SimpleMatcher
+
 
 
 """Scrapes the historic easy and hard articles of MDR with the help of the search API on top of the MDRBaseScraper class"""
 class MDRHistoricScraper(MDRBaseScraper):
     def __init__(self): 
         super().__init__()
+
+        # create a simple matcher object
+        self.matcher = SimpleMatcher('mdr')
 
         # init vars needed by _get_next_api_results
         self._api_results_start_index = 0
@@ -129,6 +134,8 @@ class MDRHistoricScraper(MDRBaseScraper):
                 self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html, download_audio=True)
 
 
+                # match the articles via simple matcher function
+                self.matcher.match_by_hand(easy_article_url, hard_article_url)
 
 
 
