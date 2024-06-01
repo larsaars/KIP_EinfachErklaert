@@ -207,7 +207,7 @@
     - Poster (LibreOffice, mit Vorlage) und Abschlussbericht (letzte 2 Wochen)
 - Aufgaben für nächste Woche:
     - Felix: QuickStart guide fürs Repo schreiben im README, DataHandler Pfade zu ASCII und Texte zu UTF8
-    - Lars: MDR scraper komplett zum laufen bringen (historischen laufen lassen, current scraper verbinden mit SimpleMatcher, keep saving easy articles without match)
+    - Lars: MDR scraper komplett zum laufen bringen (historischen laufen lassen, current scraper verbinden mit SimpleMatcher, keep saving easy articles without match, error parsing date everywhere)
     - Simon: TF-IDF Matching Ansatz verfolgen
     - Ben: seine Ansätze
     - Ben, Simon, Lars: zum Baumann: andere Gruppe wir haben Kontakt gesucht, LLM Ansatz, DL andere Ansatz? hilf uns Baumann!
