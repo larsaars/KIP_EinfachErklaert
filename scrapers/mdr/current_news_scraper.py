@@ -1,12 +1,8 @@
 #!/usr/bin/env python3
 
-import sys
-import os
 import logging
-import subprocess
 
 from time import sleep
-import json
 
 from mdr_base import MDRBaseScraper
 from bs4 import BeautifulSoup

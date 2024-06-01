@@ -1,20 +1,10 @@
 #!/usr/bin/env python3
 
-import sys
-import os
 import logging
-import subprocess
-
-from time import sleep
 import requests
-import json
-
 from mdr_base import MDRBaseScraper
-from bs4 import BeautifulSoup
 
 from matchers.SimpleMatcher import SimpleMatcher
-
-
 
 """Scrapes the historic easy and hard articles of MDR with the help of the search API on top of the MDRBaseScraper class"""
 class MDRHistoricScraper(MDRBaseScraper):
