@@ -5,6 +5,7 @@ import requests
 import logging
 from datetime import datetime
 import subprocess
+import ftfy
 
 
 class DataHandler:
@@ -87,6 +88,7 @@ class DataHandler:
             download_audio (bool): Whether to download audio files associated with the article.
             html (str): The raw html content of the article
         """
+        # some matchers give back non utf8 chars which causes problems especially with pandas
         path = self.helper._get_e_or_h_path(dir)
         dir_path = self.helper._create_filepath(
             path, metadata["date"], metadata["title"]
@@ -102,10 +104,6 @@ class DataHandler:
         self.helper._save_metadata(metadata, dir_path)
         self.helper._save_html(html, dir_path)
 
-        # cache mdr matches
-        # HACK: This was a hack to cache the matches of the MDR articles -> not needed anymore
-        # if self.source == "mdr" and dir in ["e", "easy"] and  metadata["match"] != None:
-        #     self.helper._cache_match(self.source, metadata["url"], metadata["match"])
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
 
@@ -271,7 +269,7 @@ class DataHandlerHelper(DataHandler):
             "ß": "ss",
         }
         # chars that will be removed
-        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}\0\n\t\r')
+        invalid_chars = set('<>:"/\\|?*.,!§$%&/(){[]}\0\n\t\r\u2013')
         cleaned_string = "".join(
             # if c is not it dict use c else use the value of the dict
             replace_mapping.get(c, c)
@@ -304,16 +302,4 @@ class DataHandlerHelper(DataHandler):
         filepath = os.path.join(filepath, "raw.html")
         with open(filepath, "w", encoding="utf-8") as file:
             file.write(html)
-
-    def _cache_match(self, source, url, match):
-        """
-        cache the match of an article to a csv file.
-
-        Args:
-            url (str): url of the article
-            match (str): match url of the article
-        """
-        self._init_mdr_cache()
-        path = os.path.join(self.root, "match_cache_mdr.csv")
-        with open(path, "a", encoding="utf-8") as file:
-            file.write(f"{url},{match}\n")
+            
