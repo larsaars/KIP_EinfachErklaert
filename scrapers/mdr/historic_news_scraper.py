@@ -79,6 +79,8 @@ class MDRHistoricScraper(MDRBaseScraper):
         # update api start index
         self._api_results_start_index += 30
 
+        logging.info(f'Found {len(self._api_results)} articles in search results. Continuing to next page.')
+
         return self._api_results_start_index < 12000
 
     def scrape(self):
