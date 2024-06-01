@@ -30,7 +30,9 @@ class MDRHistoricScraper(MDRBaseScraper):
             'audio',
             'woerterbuch',
             'spezial',
-            'rueckblick'
+            'rueckblick',
+            'nachrichten-in-leichter-sprache',
+            'index.html'
         ]
 
     def _get_next_api_results(self) -> bool:
@@ -99,7 +101,11 @@ class MDRHistoricScraper(MDRBaseScraper):
                 logging.info(f'Scraping easy article: {easy_article_url}')
 
                 # get the metadata, content and html
-                easy_metadata, easy_content, easy_html = self._get_easy_article_metadata_and_content(easy_article_url)
+                try:
+                    easy_metadata, easy_content, easy_html = self._get_easy_article_metadata_and_content(easy_article_url)
+                except Exception as e:
+                    logging.error(f'Error while scraping easy article: {e}')
+                    continue
 
                 hard_article_url = easy_metadata['match']
 
@@ -115,7 +121,12 @@ class MDRHistoricScraper(MDRBaseScraper):
                 # scrape hard article
                 logging.info(f'Scraping the hard article: {hard_article_url}')
 
-                hard_metadata, hard_content, hard_html = self._get_hard_article_metadata_and_content(hard_article_url)
+                try:
+                    hard_metadata, hard_content, hard_html = self._get_hard_article_metadata_and_content(hard_article_url)
+                except Exception as e:
+                    logging.error(f'Error while scraping hard article: {e}')
+                    continue
+
 
                 # write the match url string in hard article metadata
                 hard_metadata['match'] =  easy_article_url
@@ -131,5 +142,11 @@ class MDRHistoricScraper(MDRBaseScraper):
 
 if __name__ == '__main__':
     # scrape current MDR articles
-    MDRHistoricScraper().scrape()
+    try:
+        MDRHistoricScraper().scrape()
+        # don't ignore keyboard interrupts by other exceptions
+    except KeyboardInterrupt:
+        logging.info('Interrupted by user.')
+        sys.exit(0)
+
 
