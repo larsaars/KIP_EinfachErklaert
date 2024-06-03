@@ -21,15 +21,21 @@ Modules may be used individually as needed. The current simplified pipeline is:
 
 The project uses a custom data structure consisting of folders and files (txt, json, csv, html, mp3) to store the scraped data. The data is stored in the git root directory like:
 
-- data
-    - Subfolder for each **News Source** (dlf, mdr)
-        - **Matches** (csv, that links easy and hard versions)
-        - Subfolders for **easy** and **hard** versions
-            - **Lookup-File** (csv, containig url and path for quick search)
-            - Folder for each **Article** (named after the publication date and title)
-                - **Metadata** (json), **Content** (txt), **Raw** (html), **Audio** (mp3, if available)
+```
+data/
+├── <source>/ (dlf or mdr)
+│   ├── matches_<source>.csv
+│   ├── <language niveau>/ (easy or hard)
+│   │   ├── lookup_<source>_<niveau>.csv
+│   │   ├── 2023-06-01-Sample_Article/
+│   │   │   ├── Metadata.json
+│   │   │   ├── Content.txt
+│   │   │   ├── Raw.html
+│   │   │   └── Audio.mp3 (if available)
+```
 
-### User Guide
+### Developer Guide
+
 #### Installation
 ```bash
 git clone https://github.com/larsaars/KIP_EinfachErklaert.git
@@ -37,10 +43,8 @@ cd KIP_EinfachErklaert
 pip install -r requirements.txt
 ```
 
-In the follwing some further explanation on the modules.
 #### Scrapers
 
-Scrapers
 The scrapers are designed to be executed on a regular basis (e.g., by weekly cron jobs on a server). The following table shows the most important scrapers with a short explanation and frequency:
 
 | **File**| **Functionality** |
@@ -52,9 +56,11 @@ The scrapers are designed to be executed on a regular basis (e.g., by weekly cro
 | [`scrapers/mdr/historic_news_scraper.py`](scrapers/mdr/historic_news_scraper.py)| Scrapes historic easy and hard articles from MDR |
 
 #### DataHandler
+
 The DataHandler is not an executable but a module to use when further developing scrapers or matcher and dealing with data storage (read, write search). Examples how to use the DataHandler can be found [here](./datahandler/datahandler_examples.ipynb).
 
 #### Matchers
+
 Work in progress
 
 
