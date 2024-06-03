@@ -213,6 +213,9 @@
     - Ben, Simon, Lars: zum Baumann: andere Gruppe wir haben Kontakt gesucht, LLM Ansatz, DL andere Ansatz? hilf uns Baumann!
     - Ben und Lars: LLM learning ansatz zum matchen (bzw. was der Baumann eben gesagt hat beim Treffen)
 
+### Meeting 05.06.24
+- Fürs README: Wie lange reichen die Scraper zurück?
+
 
 
 
