@@ -2,16 +2,16 @@
 
 ### General
 
-This project was developed as part of the "KI-Projekt" course during the summer term of 2024 at OTH Regensburg. It is designed to be used for scientific research. The goal of the project is to scrape and match german news articles from sources that provide content in both easy (in German: "leichte" or "einfache Sprache") and standard language. For simplicity, we refer to the articles as **easy** or **hard**. Currently supported sources for the articles are:
+This project was developed as part of the "KI-Projekt" course during the summer term of 2024 at OTH Regensburg by Ben, Felix, Lears and Simon. It is designed to be used for scientific research. The goal of the project is to scrape and match german news articles from sources that provide content in both easy (in german: "leichte" or "einfache Sprache") and standard language. For simplicity, we refer to the articles as **easy** or **hard**. Currently supported sources for the articles are:
 
 - [Nachrichtenleicht](https://nachrichtenleicht.de), [Nachrichtenleicht on Instagram](https://www.instagram.com/nachrichtenleicht/) (easy) and [Deutschlandfunk](https://deutschlandfunk.de) (hard)
 - [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) (easy) and [MDR](https://www.mdr.de/nachrichten/index.html) (hard)
 
-The project is built modularly. Main modules are:
+The code is built modularly. Main modules are:
 
 - [Scrapers](./scrapers/): scrape the data from the sources
 - [DataHandler](./datahandler/): manages the scraped data uniformly and provides an interface for reading, writing, and searching the data
-- [Matchers](./matchers/): match corresponding articles (easy to standard) from the same source
+- [Matchers](./matchers/): matches corresponding articles one on one (easy to standard) from the same source. In the future they may also match individual sentences or audio
 
 Modules may be used individually as needed. The current simplified pipeline is:
 
@@ -19,7 +19,7 @@ Modules may be used individually as needed. The current simplified pipeline is:
 
 ### Data Structure of Scraped Data
 
-The project uses a custom data structure consisting of folders and files (txt, json, csv, html, mp3) to store the scraped data. The data is stored in the git root directory like:
+The project uses a custom data structure consisting of folders and files (txt, json, csv, html, mp3) to store the scraped data. The The data is stored in the git root directory like:
 
 ```
 data/
@@ -33,6 +33,8 @@ data/
 │   │   │   ├── Raw.html
 │   │   │   └── Audio.mp3 (if available)
 ```
+
+On runtime the data can be read into Pandas DataFrames with the DataHandler read capability.
 
 ### Developer Guide
 
@@ -61,8 +63,7 @@ The DataHandler is not an executable but a module to use when further developing
 
 #### Matchers
 
-Work in progress
-
+Work in progress.
 
 
 
