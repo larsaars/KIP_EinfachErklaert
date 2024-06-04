@@ -79,7 +79,7 @@ class DataHandler:
         return self.head(dir, n)
 
     # -------------------------- WRITE --------------------------
-    def save_article(self, dir, metadata, content, html, download_audio=True):
+    def save_article(self, dir, metadata, content, html, download_audio=True) -> bool:
         """
         Args:
             dir (str): The directory where the article should be saved.
@@ -87,6 +87,9 @@ class DataHandler:
             content (str): The text content of the article.
             download_audio (bool): Whether to download audio files associated with the article.
             html (str): The raw html content of the article
+
+        Returns: 
+            bool: True if the article was saved successfully, False otherwise.
         """
         # some matchers give back non utf8 chars which causes problems especially with pandas
         path = self.helper._get_e_or_h_path(dir)
@@ -96,7 +99,7 @@ class DataHandler:
 
         if dir_path is None:
             logging.info(f'Already saved {metadata["url"]} ')
-            return
+            return False
 
         logging.info(f'Saving {metadata["url"]}')
         self.helper._update_lookup_file(dir, dir_path, metadata["url"])
@@ -106,6 +109,8 @@ class DataHandler:
 
         if download_audio:
             self.helper._save_audio(metadata, dir_path)
+
+        return True
 
     # -------------------------- SEARCH --------------------------
     def search_by(self, dir, metadata_attribute, attribute_value):
