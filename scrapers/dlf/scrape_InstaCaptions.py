@@ -5,6 +5,7 @@ import logging
 import sys
 import subprocess
 import requests
+import re
 
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 
@@ -13,10 +14,31 @@ from PIL import Image
 from io import BytesIO
 import pytesseract
 
+
+def clean_text(text):
+    # Encode to UTF-8 and decode back to a string
+    text = text.encode("utf-8", "ignore").decode("utf-8")
+
+    # Remove newline characters
+    text = text.replace("\n", " ")
+
+    # Remove non-alphanumeric characters
+    text = text.replace("-", "")
+    text = re.sub(r'\W+', ' ', text)
+
+    # Limit to the first 10 words
+    words = text.split()
+    text = ' '.join(words[:12])
+
+    # Delete Words in Caps and the trailing spaces of the words
+    text = re.sub(r'\b[A-Z]+\b', '', text)
+
+    return text
+
 def text_from_image(url):
     image = Image.open(BytesIO(requests.get(url).content))
-    text = pytesseract.image_to_string(image)
-    return text
+    text = pytesseract.image_to_string(image, lang='deu')
+    return clean_text(text)
 
 
 def base_metadata_dict(post: instaloader.Post) -> dict:
