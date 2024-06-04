@@ -80,7 +80,7 @@ class MDRCurrentScraper(MDRBaseScraper):
             self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html, download_audio=True)
 
             # match the articles via simple matcher function
-            self.matcher.match_by_hand(easy_article_url, hard_article_url)
+            self.matcher.match_by_url(easy_article_url, hard_article_url)
 
 
 

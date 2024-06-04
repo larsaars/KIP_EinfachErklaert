@@ -138,7 +138,7 @@ class MDRHistoricScraper(MDRBaseScraper):
 
 
                 # match the articles via simple matcher function
-                self.matcher.match_by_hand(easy_article_url, hard_article_url)
+                self.matcher.match_by_url(easy_article_url, hard_article_url)
 
 
 

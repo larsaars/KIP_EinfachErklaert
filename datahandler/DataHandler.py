@@ -186,16 +186,6 @@ class DataHandlerHelper(DataHandler):
         if not os.path.isfile(self.lookup_hard_path):
             df = pd.DataFrame(columns=["path", "url"])
             df.to_csv(self.lookup_hard_path, index=False)
-            
-        if source == "mdr":
-            self._init_mdr_cache()
-
-
-    def _init_mdr_cache(self):
-        mdr_cache = os.path.join(self.root, "match_cache_mdr.csv")
-        if not os.path.isfile(mdr_cache):
-            df = pd.DataFrame(columns=["url", "match"])
-            df.to_csv(mdr_cache, index=False)
 
     def _get_e_or_h_path(self, dir):
         if dir not in ("e", "h", "easy", "hard"):

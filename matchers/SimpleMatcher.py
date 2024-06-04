@@ -19,50 +19,18 @@ class SimpleMatcher(BaseMatcher):
         super().__init__(source)
         print(self.root)
 
-    def match_by_hand(self, easy, hard):
+    def match_by_url(self, easy, hard):
         """
         Paths or URLs can be passed. URLs are converted into paths.
         """
-        if easy.startswith(("www", "https://")):
-            easy = self.data_handler.search_by("e", "url", easy)
-        if hard.startswith(("www", "https://")):
-            hard = self.data_handler.search_by("h", "url", hard)
-
-        # write match or log error
         if easy is None or hard is None:
-            logging.error(f"Could not find text for {easy} or {hard}")
-        else:
+            raise Exception("Cannot match None in SimpleMatcher.py")
+            
+        if easy.startswith(("www", "https://")) and hard.startswith(("www", "https://")):
+            easy = self.data_handler.search_by("e", "url", easy)
             logging.info(f"Writing Match: {easy} with {hard}")
             self.write_match(easy, hard)
+        else:
+            raise Exception("You did not provide a valid URL to match_by_url in SimpleMatcher.py")
 
-    def check_mdr_match_cache(self):
-        file = "data/mdr/match_cache_mdr.csv"
-        lookup_hard = "data/mdr/hard/lookup_mdr_hard.csv"
-        lookup_easy = "data/mdr/easy/lookup_mdr_easy.csv"
-
-        match_cache_df = pd.read_csv(file)
-        lookup_hard_df = pd.read_csv(lookup_hard)
-        lookup_easy_df = pd.read_csv(lookup_easy)
-
-        rows_to_drop = []
-
-        for idx, row in match_cache_df.iterrows():
-            easy_url = str(row["url"])
-            hard_url = str(row["match"])
-            if (lookup_easy_df["url"].str.contains(easy_url).any()) and (
-                lookup_hard_df["url"].str.contains(hard_url).any()
-            ):
-                self.match_by_hand(easy_url, hard_url)
-                rows_to_drop.append(idx)
-
-        # delete rows that are mateched from cache
-        match_cache_df.drop(rows_to_drop, inplace=True)
-        match_cache_df.to_csv(file, index=False)
-
-
-if __name__ == "__main__":
-    logging.basicConfig(
-        level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-    )
-    matcher = SimpleMatcher("mdr")
-    matcher.check_mdr_match_cache()
+            
