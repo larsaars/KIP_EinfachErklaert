@@ -23,7 +23,6 @@ def clean_text(text):
     text = text.replace("\n", " ")
 
     # Remove non-alphanumeric characters
-    text = text.replace("-", "")
     text = re.sub(r'\W+', ' ', text)
 
     # Limit to the first 10 words
