@@ -2,7 +2,7 @@
 
 ### General
 
-This project was developed as part of the "KI-Projekt" course during the summer term of 2024 at OTH Regensburg by Ben, Felix, Lears and Simon. It is designed to be used for scientific research. The goal of the project is to scrape and match german news articles from sources that provide content in both easy (in german: "leichte" or "einfache Sprache") and standard language. For simplicity, we refer to the articles as **easy** or **hard**. Currently supported sources for the articles are:
+This project was developed as part of the "KI-Projekt" course during the summer term of 2024 at OTH Regensburg by Ben, Felix, Lars and Simon. It is designed to be used for scientific research only. The goal of the project is to scrape and match german news articles from sources that provide content in both easy (in german: "leichte" or "einfache Sprache") and standard language. For simplicity, we refer to the articles as **easy** or **hard**. Currently supported sources for the articles are:
 
 - [Nachrichtenleicht](https://nachrichtenleicht.de), [Nachrichtenleicht on Instagram](https://www.instagram.com/nachrichtenleicht/) (easy) and [Deutschlandfunk](https://deutschlandfunk.de) (hard)
 - [MDR: Leichte Sprache](https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html) (easy) and [MDR](https://www.mdr.de/nachrichten/index.html) (hard)
@@ -51,11 +51,11 @@ The scrapers are designed to be executed on a regular basis (e.g., by weekly cro
 
 | **File**| **Functionality** |
 |---------|-------------------|
-| [`scrapers/dlf/scrape_Deutschlandfunk.py`](scrapers/dlf/scrape_Deutschlandfunk.py)| Scrapes last week's articles from Deutschlandfunk (hard)|
-| [`scrapers/dlf/scrape_Nachrichtenleicht.py`](scrapers/dlf/scrape_Nachrichtenleicht.py)| Scrapes last week's articles from Nachrichtenleicht (easy)|
+| [`scrapers/dlf/scrape_Deutschlandfunk.py`](scrapers/dlf/scrape_Deutschlandfunk.py)| Scrapes todays articles from Deutschlandfunk (hard)|
+| [`scrapers/dlf/scrape_Nachrichtenleicht.py`](scrapers/dlf/scrape_Nachrichtenleicht.py)| Scrapes articles of several weeks (depending on how many articles specified in the api) from Nachrichtenleicht (easy)|
 | [`scrapers/dlf/scrape_InstaCaptions.py`](scrapers/dlf/scrape_InstaCaptions.py)| Scrapes captions of all posts on the "nachrichtenleicht" Instagram profile and analyzes images for titles|
-| [`scrapers/mdr/current_news_scraper.py`](scrapers/mdr/current_news_scraper.py)| Scrapes current easy and hard articles from MDR|
-| [`scrapers/mdr/historic_news_scraper.py`](scrapers/mdr/historic_news_scraper.py)| Scrapes historic easy and hard articles from MDR |
+| [`scrapers/mdr/current_news_scraper.py`](scrapers/mdr/current_news_scraper.py)| Scrapes five days of articles easy and hard articles from MDR|
+| [`scrapers/mdr/historic_news_scraper.py`](scrapers/mdr/historic_news_scraper.py)| Scrapes old easy and hard articles from MDR |
 
 #### DataHandler
 
