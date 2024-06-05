@@ -214,8 +214,11 @@
     - Ben und Lars: LLM learning ansatz zum matchen (bzw. was der Baumann eben gesagt hat beim Treffen)
 
 ### Meeting 05.06.24
-- Fürs README: Wie lange reichen die Scraper zurück?
-
-
+- Besprechung für Dokumentation
+- nur noch diese Woche für coden, weil ab nächster Woche Bericht
+- Aufgaben für die Woche:
+    - Ben: DL Ansatz weiter, lässt NL Scraper einmal komplett bis Anfang durchlaufen
+    - Simon & Felix: TF-IDF Matcher-Ansatz weiter
+    - Lars: MDR Scraper mit Bing 
 
 
