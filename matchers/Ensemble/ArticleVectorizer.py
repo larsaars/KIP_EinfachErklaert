@@ -60,7 +60,7 @@ class ArticleVectorizer(BaseEstimator, TransformerMixin):
         return self
 
     def transform(self, X):
-        return [self.analyzer(text) for text in X]
+        return self.vectorizer.transform(X)
 
 
 
