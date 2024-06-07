@@ -7,7 +7,7 @@ from nltk.util import ngrams
 import re
 
 try:
-    stopwords.words('english')
+    stopwords.words('german')
 except LookupError:
     nltk.download('stopwords')
 
