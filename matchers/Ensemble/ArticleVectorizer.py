@@ -6,7 +6,11 @@ from nltk.corpus import stopwords
 from nltk.util import ngrams
 import re
 
-nltk.download('stopwords')
+try:
+    stopwords.words('english')
+except LookupError:
+    nltk.download('stopwords')
+
 
 class ArticleVectorizer(BaseEstimator, TransformerMixin):
     def __init__(self, ngram_range=(1,1), convert_segmented_words=False, stop_words=True,
