@@ -25,15 +25,17 @@ class ArticleVectorizer(BaseEstimator, TransformerMixin):
 
     def generate_tokens(self, text: str) -> list[str]:
         tokens = word_tokenize(text, language='german')
+
+        if self.lowercase:
+            tokens = [token.lower() for token in tokens]
         
-        if self.stop_words: # Allow stop words
-            stop_words = set(stopwords.words('german'))
+        if self.stop_words:
             tokens = [token for token in tokens if token.lower() not in self.stop_words_set]
 
-        if self.non_alnum: # Allow non alpha-numerics
+        if self.non_alnum:
             tokens = filter_tokens(tokens)
         
-        if self.convert_segmented_words: # Convert segmented words to regular words
+        if self.convert_segmented_words:
             tokens = [convert_segmented_word(token) if is_segmented_word(token) else token 
                       for token in tokens]
         return tokens
