@@ -78,6 +78,27 @@ class DataHandler:
         n = self.helper._dir_len(dir_path)
         return self.head(dir, n)
 
+    def get_audio_paths(self, dir):
+        """
+        Args:
+            dir (str): The directory to fetch the audio paths from.
+        """
+        dir_path = self.helper._get_e_or_h_path(dir)
+        results = []
+        try:
+            article_dirs = [d for d in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, d))]
+            print(article_dirs)
+        except:
+            print("No directories found in this directory")
+            return None
+
+        for article_dir in article_dirs:
+            article_path = os.path.join(dir_path, article_dir)
+            if os.path.exists(os.path.join(article_path, "audio.mp3")):
+                results.append(os.path.join(article_path, "audio.mp3"))
+
+        return pd.DataFrame(list(zip(results, [dir] * len(results))), columns=["audio_path", "label"])
+
     # -------------------------- WRITE --------------------------
     def save_article(self, dir, metadata, content, html, download_audio=True) -> bool:
         """
