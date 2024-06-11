@@ -97,6 +97,11 @@ class DataHandler:
             if os.path.exists(os.path.join(article_path, "audio.mp3")):
                 results.append(os.path.join(article_path, "audio.mp3"))
 
+        if dir == "e" or dir == "easy":
+            dir = 0
+        elif dir == "h" or dir == "hard":
+            dir = 1
+
         return pd.DataFrame(list(zip(results, [dir] * len(results))), columns=["audio_path", "label"])
 
     # -------------------------- WRITE --------------------------
