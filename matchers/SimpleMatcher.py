@@ -26,7 +26,7 @@ class SimpleMatcher(BaseMatcher):
             
         if easy.startswith(("www", "https://")) and hard.startswith(("www", "https://")):
             easy = self.data_handler.search_by("e", "url", easy)
-            easy = self.data_handler.search_by("h", "url", easy)
+            hard = self.data_handler.search_by("h", "url", hard)
         else:
             raise Exception("You did not provide a valid URL to match_by_url in SimpleMatcher.py")
         
