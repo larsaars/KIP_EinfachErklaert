@@ -79,7 +79,7 @@ class MDRCurrentScraper(MDRBaseScraper):
 
             # save the hard article to the database
             # if one of the articles is newly scraped, the match is newly scraped
-            newly_scraped = newly_scraped or self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html, download_audio=True)
+            newly_scraped = self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html, download_audio=True) or newly_scraped
 
             # match the articles via simple matcher function
             # if newly scraped (prevents from duplicate match writing)
