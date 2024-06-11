@@ -6,6 +6,7 @@ import logging
 root_dir = os.path.dirname(os.path.dirname(__file__))
 sys.path.append(root_dir)
 from datahandler.DataHandler import DataHandler
+from datetime import datetime
 
 class BaseMatcher:
 
@@ -33,4 +34,4 @@ class BaseMatcher:
         
     def write_match(self, easy, hard):
         with open(self.file, "a", encoding="utf-8") as f:
-            f.write(f"{easy}, {hard}\n")
+            f.write(f"{datetime.now()}, {easy}, {hard}\n")

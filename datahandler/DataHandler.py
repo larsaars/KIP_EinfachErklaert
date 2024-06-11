@@ -174,7 +174,7 @@ class DataHandlerHelper(DataHandler):
         # Check and initialize the CSV file
         csv_path = os.path.join(self.root, "matches_" + source + ".csv")
         if not os.path.isfile(csv_path):
-            df = pd.DataFrame(columns=["easy", "hard"])
+            df = pd.DataFrame(columns=["timestamp_matched", "easy", "hard"])
             df.to_csv(csv_path, index=False)
     
         # init lookup

@@ -31,9 +31,10 @@ class SimpleMatcher(BaseMatcher):
             raise Exception("You did not provide a valid URL to match_by_url in SimpleMatcher.py")
         
         if easy is None or hard is None:
-            raise Exception("Cannot match None in SimpleMatcher.py")
+            logging.error(f"SimpleMatcher: Could not match {easy} with {hard}")
+            return
         
-        logging.info(f"Writing Match: {easy} with {hard}")
+        logging.info(f"SimpleMatcher: Writing Match: {easy} with {hard}")
         self.write_match(easy, hard)
         
 
