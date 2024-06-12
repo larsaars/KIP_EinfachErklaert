@@ -5,7 +5,6 @@ import requests
 import logging
 from datetime import datetime
 import subprocess
-import ftfy
 
 
 class DataHandler:
