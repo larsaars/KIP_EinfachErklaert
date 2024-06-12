@@ -222,51 +222,64 @@
     - Lars: MDR Scraper mit Bing 
 
 ### Meeting 12.06.24
-- Bis nächsten Mittwoch muss das msite fertig sein (Lars)
-- Ben: GUI und DL Ansatz
-- Abgabe:
-    - Poster
-    - Abschlussbericht
-- E-Mail
+- Lars: Bis nächsten Mittwoch muss das Meiste fertig sein 
+- GUI und DL Ansatz (Ben)
+- Simon stellt Ansatz zum TF-IDF Matching vor
+- E-Mail (Felix)
     - GUI Vorschläge (classification, tracriber)
     - Seiten Bericht?
     - Was ist der Inhalt? Aufgreifen des alten Berichts?
+- MDR Matching nachtragen (Script)
+
+- TODOs
+    - Ben: Classification und GUI
+    - Simon: 
+    - Lars: MDR Scraper historisch fertig
+    - Felix: E-Mail Wong, Matches nachtragen
+    - alle: Bericht
 
 - Abschlussbericht:
-    + Einleitung 
+    + Einleitung (Simon)
     + Haupteil
-        + Projektmanagment 
-            + Gespräch mit Prof Baumann
-        + Aufgreifen der Anmerkungen nach Midterm
-            + Datumsformat
+        + Aufgreifen der Anmerkungen nach Midterm und Gespräch mit Prof Baumann (Lars)
+            + Datumsformat -> Scripte
             + Kommunikation mit anderen Gruppen
             + Raw Dateien
         + Endstand
             + Scraper
-                + Instagram
-                + Historischer MDR Scraper
-            + DataHandler
+                + Instagram (Ben)
+                + Historischer MDR Scraper (Lars)
+                + Aufgreifen der Ansätze von Midterm
+            + DataHandler (Felix)
                 + Bugfixes
                 + Examples
-            + Kommunikation mit Nachrichtenquellen
-            + Wie läuft das Projekt auf dem KI-Server
-            + README und QuickStart
-            + Servicescripte um Probleme zu Lösen
+            + Kommunikation mit Nachrichtenquellen (Ben)
+            + Wie läuft das Projekt auf dem KI-Server (Ben)
+            + README und QuickStart (Felix)
+            + Servicescripte um Probleme zu Lösen (Simon)
+                + Data statistics notebook
+            + TF-IDF (Simon)
+            + Audio classification und GUI (Ben)
+            + Statistiken mit Grafiken (Felix)
         + Zielevaluation der Ziele für zweite Hälfte aus Miterm
             + Matching
-                + Base und SimpleMatcher
-                + named entity recognition
-                + BERT
-                + Suche auf HuggingFace?
-            + Risikos/ Zukünftige Herausforderungen 
-                + Historische Artikel
-                + Skalierbarkeit des Projekt (DataHandler bei vielen Daten)
-                + MDR Scraper geht nur über UI
-    + Fazit/ Abschluss
+                + Base und SimpleMatcher (läuft für MDR)
+                + andere Ansätze geändert (Ben)
+    + Fazit/ Abschluss (Lars)
+
 - Poster
     - OTH Vorlage
-    - Sachen aus Bericht
-    - Bilder -> Pipeline, DALL-E
-    - Endstatistik und Zahlen: Daten auf dem Server (wie viel Artikel, wie viel pro Woche, wie viel Audio)
+    - Text für Poster (Simon)
+    - Bilder -> Pipeline, DALL-E (Felix)
+    - Endstatistik und Zahlen: Daten auf dem Server (wie viel Artikel, wie viel pro Woche, wie viel Audio) (Felix)
+    - Drucken am 24.6/ 25.6 (Ben)
+
+- Bis nächste Woche:
+    - Bericht 80% fertig
+    - MDR Scraper, Mail, Matches nachtragen
+    - GUI und DL Ansatz soweit wie möglich
+    - Poster übernächste Woche 
+    - Nächste Woche letztes Meeting
+
 
 
