@@ -221,4 +221,52 @@
     - Simon & Felix: TF-IDF Matcher-Ansatz weiter
     - Lars: MDR Scraper mit Bing 
 
+### Meeting 12.06.24
+- Bis nächsten Mittwoch muss das msite fertig sein (Lars)
+- Ben: GUI und DL Ansatz
+- Abgabe:
+    - Poster
+    - Abschlussbericht
+- E-Mail
+    - GUI Vorschläge (classification, tracriber)
+    - Seiten Bericht?
+    - Was ist der Inhalt? Aufgreifen des alten Berichts?
+
+- Abschlussbericht:
+    + Einleitung 
+    + Haupteil
+        + Projektmanagment 
+            + Gespräch mit Prof Baumann
+        + Aufgreifen der Anmerkungen nach Midterm
+            + Datumsformat
+            + Kommunikation mit anderen Gruppen
+            + Raw Dateien
+        + Endstand
+            + Scraper
+                + Instagram
+                + Historischer MDR Scraper
+            + DataHandler
+                + Bugfixes
+                + Examples
+            + Kommunikation mit Nachrichtenquellen
+            + Wie läuft das Projekt auf dem KI-Server
+            + README und QuickStart
+            + Servicescripte um Probleme zu Lösen
+        + Zielevaluation der Ziele für zweite Hälfte aus Miterm
+            + Matching
+                + Base und SimpleMatcher
+                + named entity recognition
+                + BERT
+                + Suche auf HuggingFace?
+            + Risikos/ Zukünftige Herausforderungen 
+                + Historische Artikel
+                + Skalierbarkeit des Projekt (DataHandler bei vielen Daten)
+                + MDR Scraper geht nur über UI
+    + Fazit/ Abschluss
+- Poster
+    - OTH Vorlage
+    - Sachen aus Bericht
+    - Bilder -> Pipeline, DALL-E
+    - Endstatistik und Zahlen: Daten auf dem Server (wie viel Artikel, wie viel pro Woche, wie viel Audio)
+
 
