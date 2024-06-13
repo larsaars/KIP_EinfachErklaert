@@ -86,7 +86,6 @@ class DataHandler:
         results = []
         try:
             article_dirs = [d for d in os.listdir(dir_path) if os.path.isdir(os.path.join(dir_path, d))]
-            print(article_dirs)
         except:
             print("No directories found in this directory")
             return None
