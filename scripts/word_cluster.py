@@ -27,22 +27,23 @@ for source in os.listdir(base_dir):
                     if os.path.isdir(article_path):
                         content_file = os.path.join(article_path, "Content.txt")
                         
-                        with open(content_file, 'r') as file:
-                            content = file.read()
-                        
-                        # Use BeautifulSoup to remove HTML tags
-                        soup = BeautifulSoup(content, "html.parser")
-                        text_content = soup.get_text()
+                        if os.path.isfile(content_file):
+                            with open(content_file, 'r') as file:
+                                content = file.read()
+                            
+                            # Use BeautifulSoup to remove HTML tags
+                            soup = BeautifulSoup(content, "html.parser")
+                            text_content = soup.get_text()
 
-                        article_length = len(text_content.split())
+                            article_length = len(text_content.split())
 
-                        data.append({
-                            "source": source,
-                            "niveau": niveau,
-                            "article": article_dir,
-                            "content": text_content,
-                            "length": article_length
-                        })
+                            data.append({
+                                "source": source,
+                                "niveau": niveau,
+                                "article": article_dir,
+                                "content": text_content,
+                                "length": article_length
+                            })
 
 # Convert to DataFrame
 df = pd.DataFrame(data)
