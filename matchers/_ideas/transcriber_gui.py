@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import whisperx
 import time
+import os
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 
@@ -10,7 +12,7 @@ model = whisperx.load_model("large-v2", "cuda", compute_type="float16", language
 def landing_page():
     return 'Welcome to the WhisperX Transcriber!'
 
-@app.route('upload')
+@app.route('/upload')
 def upload():
     return '''
     <!doctype html>
@@ -30,8 +32,14 @@ def transcribe():
     if audio_file.filename == '':
         return 'No selected file'
     if audio_file:
+        filename = secure_filename(audio_file.filename)
+        filepath = os.path.join('/tmp', filename)
+        audio_file.save(filepath)
+
         audio = whisperx.load_audio(audio_file)
         result = model.transcribe(audio, batch_size=16, language="de")
+
+        os.remove(filepath)
         return jsonify(result)
 
 if __name__ == '__main__':
