@@ -10,14 +10,29 @@ model = whisperx.load_model("large-v2", "cuda", compute_type="float16", language
 def landing_page():
     return 'Welcome to the WhisperX Transcriber!'
 
+@app.route('upload')
+def upload():
+    return '''
+    <!doctype html>
+    <title>Upload an audio file</title>
+    <h1>Upload an audio file</h1>
+    <form method="POST" action="/transcribe" enctype="multipart/form-data">
+      <input type="file" name="audio">
+      <input type="submit" value="Transcribe">
+    </form>
+    '''
+
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
-    start_time = time.time()
-    audio = whisperx.load_audio(request.files['audio'])
-
-    result = model.transcribe(audio, batch_size=16, language="de")
-
-    return jsonify(result)
+    if 'audio' not in request.files:
+        return 'No audio file part'
+    audio_file = request.files['audio']
+    if audio_file.filename == '':
+        return 'No selected file'
+    if audio_file:
+        audio = whisperx.load_audio(audio_file)
+        result = model.transcribe(audio, batch_size=16, language="de")
+        return jsonify(result)
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
