@@ -40,7 +40,7 @@ def generate_wordcloud(text, title, lvl):
     plt.imshow(wordcloud, interpolation="bilinear")
     plt.title(title, fontsize=20)
     plt.axis("off")
-    wordcloud.to_file(os.path.join(git_root, "documentation", "images", f"wordcloud{lvl}.jpg"))
+    wordcloud.to_file(os.path.join(git_root, "documentation", "images", "wordcluster", f"wordcluster_dlf_{lvl}.jpg"))
     #plt.show()
 
 
