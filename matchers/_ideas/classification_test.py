@@ -20,7 +20,7 @@ def load_text_data():
     return df_easy, df_hard
 
 def load_audio_data():
-    dh = DataHandler("dlf")
+    dh = DataHandler("mdr")
     df_easy = dh.get_audio_paths("e")
     df_hard = dh.get_audio_paths("h")
     # join dataframes
@@ -29,7 +29,7 @@ def load_audio_data():
     return df
 
 
-# Merkmalsextraktion
+# merkmalsextraktionen
 def extract_text_features(texts):
     vectorizer = TfidfVectorizer()
     X = vectorizer.fit_transform(texts)
@@ -92,7 +92,10 @@ def train(df):
     # evaluation
     y_pred = grid.predict(X_test)
     print(pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)))
-    return df
+    return df, grid
+
+    def plot_results():
+        pass
 
 
 if __name__ == '__main__':
@@ -111,5 +114,7 @@ if __name__ == '__main__':
     '''
     df = load_audio_data()
     df = evaluate_audio(df)
+
     print(df['label'])
-    df = train(df)
+    df, grid = train(df)
+    print(grid.best_params_)

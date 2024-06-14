@@ -1,0 +1,45 @@
+<!-- templates/results.html -->
+<!doctype html>
+<title>Transcription Results</title>
+<h1>Transcription Results</h1>
+<div id="waveform"></div>
+<script src="https://unpkg.com/wavesurfer.js"></script>
+<script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
+<script>
+    var wavesurfer = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'violet',
+        progressColor: 'purple'
+        plugins: [
+            WaveSurfer.regions.create()
+        ]
+    });
+    wavesurfer.load('{{ audio_file }}');
+    </script>
+
+<script>
+    const transcript = {{ transcript|tojson|safe }};
+    transcript.forEach(function(segment) {
+        wavesurfer.addRegion({
+            start: segment.start,
+            end: segment.end,
+            drag: false,
+            resize: false,
+            color: 'hsla(400, 100%, 30%, 0.1)'
+        });
+    });
+</script>
+
+<script>
+    wavesurfer.on('region-click', function(region, e) {
+        e.stopPropagation();
+        var segment = transcript.find(function(segment) {
+            return segment.start === region.start && segment.end === region.end;
+        }).text;
+        var text = segment.text;
+        document.querySelector('p').textContent = text;
+    });
+</script>
+
+<p>{{ transcription }}</p>
+<p>{{ processing_time }}</p>
