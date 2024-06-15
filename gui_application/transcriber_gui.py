@@ -39,7 +39,10 @@ def transcribe():
     if audio_file:
         # save file temporarily
         filename = secure_filename(audio_file.filename)
-        filepath = os.path.join('/tmp', filename)
+        script_dir = os.path.dirname(os.path.realpath(__file__))
+        tmp_dir = os.path.join(script_dir, 'tmp')
+        filepath = os.path.join(tmp_dir, filename)
+        print(filepath)
 
         if not os.path.exists('tmp'):
             os.makedirs('tmp')
