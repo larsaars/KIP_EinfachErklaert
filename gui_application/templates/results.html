@@ -3,82 +3,48 @@
 <title>Transcription Results</title>
 <h1>Transcription Results</h1>
 
-<div id="waveform"></div>
-<script type="module">
-    import WaveSurfer from 'https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.esm.browser.js'
-    import Regions from 'https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/plugin/wavesurfer.regions.esm.js'
+<p>Processing time: {{ processing_time }}</p>
 
-    const ws = WaveSurfer.create({
-        container: '#waveform',
-        waveColor: 'violet',
-        progressColor: 'purple'
-        url: '{{ audio_file }}'
-    });
-
-    ws.on('interaction', () => {
-        ws.play()
-    })
-</script>
-<!---
-    const wsRegions = ws.registerPlugin(Regions.create());
-
-    ws.load('{{ audio_file }}');
-    ws.on('ready', function() {
-        const transcript = {{ transcription|tojson|safe }};
-        transcript.forEach(function(segment) {
-            wsRegions.addRegion({
-                start: segment.start,
-                end: segment.end,
-                drag: false,
-                resize: false,
-                color: 'hsla(400, 100%, 30%, 0.1)',
-                attributes: {
-                    text: segment.text
-                }
-            });
-        });
-    });
-</script>
-
-<script src="https://unpkg.com/wavesurfer.js"></script>
-<script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
-<script>
-    var wavesurfer = WaveSurfer.create({
-        container: '#waveform',
-        waveColor: 'violet',
-        progressColor: 'purple'
-        plugins: [
-            WaveSurfer.regions.create()
-        ]
-    });
-    wavesurfer.load('{{ audio_file }}');
-    </script>
+<table>
+    <tr>
+        <th>Segment</th>
+        <th>Start Time</th>
+        <th>End Time</th>
+    </tr>
+    {% for segment in transcription.segments %}
+    <tr class="segment" onclick="toggleWords('{{ segment.id }}')">
+        <td>{{ segment.text }}</td>
+        <td>{{ segment.start_time }}</td>
+        <td>{{ segment.end_time }}</td>
+    </tr>
+    <tr id="words-{{ segment.id }}" style="display: none;">
+        <td colspan="3">
+            <table>
+                <tr>
+                    <th>Word</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+                {% for word in segment.words %}
+                <tr>
+                    <td>{{ word.text }}</td>
+                    <td>{{ word.start_time }}</td>
+                    <td>{{ word.end_time }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
 
 <script>
-    const transcript = {{ transcription|tojson|safe }};
-    transcript.forEach(function(segment) {
-        wavesurfer.addRegion({
-            start: segment.start,
-            end: segment.end,
-            drag: false,
-            resize: false,
-            color: 'hsla(400, 100%, 30%, 0.1)'
-        });
-    });
+function toggleWords(segmentId) {
+    var wordsRow = document.getElementById('words-' + segmentId);
+    if (wordsRow.style.display === "none") {
+        wordsRow.style.display = "table-row";
+    } else {
+        wordsRow.style.display = "none";
+    }
+}
 </script>
-
-<script>
-    wavesurfer.on('region-click', function(region, e) {
-        e.stopPropagation();
-        var segment = transcript.find(function(segment) {
-            return segment.start === region.start && segment.end === region.end;
-        }).text;
-        var text = segment.text;
-        document.querySelector('p').textContent = text;
-    });
-</script>
-
-
-<p>{{ transcription }}</p>
---->
-<p>{{ processing_time }}</p>
