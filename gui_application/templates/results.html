@@ -18,7 +18,7 @@
     </script>
 
 <script>
-    const transcript = {{ transcript|tojson|safe }};
+    const transcript = {{ transcription|tojson|safe }};
     transcript.forEach(function(segment) {
         wavesurfer.addRegion({
             start: segment.start,
