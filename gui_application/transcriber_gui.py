@@ -37,9 +37,9 @@ def transcribe():
     if audio_file.filename == '':
         return 'No selected file'
     if audio_file:
-        # save file to ./static/audio.mp3
+        # save file temporarily
         filename = secure_filename(audio_file.filename)
-        filepath = os.path.join('static', filename)
+        filepath = os.path.join('tmp', filename)
         audio_file.save(filepath)
 
         audio = whisperx.load_audio(filepath)
