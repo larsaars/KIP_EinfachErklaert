@@ -55,7 +55,7 @@ def transcribe():
 
         processing_time = time.time() - start_time
 
-        print(results
+        print(results["segments"][:5])
 
         return redirect(url_for('results', transcription=results, processing_time=processing_time))
 
