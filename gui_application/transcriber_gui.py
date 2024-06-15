@@ -37,15 +37,11 @@ def transcribe():
     if audio_file.filename == '':
         return 'No selected file'
     if audio_file:
-        # save file temporarily
+        # save file temporarily in script directory
         filename = secure_filename(audio_file.filename)
-        script_dir = os.path.dirname(os.path.realpath(__file__))
-        tmp_dir = os.path.join(script_dir, 'tmp')
-        filepath = os.path.join(tmp_dir, filename)
-        print(filepath)
+        filepath = os.path.join(os.getcwd(), filename)
 
-        if not os.path.exists('tmp'):
-            os.makedirs('tmp')
+        print(filepath)
 
         audio_file.save(filepath)
 
