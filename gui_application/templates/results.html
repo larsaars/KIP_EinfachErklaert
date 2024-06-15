@@ -2,7 +2,39 @@
 <!doctype html>
 <title>Transcription Results</title>
 <h1>Transcription Results</h1>
+<!---
 <div id="waveform"></div>
+<script type="module">
+    import WaveSurfer from 'https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.esm.browser.js'
+    import Regions from 'https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/plugin/wavesurfer.regions.esm.js'
+
+    const ws = WaveSurfer.create({
+        container: '#waveform',
+        waveColor: 'violet',
+        progressColor: 'purple'
+        url: '{{ audio_file }}'
+    });
+
+    const wsRegions = ws.registerPlugin(Regions.create());
+
+    ws.load('{{ audio_file }}');
+    ws.on('ready', function() {
+        const transcript = {{ transcription|tojson|safe }};
+        transcript.forEach(function(segment) {
+            wsRegions.addRegion({
+                start: segment.start,
+                end: segment.end,
+                drag: false,
+                resize: false,
+                color: 'hsla(400, 100%, 30%, 0.1)',
+                attributes: {
+                    text: segment.text
+                }
+            });
+        });
+    });
+</script>
+
 <script src="https://unpkg.com/wavesurfer.js"></script>
 <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
 <script>
@@ -40,6 +72,7 @@
         document.querySelector('p').textContent = text;
     });
 </script>
+--->
 
 <p>{{ transcription }}</p>
 <p>{{ processing_time }}</p>

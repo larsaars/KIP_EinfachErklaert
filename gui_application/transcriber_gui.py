@@ -46,21 +46,23 @@ def transcribe():
         audio_file.save(filepath)
 
         audio = whisperx.load_audio(filepath)
-        result = model.transcribe(audio, batch_size=__BATCH_SIZE__, language="de")
+        results = model.transcribe(audio, batch_size=__BATCH_SIZE__, language="de")
 
-        model_a, metadata = whisperx.load_align_model(language_code=result["language"], device=__DEVICE__)
-        result = whisperx.align(result["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
+        model_a, metadata = whisperx.load_align_model(language_code=results["language"], device=__DEVICE__)
+        results = whisperx.align(results["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
 
         os.remove(filepath)
 
         processing_time = time.time() - start_time
-        print(result)
+
+        print(results
 
         return redirect(url_for('results', transcription=results, processing_time=processing_time))
 
 @app.route('/results')
 def results():
     transcription, processing_time = request.args['transcription'], request.args['processing_time']
+    print(transcription)
     return render_template('results.html', transcription=transcription, processing_time=processing_time)
 
 if __name__ == '__main__':
