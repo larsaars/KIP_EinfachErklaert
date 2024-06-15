@@ -15,6 +15,11 @@
         url: '{{ audio_file }}'
     });
 
+    ws.on('interaction', () => {
+        ws.play()
+    })
+</script>
+<!---
     const wsRegions = ws.registerPlugin(Regions.create());
 
     ws.load('{{ audio_file }}');
@@ -34,7 +39,7 @@
         });
     });
 </script>
-<!---
+
 <script src="https://unpkg.com/wavesurfer.js"></script>
 <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
 <script>
