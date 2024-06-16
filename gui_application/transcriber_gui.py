@@ -1,10 +1,11 @@
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template, session
 import whisperx
 import time
 import os
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
+app.secret_key = 'secret_key'
 
 __DEVICE__ = "cuda"
 __TYPE__ = "float16"
@@ -57,12 +58,15 @@ def transcribe():
 
         print(results["segments"][:5])
 
-        return redirect(url_for('results', transcription=results, processing_time=processing_time))
+        session['transcription'] = results
+        session['processing_time'] = processing_time
+
+        return redirect(url_for('results'))
 
 @app.route('/results')
 def results():
-    transcription, processing_time = request.args['transcription'], request.args['processing_time']
-    print(transcription)
+    transcription, processing_time = session.get('transcription'), session.get('processing_time')
+    # print(transcription)
     return render_template('results.html', transcription=transcription, processing_time=processing_time)
 
 if __name__ == '__main__':
