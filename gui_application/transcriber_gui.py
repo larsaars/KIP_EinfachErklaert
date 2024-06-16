@@ -60,18 +60,18 @@ def transcribe():
 
         audio = whisperx.load_audio(filepath)
         results = model.transcribe(audio, batch_size=__BATCH_SIZE__, language="de")
-        print(results["segments"])
+        # print(results["segments"])
 
         model_a, metadata = whisperx.load_align_model(language_code=results["language"], device=__DEVICE__)
         results = whisperx.align(results["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
-
+        print(results["segments"])
         os.remove(filepath)
 
         database = {}
         article_title = results["segments"][0]["text"][1:-1]
         # print(results["segments"][0])
-        # print(article_title)
-        # print(article_title[1:])
+        print(article_title)
+        print(article_title[1:])
 
         if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
