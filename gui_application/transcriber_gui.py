@@ -111,7 +111,7 @@ def results():
     database = session.get('database')
     print("check session before clear")
     print(transcription)
-    session.clear()
+    # session.clear()
     print("check session after clear")
     print(transcription)
     return render_template('results.html',
