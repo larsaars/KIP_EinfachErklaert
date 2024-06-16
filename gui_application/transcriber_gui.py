@@ -68,7 +68,13 @@ def transcribe():
         os.remove(filepath)
 
         database = {}
-        article_title = results["segments"][0]["text"][1:-1]
+        # clip string if . is at the end and/or whitespace at the beginning
+        article_title = results["segments"][0]["text"]
+        if article_title[-1] == ".":
+            article_title = article_title[:-1]
+        if article_title[0] == " ":
+            article_title = article_title[1:]
+
         # print(results["segments"][0])
         print(article_title)
         print(article_title[1:])
@@ -93,6 +99,8 @@ def transcribe():
 
         processing_time = round(time.time() - start_time, 3)
         session['transcription'] = results["segments"]
+        print("check session")
+        print(session['transcription'][:3])
         session['processing_time'] = processing_time
         session['database'] = database
 
