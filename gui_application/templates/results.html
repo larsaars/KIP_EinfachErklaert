@@ -12,10 +12,39 @@
         <th>End Time</th>
     </tr>
     {% for segment in transcription %}
-    <tr>
+    <tr class="segment" onclick="toggleWords('{{ loop.index }}')">
         <td>{{ segment.text }}</td>
         <td>{{ segment.start }}</td>
         <td>{{ segment.end }}</td>
     </tr>
+    <tr id="words-{{ loop.index }}" style="display: none;">
+        <td colspan="3">
+            <table>
+                <tr>
+                    <th>Word</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                </tr>
+                {% for word in segment.words %}
+                <tr>
+                    <td>{{ word.word }}</td>
+                    <td>{{ word.start }}</td>
+                    <td>{{ word.end }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </td>
+    </tr>
     {% endfor %}
 </table>
+
+<script>
+function toggleWords(segmentId) {
+    var wordsRow = document.getElementById('words-' + segmentId);
+    if (wordsRow.style.display === "none") {
+        wordsRow.style.display = "table-row";
+    } else {
+        wordsRow.style.display = "none";
+    }
+}
+</script>
