@@ -66,17 +66,18 @@ def transcribe():
         os.remove(filepath)
 
         database = {}
+        article_title = results["segments"][0]["text"][:-1]
 
-        if dh_dlf.search_by("e", "title", results["segments"][0]["text"]):
+        if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
             database["level"] = "easy"
-        elif dh_dlf.search_by("h", "title", results["segments"][0]["text"]):
+        elif dh_dlf.search_by("h", "title", article_title):
             database["source"] = "dlf"
             database["level"] = "hard"
-        elif dh_mdr.search_by("e", "title", results["segments"][0]["text"]):
+        elif dh_mdr.search_by("e", "title", article_title):
             database["source"] = "mdr"
             database["level"] = "easy"
-        elif dh_mdr.search_by("h", "title", results["segments"][0]["text"]):
+        elif dh_mdr.search_by("h", "title", article_title):
             database["source"] = "mdr"
             database["level"] = "hard"
         else:
