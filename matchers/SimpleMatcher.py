@@ -17,7 +17,6 @@ from matchers.BaseMatcher import BaseMatcher
 class SimpleMatcher(BaseMatcher):
     def __init__(self, source):
         super().__init__(source)
-        print(self.root)
 
     def match_by_url(self, easy, hard):
         """

@@ -8,17 +8,18 @@ from mdr_base import MDRBaseScraper
 from bs4 import BeautifulSoup
 from matchers.SimpleMatcher import SimpleMatcher
 
-
-
 """Scrapes the current easy and hard articles of MDR from easy language feed url on top of the MDRBaseScraper class"""
+
+
 class MDRCurrentScraper(MDRBaseScraper):
-    def __init__(self): 
+    def __init__(self):
         super().__init__()
 
         # init the soup object for the feed of the easy articles
         # a soup for the hard articles is not needed since
         # they are referred to by easy articles
-        self._easy_feed_soup = self._get_soup('https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html')
+        self._easy_feed_soup = self._get_soup(
+            'https://www.mdr.de/nachrichten/podcast/leichte-sprache/nachrichten-leichte-sprache-100.html')
 
         # create a simple matcher object
         self.matcher = SimpleMatcher('mdr')
@@ -43,7 +44,6 @@ class MDRCurrentScraper(MDRBaseScraper):
 
         return articles
 
-
     def scrape(self):
         """
         Scrapes the articles from the easy articles feed as well as hard articles
@@ -55,13 +55,12 @@ class MDRCurrentScraper(MDRBaseScraper):
         for easy_article_url in self._fetch_easy_articles_from_feed():
             logging.info(f'Scraping easy article: {easy_article_url}')
 
-        
             # get the metadata, content and html
             easy_metadata, easy_content, easy_html = self._get_easy_article_metadata_and_content(easy_article_url)
             # save the article to the database
             # returns True if the article is newly scraped
-            newly_scraped = self.data_handler.save_article('easy', easy_metadata, easy_content, easy_html, download_audio=True)
-
+            newly_scraped = self.data_handler.save_article('easy', easy_metadata, easy_content, easy_html,
+                                                           download_audio=True)
 
             # with the match url get the hard language article
             hard_article_url = easy_metadata['match']
@@ -75,11 +74,12 @@ class MDRCurrentScraper(MDRBaseScraper):
             hard_metadata, hard_content, hard_html = self._get_hard_article_metadata_and_content(hard_article_url)
 
             # write the match url string in hard article metadata
-            hard_metadata['match'] =  easy_article_url
+            hard_metadata['match'] = easy_article_url
 
             # save the hard article to the database
             # if one of the articles is newly scraped, the match is newly scraped
-            newly_scraped = self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html, download_audio=True) or newly_scraped
+            newly_scraped = self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html,
+                                                           download_audio=True) or newly_scraped
 
             # match the articles via simple matcher function
             # if newly scraped (prevents from duplicate match writing)
@@ -87,8 +87,6 @@ class MDRCurrentScraper(MDRBaseScraper):
                 self.matcher.match_by_url(easy_article_url, hard_article_url)
 
 
-
 if __name__ == '__main__':
     # scrape current MDR articles
     MDRCurrentScraper().scrape()
-

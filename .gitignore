@@ -8,5 +8,11 @@ midterm_review/MidtermReviewFelix.pdf
 __pycache__/
 .ipynb_checkpoints/
 
+# python virtual environment
+venv/
+
 # env files
 .env
+
+# .idea config
+.idea/
