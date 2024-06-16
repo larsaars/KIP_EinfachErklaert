@@ -2,7 +2,11 @@ from flask import Flask, request, redirect, url_for, render_template, session
 import whisperx
 import time
 import os
+import sys
+import subprocess
 from werkzeug.utils import secure_filename
+
+sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 from datahandler.DataHandler import DataHandler
 
 
