@@ -43,6 +43,7 @@ def upload():
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     start_time = time.time()
+    session.clear()
     if 'audio' not in request.files:
         return 'No audio file part'
     audio_file = request.files['audio']
