@@ -3,9 +3,13 @@ import whisperx
 import time
 import os
 from werkzeug.utils import secure_filename
+from datahandler.DataHandler import DataHandler
+
 
 app = Flask(__name__)
 app.secret_key = 'secret_key'
+dh_dlf = DataHandler("dlf")
+dh_mdr = DataHandler("mdr")
 
 __DEVICE__ = "cuda"
 __TYPE__ = "float16"
@@ -57,12 +61,30 @@ def transcribe():
 
         os.remove(filepath)
 
-        processing_time = round(time.time() - start_time, 3)
+        database = {}
+
+        if dh_dlf.search_by("e", "title", results["segments"][0]["text"]):
+            database["source"] = "dlf"
+            database["level"] = "easy"
+        elif dh_dlf.search_by("h", "title", results["segments"][0]["text"]):
+            database["source"] = "dlf"
+            database["level"] = "hard"
+        elif dh_mdr.search_by("e", "title", results["segments"][0]["text"]):
+            database["source"] = "mdr"
+            database["level"] = "easy"
+        elif dh_mdr.search_by("h", "title", results["segments"][0]["text"]):
+            database["source"] = "mdr"
+            database["level"] = "hard"
+        else:
+            database["source"] = "unknown"
+            database["level"] = "unknown"
 
         # print(results["segments"][:5])
 
+        processing_time = round(time.time() - start_time, 3)
         session['transcription'] = results["segments"]
         session['processing_time'] = processing_time
+        session['database'] = database
 
         return redirect(url_for('results'))
 
@@ -71,9 +93,13 @@ def transcribe():
 def results():
     transcription = session.get('transcription')
     processing_time = session.get('processing_time')
+    database = session.get('database')
     print(transcription[:2])
 
-    return render_template('results.html', transcription=transcription, processing_time=processing_time)
+    return render_template('results.html',
+                           transcription=transcription,
+                           processing_time=processing_time,
+                           database=database)
 
 
 if __name__ == '__main__':
