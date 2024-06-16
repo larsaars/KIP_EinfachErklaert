@@ -43,7 +43,6 @@ def upload():
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
     start_time = time.time()
-    session.clear()
     if 'audio' not in request.files:
         return 'No audio file part'
     audio_file = request.files['audio']
@@ -97,8 +96,8 @@ def transcribe():
 
         processing_time = round(time.time() - start_time, 3)
         session['transcription'] = results["segments"]
-        # print("check session")
-        # print(session['transcription'][:3])
+        print("check session")
+        print(session.get('transcription')[:2])
         session['processing_time'] = processing_time
         session['database'] = database
 
