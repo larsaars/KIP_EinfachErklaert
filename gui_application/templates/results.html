@@ -11,7 +11,7 @@
         <th>Start Time</th>
         <th>End Time</th>
     </tr>
-    {% for segment in transcription.segments %}
+    {% for segment in transcription %}
     <tr>
         <td>{{ segment.text }}</td>
         <td>{{ segment.start }}</td>
