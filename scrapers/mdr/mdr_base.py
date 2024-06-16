@@ -8,7 +8,7 @@ import subprocess
 # add git root dir to the python path to enable importing services module (and by that BaseScraper and DataHandler)
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 
-from time import sleep 
+from time import sleep
 import json
 import xml.etree.ElementTree as ET
 import requests
@@ -17,11 +17,12 @@ from scrapers.base.base_scraper import BaseScraper, base_metadata_dict, base_aud
 from bs4 import BeautifulSoup
 
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 
 """Base class of the MDR current and historic scraper, contains functions 
 for scraping metadata and content for both hard and 
 easy articles"""
+
+
 class MDRBaseScraper(BaseScraper):
     def __init__(self):
         """init MDRBaseScraper class
@@ -48,7 +49,6 @@ class MDRBaseScraper(BaseScraper):
             'Dezember': '12'
         }
 
-
     def _init_selenium(self):
         """init selenium webdriver
             
@@ -62,9 +62,9 @@ class MDRBaseScraper(BaseScraper):
         driver_options.add_argument('--incognito')  # private mode
         driver_options.add_argument('--headless')  # no sandbox
         return webdriver.Chrome(options=driver_options)  # create the driver
-    
 
-    def _try_audio_extraction(self, soup, metadata):
+    @staticmethod
+    def _try_audio_extraction(soup, metadata):
         """try to extract audio from the article
 
         Args:
@@ -81,18 +81,19 @@ class MDRBaseScraper(BaseScraper):
         # and in a specific div a json object is stored
         # which contains a link to an xml file which contains the audio link
         try:
-            json_string = soup.select('div.mediaCon.avInline.avActivePlay[data-ctrl-player]')[0]['data-ctrl-player']  # get the json string
+            json_string = soup.select('div.mediaCon.avInline.avActivePlay[data-ctrl-player]')[0][
+                'data-ctrl-player']  # get the json string
             json_string = json_string.replace('\'', '"')  # replace single quotes with double quotes
             json_obj = json.loads(json_string)  # parse the json string
             xml_url = 'https://mdr.de' + json_obj['playerXml']  # get the xml url
             xml_content = requests.get(xml_url).text  # get the xml content
             xml_parsed = ET.fromstring(xml_content)  # parse the xml
-            audio_url = xml_parsed.findall('.//assets/asset')[2].find('progressiveDownloadUrl').text  # get the audio url (index 2 is mp3 format, index 0 would be mp4)
+            audio_url = xml_parsed.findall('.//assets/asset')[2].find(
+                'progressiveDownloadUrl').text  # get the audio url (index 2 is mp3 format, index 0 would be mp4)
             audio['download_url'] = audio['audio_url'] = audio_url  # set the audio url
             metadata['audio'] = audio  # set the audio metadata
         except Exception:
             logging.error('Error while parsing audio')
-
 
     def _get_easy_article_metadata_and_content(self, url):
         """
@@ -106,14 +107,13 @@ class MDRBaseScraper(BaseScraper):
         """
 
         metadata = base_metadata_dict()  # metadata dict to be returned
-        
+
         self._driver.get(url)  # open the article in the browser (for js execution)
 
         html = self._driver.page_source  # get the html of the page
 
         # get soup of the article
         soup = BeautifulSoup(html, 'html.parser')
-
 
         paragraphs = soup.find_all('div', class_='paragraph')  # get the article paragraphs
         del paragraphs[-1]  # delete last paragraph since it contains unwanted information
@@ -126,7 +126,7 @@ class MDRBaseScraper(BaseScraper):
 
             for tag in paragraph.find_all(['a']):
                 del tag['data-ctrl-link']  # all links have this attribute which is not needed
-            
+
             paragraph_text = ''.join([str(c) for c in paragraph.contents])  # stringify the content of the paragraph 
 
             # add the paragraph to the content string
@@ -135,8 +135,6 @@ class MDRBaseScraper(BaseScraper):
             # if it is the first paragraph, use as description
             if i == 0:
                 metadata['description'] = paragraph_text
-
-
 
         # fill the base metadata dict
         metadata['url'] = url  # source url
@@ -169,13 +167,13 @@ class MDRBaseScraper(BaseScraper):
         except Exception:
             logging.error('Error while parsing image')
 
-
         # try audio extraction
         self._try_audio_extraction(soup, metadata)
 
         # try to get the hard article url
         try:
-            match_url = 'https://mdr.de' + soup.find_all('a', class_='linkAll')[1]['href']  # this is typically the match url
+            match_url = 'https://mdr.de' + soup.find_all('a', class_='linkAll')[1][
+                'href']  # this is typically the match url
 
             # sometimes, there is no match url in the article
             # then the match url contains a 'nachrichten-leicht' substring
@@ -195,20 +193,16 @@ class MDRBaseScraper(BaseScraper):
                 logging.error('Matching error: Article has no hard match (linking to a news feed)')
                 error = True
 
-
             if error:
                 metadata['match'] = None
             else:
                 metadata['match'] = match_url  # set the match url if no error occured
-            
+
         except Exception:
             logging.error('Error while parsing hard article url')
 
-
         return metadata, content, html
 
-
-        
     def _get_hard_article_metadata_and_content(self, url):
         """
         Get the metadata, content and html of a hard language MDR article.
@@ -221,14 +215,13 @@ class MDRBaseScraper(BaseScraper):
         """
 
         metadata = base_metadata_dict()  # metadata dict to be returned
-        
+
         self._driver.get(url)  # open the article in the browser (for js execution)
 
         html = self._driver.page_source  # get the html of the page
 
         # get soup of the article
         soup = BeautifulSoup(html, 'html.parser')
-
 
         # get content from the article
         content = ''
@@ -238,7 +231,7 @@ class MDRBaseScraper(BaseScraper):
 
             # get the following paragraph divs
             # and add the text to the content
-            next_sibling = h3_tag.find_next_sibling() 
+            next_sibling = h3_tag.find_next_sibling()
             while next_sibling and next_sibling.name == 'div' and 'paragraph' in next_sibling.get('class', []):
 
                 # next_sibling is the paragraph div
@@ -252,8 +245,6 @@ class MDRBaseScraper(BaseScraper):
                 content += paragraph_text  # add the paragraph to the content
 
                 next_sibling = next_sibling.find_next_sibling()  # continue
-
-
 
         # fill the base metadata dict
         metadata['url'] = url  # source url
@@ -291,10 +282,8 @@ class MDRBaseScraper(BaseScraper):
         except Exception:
             logging.error('Error while parsing image')
 
-
         # try to extract audio
         self._try_audio_extraction(soup, metadata)
-
 
         return metadata, content, html
 
@@ -302,4 +291,3 @@ class MDRBaseScraper(BaseScraper):
         # destroy webdriver
         if hasattr(self, '_driver'):
             self._driver.quit()
-    
