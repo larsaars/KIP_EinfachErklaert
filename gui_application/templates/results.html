@@ -11,13 +11,13 @@
         <th>Start Time</th>
         <th>End Time</th>
     </tr>
-    {% for segment in transcription.segments %}
-    <tr class="segment" onclick="toggleWords('{{ segment.id }}')">
+    {% for id, segment in enumerate(transcription) %}
+    <tr class="segment" onclick="toggleWords('{{ id }}')">
         <td>{{ segment.text }}</td>
         <td>{{ segment.start_time }}</td>
         <td>{{ segment.end_time }}</td>
     </tr>
-    <tr id="words-{{ segment.id }}" style="display: none;">
+    <tr id="words-{{ id }}" style="display: none;">
         <td colspan="3">
             <table>
                 <tr>
