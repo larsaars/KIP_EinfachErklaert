@@ -96,10 +96,10 @@ def transcribe():
 
         processing_time = round(time.time() - start_time, 3)
         session['transcription'] = results["segments"]
-        print("check session")
-        print(session.get('transcription')[:2])
         session['processing_time'] = processing_time
         session['database'] = database
+        print("check session")
+        print(session.get('transcription')[:2])
 
         return redirect(url_for('results'))
 
@@ -110,10 +110,10 @@ def results():
     processing_time = session.get('processing_time')
     database = session.get('database')
     print("check session before clear")
-    print(transcription[:2])
+    print(transcription)
     session.clear()
     print("check session after clear")
-    print(transcription[:2])
+    print(transcription)
     return render_template('results.html',
                            transcription=transcription,
                            processing_time=processing_time,
