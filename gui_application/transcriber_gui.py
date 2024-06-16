@@ -69,6 +69,7 @@ def transcribe():
         article_title = results["segments"][0]["text"][:-1]
         print(results["segments"][0])
         print(article_title)
+        print(article_title[1:])
 
         if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
