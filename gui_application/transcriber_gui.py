@@ -101,8 +101,8 @@ def transcribe():
         session['transcription'] = results["segments"]
         session['processing_time'] = processing_time
         session['database'] = database
-        print("check session")
-        print(session.get('transcription')[:2])
+        # print("check session")
+        # print(session.get('transcription')[:2])
 
         return redirect(url_for('results'))
 
