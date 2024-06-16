@@ -112,11 +112,11 @@ def results():
     transcription = session.get('transcription')
     processing_time = session.get('processing_time')
     database = session.get('database')
-    print("check session before clear")
-    print(transcription)
+    # print("check session before clear")
+    # print(transcription)
     # session.clear()
-    print("check session after clear")
-    print(transcription)
+    # print("check session after clear")
+    # print(transcription)
     return render_template('results.html',
                            transcription=transcription,
                            processing_time=processing_time,
