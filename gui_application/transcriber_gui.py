@@ -106,7 +106,7 @@ def transcribe():
 
 @app.route('/results')
 def results():
-    transcription = session['transcription']
+    transcription = session.get('transcription')
     processing_time = session.get('processing_time')
     database = session.get('database')
     print("check session before clear")
