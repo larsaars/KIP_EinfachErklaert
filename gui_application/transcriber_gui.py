@@ -11,7 +11,7 @@ from datahandler.DataHandler import DataHandler
 
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+app.secret_key = 'secret_key42'
 dh_dlf = DataHandler("dlf")
 dh_mdr = DataHandler("mdr")
 
