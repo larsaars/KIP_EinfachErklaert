@@ -60,6 +60,7 @@ def transcribe():
 
         audio = whisperx.load_audio(filepath)
         results = model.transcribe(audio, batch_size=__BATCH_SIZE__, language="de")
+        print(results["segments"])
 
         model_a, metadata = whisperx.load_align_model(language_code=results["language"], device=__DEVICE__)
         results = whisperx.align(results["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
