@@ -1,4 +1,5 @@
 from flask import Flask, request, redirect, url_for, render_template, session
+from flask_session import Session
 import whisperx
 import time
 import os
@@ -11,7 +12,9 @@ from datahandler.DataHandler import DataHandler
 
 
 app = Flask(__name__)
-app.secret_key = 'secret_key'
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SECRET_KEY'] = 'secret_key'
+Session(app)
 dh_dlf = DataHandler("dlf")
 dh_mdr = DataHandler("mdr")
 
