@@ -104,6 +104,7 @@ def results():
     processing_time = session.get('processing_time')
     database = session.get('database')
     # print(transcription[:2])
+    session.clear()
 
     return render_template('results.html',
                            transcription=transcription,
