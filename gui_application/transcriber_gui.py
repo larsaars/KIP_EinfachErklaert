@@ -64,7 +64,7 @@ def transcribe():
 
         model_a, metadata = whisperx.load_align_model(language_code=results["language"], device=__DEVICE__)
         results = whisperx.align(results["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
-        print(results["segments"])
+        # print(results["segments"])
         os.remove(filepath)
 
         database = {}
@@ -75,9 +75,7 @@ def transcribe():
         if article_title[0] == " ":
             article_title = article_title[1:]
 
-        # print(results["segments"][0])
         print(article_title)
-        print(article_title[1:])
 
         if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
@@ -99,8 +97,8 @@ def transcribe():
 
         processing_time = round(time.time() - start_time, 3)
         session['transcription'] = results["segments"]
-        print("check session")
-        print(session['transcription'][:3])
+        # print("check session")
+        # print(session['transcription'][:3])
         session['processing_time'] = processing_time
         session['database'] = database
 
@@ -112,9 +110,11 @@ def results():
     transcription = session.get('transcription')
     processing_time = session.get('processing_time')
     database = session.get('database')
-    # print(transcription[:2])
+    print("check session before clear")
+    print(transcription[:2])
     session.clear()
-
+    print("check session after clear")
+    print(transcription[:2])
     return render_template('results.html',
                            transcription=transcription,
                            processing_time=processing_time,
