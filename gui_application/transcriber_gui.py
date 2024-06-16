@@ -67,6 +67,7 @@ def transcribe():
 
         database = {}
         article_title = results["segments"][0]["text"][:-1]
+        print(article_title)
 
         if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
@@ -99,7 +100,7 @@ def results():
     transcription = session.get('transcription')
     processing_time = session.get('processing_time')
     database = session.get('database')
-    print(transcription[:2])
+    # print(transcription[:2])
 
     return render_template('results.html',
                            transcription=transcription,
