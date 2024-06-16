@@ -13,9 +13,11 @@ __BATCH_SIZE__ = 16
 
 model = whisperx.load_model("large-v2", __DEVICE__, compute_type=__TYPE__, language="de", device_index=[0, 1, 2, 3])
 
+
 @app.route('/')
 def landing_page():
     return 'Welcome to the WhisperX Transcriber!'
+
 
 @app.route('/upload')
 def upload():
@@ -28,6 +30,7 @@ def upload():
       <input type="submit" value="Transcribe">
     </form>
     '''
+
 
 @app.route('/transcribe', methods=['POST'])
 def transcribe():
@@ -42,7 +45,7 @@ def transcribe():
         filename = secure_filename(audio_file.filename)
         filepath = os.path.join(os.getcwd(), filename)
 
-        print(filepath)
+        # print(filepath)
 
         audio_file.save(filepath)
 
@@ -54,20 +57,24 @@ def transcribe():
 
         os.remove(filepath)
 
-        processing_time = time.time() - start_time
+        processing_time = round(time.time() - start_time, 3)
 
-        print(results["segments"][:5])
+        # print(results["segments"][:5])
 
-        session['transcription'] = results
+        session['transcription'] = results["segments"]
         session['processing_time'] = processing_time
 
         return redirect(url_for('results'))
 
+
 @app.route('/results')
 def results():
-    transcription, processing_time = session.get('transcription'), session.get('processing_time')
-    # print(transcription)
+    transcription = session.get('transcription')
+    processing_time = session.get('processing_time')
+    print(transcription[:2])
+
     return render_template('results.html', transcription=transcription, processing_time=processing_time)
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
