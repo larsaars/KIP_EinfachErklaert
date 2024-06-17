@@ -1,6 +1,7 @@
 # KI-Projekt "Einfach Erklärt" Midterm Review
 ### KIP bei Herr Dr. Hußlein im SoSe 24
-Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 07.05.24
+
+Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
 
 1. Einleitung (Ben)
 2. Allgemein
@@ -89,7 +90,7 @@ Dadurch müssen wir für jeden neuen Scraper nur noch die spezifischen Methoden 
 
 ## 3.3. MDR Scraper
 
-#### Warum MDR?
+### 3.3.1. Warum MDR?
 
 Der MDR Scraper extrahiert Daten von der Webseite des MDR. Der MDR ist ein öffentlich-rechtlicher Rundfunksender, der für Sachsen, Sachsen-Anhalt und Thüringen schreibt und eine Vielzahl von Inhalten, darunter Nachrichten, Videos, Audios und mehr anbietet. Wir haben uns aus verschiedenen Gründen für den MDR als eine der Webseiten entschieden, von der wir Daten extrahieren wollen:
 
@@ -100,9 +101,54 @@ Der MDR Scraper extrahiert Daten von der Webseite des MDR. Der MDR ist ein öffe
 - Der MDR bietet Audios an, die von Menschen eingesprochen wurden.
 - Der MDR lädt wöchentlich recht viele leichte Artikel hoch, was uns eine gute Datenbasis bietet (ca. 22 Artikel pro Woche).
 
-#### Funktionsweise
+### 3.3.2. MDR `BaseScraper` - Funktionsweise
 
-Der MDR Scraper extrahiert zunächst Daten vom Angebot in einfacher Sprache des MDR und lädt die Audios herunter. An die Audios zu kommen war nicht ganz einfach, da der MDR die Audios nicht direkt verlinkt, sondern sie über eine JavaScript-Datei lädt. Daher muss hier Selenium verwendet werden. Da die einfachen Artikel immer auf die normalen Artikel verlinken, benötigen wir hierfür keinen Matcher. Im Anschluss an den einfachen Artikel wird der normale Artikel gescraped.
+Der MDR `BaseScraper` wurde als Klasse geschaffen, um die allgemeinen Funktionen und Methoden zu enthalten, die für sowohl den aktuellen als auch den historischen Scraper benötigt werden. Die Basisklasse enthält die folgenden Methoden:
+
+- `_init_selenium()`: Initialisiert das Selenium-Webdriver-Objekt. Wird nur intern verwendet.
+- `_try_audio_extraction()`: Versucht, das Audio des Artikels zu extrahieren. Wird von von den `_get_metadata_and_content()`-Methoden der dieser Klasse aufgerufen und nur intern in der Klasse verwendet.
+- `_get_easy_article_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines einfachen Artikels aus der URL. Wird von der `scrape()`-Methode aufgerufen.
+- `_get_hard_article_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines schwierigen Artikels aus der URL. Wird von der `scrape()`-Methode aufgerufen.
+
+### 3.3.3. MDR: Aktueller Scraper - Funktionsweise
+
+
+Der aktuelle MDR Scraper extrahiert zunächst die Links der Artikel vom Angebot in einfacher Sprache des MDR und lädt die einfachen Artikel herunter (mitsamt Audio, Metadaten, dem rohen HTML code und dem extrahierten Inhalt).
+An die Audios zu kommen ist nicht ganz einfach, da der MDR die Audios nicht direkt verlinkt, sondern sie über eine JavaScript-Datei lädt.
+Daher muss hier Selenium verwendet werden.
+Da die einfachen Artikel häufig auf die normalen Artikel verlinken, benötigen wir hierfür keinen Matcher (bzw. tragen die Matches direkt ein über den `SimpleMatcher`).
+Im Anschluss an den einfachen Artikel wird der schwere Artikel gescraped.
+Ist kein schwerer Artikel auf einen einfachen Artikel verlinkt, wird nur der einfache Artikel gescraped.
+
+### 3.3.4. MDR: Historischer Scraper - Funktionsweise
+
+Der historische MDR Scraper hat sich ein wenig komplizierter gestaltet, da der MDR keine direkte Möglichkeit bietet, auf ein Archiv zuzugreifen.
+Trotzdem gibt es einige alte Artikel, die noch auf der Webseite verfügbar sind.
+Auf verschiedene Weisen haben wir die Links alter einfacher Artikel gesammelt, die wir in einer Liste gespeichert haben.
+Nachdem wir nicht mehr wussten, mit welchen weiteren Methoden wir diese Liste noch erweitern könnten, haben die einfachen Artikel und die verlinken schweren Artikel gescraped.
+
+#### Methode 1: Eigene MDR-Suche (nicht erfolgreich)
+
+Die erste Methode, die wir ausprobiert haben, war, die MDR-Suche zu verwenden, um nach alten Artikeln zu suchen.
+Es hat sich nach einigem Ausprobieren herausgestellt, dass die Suche nicht sehr zuverlässig ist und insgesamt nur wenige Artikel gefunden werden konnten.
+
+#### Methode 2: Google-Suche (erfolgreich)
+
+Mit `serpapi.com` haben wir eine Möglichkeit gefunden, Google-Suchergebnisse zu extrahieren.
+Folgende Suchanfrage haben wir verwendet: `site:mdr.de intext:"Hier können Sie diese Nachricht auch in schwerer Sprache lesen:"`.
+Diese Suchanfrage hat uns die Links zu den alten einfachen Artikeln geliefert, da in jedem einfachen Artikel vom MDR, der über eine Verlinkung zu einem schweren Artikel enthält, der `intext:`-Text enthalten ist.
+Damit haben alle diese Links automatisch auch einen verlinkten schweren Artikel.
+Da dieser API aber sehr limitiert ist (100 kostenlose Suchanfragen pro Monat), haben wir nicht viel sammeln können (hierrüber ca. 330 alte einfache Artikel).
+Zudem kann man bei Google nur die ersten ca. 300-400 Suchergebnisse abfragen, was die Anzahl der gefundenen Artikel weiter einschränkt.
+
+#### Methode 3: Bing API (erfolgreich)
+
+Nach einigem Suchen haben wir eine kostenlose Bing API gefunden, die es uns ermöglicht, Suchergebnisse von Bing zu extrahieren.
+Diese API ist nicht so limitiert wie die `SerpAPI` Google API und hat uns mehr Konfigurationsmöglichkeiten geboten.
+Außerdem hat man mit der Bing API pro Monat 1000 kostenlose Suchanfragen.
+Im Endeffekt haben wir die Suchanfragen jeweils immer wieder anders variieren können hierbei (z.B. verschiedene Datumsbereiche, verschiedene Suchbegriffe, etc.).
+Somit haben wir hiermit zumindest noch einmal ca 230 zusätzliche alte einfache Artikel sammeln können.
+
 
 ## 3.4 Deutschlandradio
 
