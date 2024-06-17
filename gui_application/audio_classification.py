@@ -29,12 +29,12 @@ def load_text_data():
 def load_audio_data():
     dh_mdr = DataHandler("mdr")
     df_mdreasy = dh_mdr.get_audio_paths("e")
-    print("mdreasy", df_mdreasy['label'])
+    # print("mdreasy", df_mdreasy['label'])
     df_mdrhard = dh_mdr.get_audio_paths("h")
-    print("mdrhard", df_mdrhard['label'])
+    # print("mdrhard", df_mdrhard['label'])
     dh_dlf = DataHandler("dlf")
     df_dlfeasy = dh_dlf.get_audio_paths("e")
-    print("dlfeasy", df_dlfeasy['label'])
+    # print("dlfeasy", df_dlfeasy['label'])
     df_dlfhard = dh_dlf.get_audio_paths("h")
     # print("dlfhard", df_dlfhard['label'])
     # join dataframes which are not none with check

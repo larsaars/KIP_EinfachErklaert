@@ -5,7 +5,9 @@ import time
 import os
 import sys
 import subprocess
+import pickle
 from werkzeug.utils import secure_filename
+from audio_classification import extract_audio_features
 
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 from datahandler.DataHandler import DataHandler
@@ -67,6 +69,17 @@ def transcribe():
         model_a, metadata = whisperx.load_align_model(language_code=results["language"], device=__DEVICE__)
         results = whisperx.align(results["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
         # print(results["segments"])
+
+        test_audio = extract_audio_features(filepath)
+        with open('model_all.pkl', 'rb') as f:
+            classification_model = pickle.load(f)
+
+        scaler = classification_model.best_estimator_.named_steps['scaler']
+        test_audio = scaler.transform(test_audio.values.reshape(1, -1))
+        prediction = classification_model.predict(test_audio)
+
+        print(prediction)
+
         os.remove(filepath)
 
         database = {}
@@ -77,7 +90,7 @@ def transcribe():
         if article_title[0] == " ":
             article_title = article_title[1:]
 
-        print(article_title)
+        # print(article_title)
 
         if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
@@ -101,6 +114,7 @@ def transcribe():
         session['transcription'] = results["segments"]
         session['processing_time'] = processing_time
         session['database'] = database
+        session['prediction'] = prediction[0]
         # print("check session")
         # print(session.get('transcription')[:2])
 
