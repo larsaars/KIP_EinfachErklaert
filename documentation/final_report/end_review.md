@@ -211,10 +211,18 @@ Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts
 
 ### 4.1. Gesamelte Daten
 
+Da ein Hauptziel des Berichts war Daten zu sammeln findet an dieser Stelle ein Auswertung des gewonnen Datenmaterials anhand der Features statt. Durch Matching und Analyse der Daten konnte weitere Erkenntnisse über die Beschaffenheit der Daten gewonnen werden. Diese sind in 4.2. Erkenntnisse über die Daten zusammengefasst.
 ![Kreisdiagramme](./documentation/final_report/images/cakes.png)
 
 ### 4.2. Erkenntnisse über die Daten
-b
+
+Nicht nur die Quantitative Analyse der Daten, sondern auch die Qualitative Analyse der Daten ist von Bedeutung. Dies spielte zum Beispiel bei der Forschun an einem geeigneten Matching verfahren eine Rolle.
+
+![hard](./documentation/final_report/images/wordcluster_dlf_hard_alldata.jpg)
+![easy](./documentation/final_report/images/wordcluster_dlf_easy_alldata.jpg)
+
+
+### Unterschiedlichkeit in der Wortwahl
 
 ### 4.3. Matcher
 
