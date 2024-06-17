@@ -252,7 +252,15 @@ Das Scrapen historischer Artikel birgt seine eigenen Herausforderungen, insbeson
 
 ### 3.8. Matcher
 
-Matcher sind toll. #FIXME:
+Matcher sind toll. #FIXME: (mit matches.csv erklärt!)
+
+#### Der `BaseMatcher`
+
+ist die Basis-Klasse aller Matcher. Sie stellt vor allem sicher, dass der richtige Pfad verwendet wird und bietet mit der Funktion `write_match` die Möglichkeit, Matches in jeweils `mdr_matches.csv` und `dlf_matches.csv` zu schreiben.
+
+#### Der `SimpleMatcher`
+
+ist eine Klasse die auf dem `BaseMatcher` aufbaut und vor allem von den MDR-Scrapern verwendet wird, da beim MDR die leichten auf die schweren Artikel verweisen. Mit der Funktion `match_by_url` bietet er die Möglichkeit, Matches mithilfe von URLs des einfachen und schweren Artikels in die jeweilige Datei zu schreiben.
 
 ### 3.9 TF-IDF
 
