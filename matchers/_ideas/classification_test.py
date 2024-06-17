@@ -1,3 +1,5 @@
+import sys
+import subprocess
 import librosa
 import numpy as np
 import pandas as pd
@@ -9,6 +11,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import classification_report
+sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 from datahandler.DataHandler import DataHandler
 
 
