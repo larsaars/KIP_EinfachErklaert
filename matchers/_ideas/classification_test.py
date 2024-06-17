@@ -27,11 +27,14 @@ def load_text_data():
     return df_easy, df_hard
 
 def load_audio_data():
-    dh = DataHandler("mdr")
-    df_easy = dh.get_audio_paths("e")
-    df_hard = dh.get_audio_paths("h")
+    dh_mdr = DataHandler("mdr")
+    df_mdreasy = dh_mdr.get_audio_paths("e")
+    df_mdrhard = dh_mdr.get_audio_paths("h")
+    dh_dlf = DataHandler("dlf")
+    df_dlfeasy = dh_dlf.get_audio_paths("e")
+    df_dlfhard = dh_dlf.get_audio_paths("h")
     # join dataframes
-    df = pd.concat([df_easy, df_hard], ignore_index=True)
+    df = pd.concat([df_mdreasy, df_mdrhard, df_dlfeasy, df_dlfhard], ignore_index=True)
     print("Loaded audio data")
     return df
 
@@ -112,7 +115,7 @@ if __name__ == '__main__':
 
     # print(df['label'])
     df, grid = train(df)
-    with open('model.pkl', 'wb') as f:
+    with open('model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)
     print(grid.best_params_)
 
