@@ -1,6 +1,7 @@
 import sys
 import subprocess
 import librosa
+import pickle
 import numpy as np
 import pandas as pd
 import soundfile as sf
@@ -109,7 +110,9 @@ if __name__ == '__main__':
     df = load_audio_data()
     df = evaluate_audio(df)
 
-    print(df['label'])
+    # print(df['label'])
     df, grid = train(df)
+    with open('model.pkl', 'wb') as f:
+        pickle.dump(grid, f)
     print(grid.best_params_)
 
