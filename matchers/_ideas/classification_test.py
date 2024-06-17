@@ -15,6 +15,8 @@ from sklearn.metrics import classification_report
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 from datahandler.DataHandler import DataHandler
 
+tqdm.pandas()
+
 
 def load_text_data():
     dh = DataHandler("mdr")
@@ -66,7 +68,7 @@ def evaluate_audio(df):
     # num_easy = len(df[df['label'] == 0])
     # num_hard = len(df[df['label'] == 1])
 
-    df = df.join(tqdm(df['audio_path'].apply(extract_audio_features), total=df.shape[0]))
+    df = df.join(df['audio_path'].progress_apply(extract_audio_features))
     print("Extracted audio features")
     return df
 
