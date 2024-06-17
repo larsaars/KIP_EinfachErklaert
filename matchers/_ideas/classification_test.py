@@ -29,14 +29,14 @@ def load_text_data():
 def load_audio_data():
     dh_mdr = DataHandler("mdr")
     df_mdreasy = dh_mdr.get_audio_paths("e")
-    print(df_mdreasy['label'])
+    print("mdreasy", df_mdreasy['label'])
     df_mdrhard = dh_mdr.get_audio_paths("h")
-    print(df_mdrhard['label'])
+    print("mdrhard", df_mdrhard['label'])
     dh_dlf = DataHandler("dlf")
     df_dlfeasy = dh_dlf.get_audio_paths("e")
-    print(df_dlfeasy['label'])
+    print("dlfeasy", df_dlfeasy['label'])
     df_dlfhard = dh_dlf.get_audio_paths("h")
-    print(df_dlfhard['label'])
+    print("dlfhard", df_dlfhard['label'])
     # join dataframes
     df = pd.concat([df_mdreasy, df_mdrhard, df_dlfeasy, df_dlfhard], ignore_index=True)
     print("Loaded audio data")
