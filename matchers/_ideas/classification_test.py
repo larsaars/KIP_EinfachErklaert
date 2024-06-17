@@ -36,7 +36,7 @@ def load_audio_data():
     df_dlfeasy = dh_dlf.get_audio_paths("e")
     print("dlfeasy", df_dlfeasy['label'])
     df_dlfhard = dh_dlf.get_audio_paths("h")
-    print("dlfhard", df_dlfhard['label'])
+    # print("dlfhard", df_dlfhard['label'])
     # join dataframes which are not none with check
     df = pd.concat([df_mdreasy, df_mdrhard, df_dlfeasy, df_dlfhard], ignore_index=True)
 
