@@ -250,17 +250,74 @@ Es ist daher entscheidend, den DataHandler gegebenenfalls entsprechend zu optimi
 
 Das Scrapen historischer Artikel birgt seine eigenen Herausforderungen, insbesondere in Bezug auf die Zugänglichkeit und Verfügbarkeit der URLs zu den Artikeln sowohl beim DLF als auch beim MDR. Zusätzlich dazu besteht die Schwierigkeit, die Konsistenz der gesammelten Daten sicherzustellen, da Artikel nur einmal gescraped werden und zukünftige Änderungen der Redaktionen an den Artikeln nicht überprüft und aktualisiert werden. Eine effektive Lösung hierfür könnte eine Funktionalität im DataHandler sein, die nicht nur das Datum des Scrapings berücksichtigt, sondern auch eine Versionierung der Artikel implementiert. Dadurch ließe sich diese Problematik beheben, da verschiedene Versionen eines Artikels zur Verfügung stehen und Änderungen der Redaktionen verfolgt werden könnten.
 
-### 3.9 Dokumentation 
+### 3.8. Matcher
+
+Matcher sind toll. #FIXME:
+
+### 3.9 TF-IDF
+
+Für das Matching der Artikel wurde das Tf-idf-Maß (Term Frequency - Inverse Document Frequency) verwendet, ein weit verbreitetes Verfahren im Bereich der Informationsretrieval und Textanalyse. Der Prozess umfasst folgende Schritte:
+
+1. Vektorisierung des Artikels
+2. Transformation in die Tf-idf Darstellung
+3. Vergleich der Artikel-Vektoren mit Cosine-Similarity
+4. Evaluation des Matchers mit zusätzlichen Kriterien
+
+Zur Vektorisierung wurde eine Klasse auf Basis der sklearn API entwickelt, um den Tokenisierungsprozess vollständig zu kontrollieren. Der Article Vectorizer arbeitet ähnlich wie der CountVectorizer. In der .fit()-Funktion wird das Vokabular aus dem Corpus erstellt und in eine Häufigkeitsmatrix umgewandelt.
+Spezifische Preprocessing-Schritte und Tokenisierung für Nachrichtenartikel umfassen:
+
+- Berücksichtigung von n-grams:
+    Einbeziehung von Wortgruppen unterschiedlicher Länge
+- Kombination segmentierter Wörter:
+    Zusammenführung für die leichte Sprache typischerweise segmentierter Wörter
+- Extraktion von Substantiven und Eigennamen
+    naives named entity recognition
+- Einheitliche Kleinschreibung:
+    Umwandlung aller Wörter Kleinbuchstaben am Ende aller Preprocessing-Schritte
+- Ein- und Ausschluss von Zahlen
+
+
+Eine sklearn Pipeline wurde genutzt, um die vektorisierten Artikel mit dem TfidfTransformer zu verarbeiten. Die Tf-idf-Matrix des gesamten Korpus wurde mittels Cosine Similarity bewertet, und der Artikel mit dem höchsten Score wird als Matches identifiziert.
+
+Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing durch den Article Vectorizer und das Matching zwischen leichten und schweren Artikeln ermöglicht. Weitere artikelbezogene Matching-Kriterien könnten implementiert werden:
+
+- Berücksichtigung des Veröffentlichungsdatums
+    - Maximale Differenz
+    - time-decay in Evaluation
+- Zeitrahmen des Korpus
+    Einschränken des Zeitraums, aus dem Artikel stammen
+- Vokabularbeschränkung (z.B. nur NL- bzw. DLF-Artikel)
+- Kombination aus Titel, Teaser, Beschreibung und Inhalt
+- Berücksichtigung der Platzierung im Ranking
+    - Auswahl aus den Score-Plätzen
+    
+
+Der zeitliche Rahmen des Projekts ermöglichte leider nicht die vollständige Entwicklung des Matchers. Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den Article Vectorizer mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den "passenden" Artikel auszuwählen.
+
+Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden. Ein naiver Ansatz wäre Soft Voting, aber auch lineare Regression könnte als Evaluationsmethode dienen. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden, da hier eine bijektive Zuweisung besteht.
+
+Zusammengefasst bietet dieser Ansatz eine flexible und anpassbare Methode zur Artikelverarbeitung und -matching, die durch weitere Verfeinerungen und die Implementierung zusätzlicher Kriterien noch präziser und leistungsfähiger gemacht werden kann.
+
+
+### 3.10. Dokumentation 
 Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts, dass es als Grundlage für weitere Forschung beispielsweise eine Bachelorarbeit dienen kann. Dies wurde nicht nur beim Aufbau berücksichtigt, sondern besonders auch in der Dokumentation. Die Dokumentation nimmt deswegen bei diesem Projekt einen wichtigen Stellenwert ein. Sicher sind viele Ergebnisse auch im Bericht verarbeitet, es ist aber unklar in welchem Umfang dieser in Zukunft zur Verfügung stehen wird. Deshalb enthält das Repository im `README.md` eine Art kurzen Developer Guide. Hier wird nicht nur der Ursprung, der ganz grobe Aufbau dokumentiert, sondern auch wichtige Hinweise die sich zum Beispiel auch im Bericht finden wie die Datenstruktur. Da die Scraper darauf angelegt sind regelmäßig auf einem Server aufzuführen, um stets neue Daten zu generieren, findet sich hier auch eine Tabelle, die die Executables der Scraper kurz beschreibt und einen Hinweis gibt in welchem Intervall sich eine Ausführung anbietet. Für den DataHandler wurde wie bereits erwähnt ein Beispiele Notebook erstellt, in dem die Funktionen des DataHandlers demonstriert werden. 
 
 ## 4. Ergebnisse
 
 ### 4.1. Gesamelte Daten
 
+Da ein Hauptziel des Berichts war Daten zu sammeln findet an dieser Stelle ein Auswertung des gewonnen Datenmaterials anhand der Features statt. Durch Matching und Analyse der Daten konnte weitere Erkenntnisse über die Beschaffenheit der Daten gewonnen werden. Diese sind in 4.2. Erkenntnisse über die Daten zusammengefasst.
 ![Kreisdiagramme](./documentation/final_report/images/cakes.png)
 
 ### 4.2. Erkenntnisse über die Daten
-b
+
+Nicht nur die Quantitative Analyse der Daten, sondern auch die Qualitative Analyse der Daten ist von Bedeutung. Dies spielte zum Beispiel bei der Forschun an einem geeigneten Matching verfahren eine Rolle.
+
+![hard](./documentation/final_report/images/wordcluster_dlf_hard_alldata.jpg)
+![easy](./documentation/final_report/images/wordcluster_dlf_easy_alldata.jpg)
+
+
+### Unterschiedlichkeit in der Wortwahl
 
 ### 4.3. Matcher
 
