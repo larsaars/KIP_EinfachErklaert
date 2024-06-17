@@ -4,6 +4,7 @@ import librosa
 import numpy as np
 import pandas as pd
 import soundfile as sf
+from tqdm import tqdm
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.pipeline import Pipeline
 from sklearn.model_selection import train_test_split, GridSearchCV
@@ -65,7 +66,7 @@ def evaluate_audio(df):
     # num_easy = len(df[df['label'] == 0])
     # num_hard = len(df[df['label'] == 1])
 
-    df = df.join(df['audio_path'].apply(extract_audio_features))
+    df = df.join(tqdm(df['audio_path'].apply(extract_audio_features), total=df.shape[0]))
     print("Extracted audio features")
     return df
 
