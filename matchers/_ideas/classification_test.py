@@ -120,6 +120,8 @@ from cuml.dask.model_selection import GridSearchCV as DaskGridSearchCV
 from cuml.preprocessing import MinMaxScaler
 from cuml.feature_extraction.text import TfidfVectorizer
 from cuml.neighbors import KNeighborsClassifier
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from datahandler.DataHandler import DataHandler
 
@@ -199,7 +201,7 @@ def train(df):
 
     # evaluation
     y_pred = grid.predict(X_test)
-    print(pd.DataFrame(classification_report(y_test, y_pred.compute(), output_dict=True)))
+    print(classification_report(y_test, y_pred.compute(), output_dict=True))
     return df, grid
 
     def plot_results():
@@ -207,19 +209,6 @@ def train(df):
 
 
 if __name__ == '__main__':
-    '''
-    df_easy, df_hard = load_data()
-
-    df_easy = df_easy[["text"]]
-    df_hard = df_hard[["text"]]
-
-    # df_easy['text'] = df_easy['text'].str.replac
-
-    df_easy["label"] = 0
-    df_hard["label"] = 1
-
-    print(df_easy.head())
-    '''
     df = load_audio_data()
     df = evaluate_audio(df)
 
