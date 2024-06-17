@@ -1,31 +1,43 @@
 ## TF-IDF
 
-Für das Matching wurde ein Ansatz mit dem Tf-idf-Maß (term frequency - inverse document frequency) verfolgt. Dabei lässt sich die zugrundeliegende Idee in drei Teilschritte gliedern:
+Für das Matching der Artikel wurde das Tf-idf-Maß (Term Frequency - Inverse Document Frequency) verwendet, ein weit verbreitetes Verfahren im Bereich der Informationsretrieval und Textanalyse. Der Prozess umfasst folgende Schritte:
 
 1. Vektorisierung des Artikels
 2. Transformation in die Tf-idf Darstellung
 3. Vergleich der Artikel-Vektoren mit Cosine-Similarity
-4. Matcher evaluation with additional criteria
+4. Evaluation des Matchers mit zusätzlichen Kriterien
 
-Für das Vektorisieren des Artikels wurde eine Klasse basierend auf der sklearn API definiert, um volle Kontrolle über den Tokenisierungsprozess zu gewährleisten. So konnten Nachrichtenartikel-spezifische Preprocessing Schritte implementiert werden. 
+Zur Vektorisierung wurde eine Klasse auf Basis der sklearn API entwickelt, um den Tokenisierungsprozess vollständig zu kontrollieren. Der Article Vectorizer arbeitet ähnlich wie der CountVectorizer. In der .fit()-Funktion wird das Vokabular aus dem Corpus erstellt und in eine Häufigkeitsmatrix umgewandelt.
+Spezifische Preprocessing-Schritte und Tokenisierung für Nachrichtenartikel umfassen:
 
-- segmentierte Wörter in zusammengesetzte Wörter umwandeln
-- Isolierung von Substantiven und Nomen
-- lowercasing nach Tokenization und n-gram generierung
-- in-/exclution of numbers
+- Berücksichtigung von n-grams:
+    Einbeziehung von Wortgruppen unterschiedlicher Länge
+- Kombination segmentierter Wörter:
+    Zusammenführung für die leichte Sprache typischerweise segmentierter Wörter
+- Extraktion von Substantiven und Eigennamen
+    naives named entity recognition
+- Einheitliche Kleinschreibung:
+    Umwandlung aller Wörter Kleinbuchstaben am Ende aller Preprocessing-Schritte
+- Ein- und Ausschluss von Zahlen
 
-Es wird eine sklearn Pipeline verwendet um die Vektorisierten Artikel mit dem TfidfTransformer in Reihe zu schalten. Die Tfidf-Matrix transformed auf dem gesamten Corpus (bzw Scope der zu vergleichenden Artikel) wird mit der cosine similarity ausgewertet und die jeweiligen Artikel mit dem höchsten score als das Match zurückgegeben
 
-Im Matcher liesen sich weitere Artikel spezifische Matching-Kriterien implementieren:
+Eine sklearn Pipeline wurde genutzt, um die vektorisierten Artikel mit dem TfidfTransformer zu verarbeiten. Die Tf-idf-Matrix des gesamten Korpus wurde mittels Cosine Similarity bewertet, und der Artikel mit dem höchsten Score wird als Matches identifiziert.
 
-- publishing date delta
-    -> time-decay
-- corpus scope
-- vocabulary limitation (e.g. only NL-Artikel)
-- combination of title, kicker, content
+Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing durch den Article Vectorizer und das Matching zwischen leichten und schweren Artikeln ermöglicht. Weitere artikelbezogene Matching-Kriterien könnten implementiert werden:
 
-Der zeitliche Rahmen des Projekts hat leider nicht die Vervollständigung des Matchers hergegeben. Auf dem aktuellen Stand könnte mit einer Ensemble Methode aufgebaut werden.
-Es bietet sich an die ArticleVectorizer mit unterschiedlichen Parametern und Daten-scopes auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den "passenden" Artikel auszuwählen. 
-Ein naiver Ansatz wäre SoftVoting, aber auch die Lineare Regression würde sich als Evaluationsmethode anbieten.
-Zum Trainieren eines solchen Modells würde sich der bereits gematchte Datensatz der MDR Artikel anbieten, da hier bereits eine bijektive Zuweisung besteht.
+- Berücksichtigung des Veröffentlichungsdatums
+    - Maximale Differenz
+    - time-decay in Evaluation
+- Zeitrahmen des Korpus
+    Einschränken des Zeitraums, aus dem Artikel stammen
+- Vokabularbeschränkung (z.B. nur NL- bzw. DLF-Artikel)
+- Kombination aus Titel, Teaser, Beschreibung und Inhalt
+- Berücksichtigung der Platzierung im Ranking
+    - Auswahl aus den Score-Plätzen
+    
 
+Der zeitliche Rahmen des Projekts ermöglichte leider nicht die vollständige Entwicklung des Matchers. Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den Article Vectorizer mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den "passenden" Artikel auszuwählen.
+
+Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden. Ein naiver Ansatz wäre Soft Voting, aber auch lineare Regression könnte als Evaluationsmethode dienen. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden, da hier eine bijektive Zuweisung besteht.
+
+Zusammengefasst bietet dieser Ansatz eine flexible und anpassbare Methode zur Artikelverarbeitung und -matching, die durch weitere Verfeinerungen und die Implementierung zusätzlicher Kriterien noch präziser und leistungsfähiger gemacht werden kann.
