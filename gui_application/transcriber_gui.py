@@ -76,9 +76,11 @@ def transcribe():
 
         scaler = classification_model.best_estimator_.named_steps['scaler']
         test_audio = scaler.transform(test_audio.values.reshape(1, -1))
-        prediction = classification_model.predict(test_audio)
 
-        print(prediction)
+        classification = {"prediction": classification_model.predict(test_audio),
+                          "probability": classification_model.predict_proba(test_audio)}
+
+        print(classification)
 
         os.remove(filepath)
 
@@ -114,7 +116,7 @@ def transcribe():
         session['transcription'] = results["segments"]
         session['processing_time'] = processing_time
         session['database'] = database
-        session['prediction'] = prediction[0]
+        session['classification'] = classification
         # print("check session")
         # print(session.get('transcription')[:2])
 
@@ -126,6 +128,7 @@ def results():
     transcription = session.get('transcription')
     processing_time = session.get('processing_time')
     database = session.get('database')
+    classification = session.get('classification')
     # print("check session before clear")
     # print(transcription)
     # session.clear()
@@ -134,7 +137,8 @@ def results():
     return render_template('results.html',
                            transcription=transcription,
                            processing_time=processing_time,
-                           database=database)
+                           database=database,
+                           classification=classification)
 
 
 if __name__ == '__main__':

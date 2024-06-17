@@ -38,7 +38,11 @@
     {% endfor %}
 </table>
 <hr>
-<h1>Database results</h1>
+<h1>Prediction result</h1>
+<p>prediction (0 = easy, 1 = hard): {{ classification.prediction }}</p>
+<p>confidence: {{ classification.probability }}</p>
+<hr>
+<h1>Database search result</h1>
 <p> source: {{ database.source }}</p>
 <p> language level: {{ database.level }}</p>
 
