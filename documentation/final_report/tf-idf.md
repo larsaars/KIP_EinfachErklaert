@@ -34,8 +34,8 @@ Neben der Hauptfunktionalität verwendet der `ArticleVectorizer` zusätzliche Hi
 
 TF-IDF ist eine statistische Methode, die dazu dient die Bedeutung eines Wortes in einem Dokument relativ zu einer Sammlung von Dokumenten (Korpus) zu bewerten.
 
-- **Term Frequency (TF):** Dies ist eine Maßzahl für die Häufigkeit eines Begriffs in einem Dokument.
-- **Inverse Document Frequency (IDF):** Dies misst, wie wichtig ein Begriff in einem Korpus ist.
+- **Term Frequency (TF):** Maßzahl für die Häufigkeit eines Begriffs in einem Dokument.
+- **Inverse Document Frequency (IDF):** Maß für die Wichtigkeit eines Begriffes in einem Korpus.
 
 Das Produkt aus TF und IDF ergibt den TF-IDF-Wert eines Begriffs in einem Dokument. Ein hoher TF-IDF-Wert deutet darauf hin, dass der Begriff für das spezifische Dokument wichtig ist, aber in der gesamten Dokumentensammlung eher selten vorkommt.
 Der `TfidfTransformer` aus der `scikit-learn` Bibliothek realisiert diese transformation.
@@ -47,7 +47,8 @@ Das Artikel-Paar mit der größten Kosinus-Ähnlichkeit wird als Match identifiz
 
 #### Ausblick
 
-Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` und das Matching zwischen leichten und schweren Artikeln automatisiert ermöglicht. Weitere artikelbezogene Matching-Kriterien und Parametereinstellungen könnten implementiert werden:
+Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` und das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
+Mögliche Matching-Kriterien und Parametereinstellungen:
 
 - Berücksichtigung des Veröffentlichungsdatums
     - Maximale Differenz zwischen den Artikeln
