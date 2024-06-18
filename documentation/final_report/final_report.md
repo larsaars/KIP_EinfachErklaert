@@ -52,118 +52,129 @@ Die Kommunikation mit den Nachrichtenquellen wurde ein Bestandteil unseres Proje
 
 Wir erwogen auch eine Zusammenarbeit mit der anderen Gruppe, die das gleiche Projekt durchführt, nachdem sich in einem Gespräch mit Prof. Baumann herausstellte, dass es sinnvoll sein könnte, sich beim Scrapen die Arbeit zu teilen. Jedoch wurde unsere Anfrage abgelehnt, da die andere Gruppe befürchtete, dass eine Auslagerung des Webscrapings zu einem Verlust in der Bewertung führen könnte, da dies ja auch Teil der Aufgabenstellung ist und auch einen gewissen Teil des Arbeitsaufwandes darstellt.
 
+
 ## 3.2 Scraper
 
-#### Was ist ein Scraper?
+### Was ist ein Scraper?
 
 Ein Scraper ist ein Programm, das automatisch Daten von Webseiten extrahiert.
-Es gibt verschiedene Arten von Scrapern, die sich in ihrer Funktionsweise und ihren Anwendungsmöglichkeiten unterscheiden. 
-Wir verwenden zwei Scraper-Bibliotheken: BeautifulSoup und Selenium. 
-Diese unterscheiden sich in ihren Funktionen und Anwendungsbereichen.
+Es gibt verschiedene Arten von Scrapern, die sich in ihrer Funktionsweise und ihren Anwendungsmöglichkeiten unterscheiden.
+In diesem Kontext werden zwei Scraper-Bibliotheken verwendet: BeautifulSoup und Selenium, die sich in ihren Funktionen und Anwendungsbereichen unterscheiden.
 
-#### BeautifulSoup
+### BeautifulSoup
 
 ist eine Bibliothek, die es ermöglicht, Daten aus HTML- und XML-Dateien zu extrahieren.
-Sie ist jedoch nicht in der Lage, Formulare zu bearbeiten oder JavaScript auszuführen, weshalb sie nur für statische Webseiten geeignet ist.
-Das bedeutet, dass sie lediglich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden (zum Beispiel nach dem Drücken eines Buttons).
+Sie kann jedoch keine Formulare bearbeiten oder JavaScript ausführen, weshalb sie nur für statische Webseiten geeignet ist.
+Dies bedeutet, dass sie lediglich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden, wie beispielsweise nach dem Drücken eines Buttons.
 
-#### Selenium
+### Selenium
 
 ist ein Webdriver, der es ermöglicht, Webseiten zu steuern und mit ihnen zu interagieren.
-Ein Webdriver ist ein Programm, das die Steuerung eines Webbrowsers ermöglicht, also tatsächlich ein Browserfenster öffnet und dieses dann steuert.
-Das Öffnen des Browserfensters kann auch im Hintergrund erfolgen, sodass der Nutzer nichts davon mitbekommt (somit kann es auch ohne GUI auf dem KI-Server von uns genutzt werden).
+Ein Webdriver ist ein Programm, das die Steuerung eines Webbrowsers ermöglicht, indem es tatsächlich ein Browserfenster öffnet und dieses dann steuert.
+Dieses Öffnen des Browserfensters kann auch im Hintergrund erfolgen, sodass der Nutzer nichts davon mitbekommt, was bedeutet, dass es auch ohne GUI auf einem Server (dem KI-Server) verwendet werden kann.
 Selenium kann auch dynamische Webseiten auslesen, da es JavaScript ausführen kann.
-Selenium ist langsamer als BeautifulSoup und benötigt auch mehr Rechenleistung, deshalb wird BeautifulSoup bevorzugt, wenn es möglich ist.
+Es ist jedoch langsamer als BeautifulSoup und benötigt mehr Rechenleistung, weshalb BeautifulSoup bevorzugt wird, wenn es möglich ist.
 
-### 3.2.4. Arten von Scrapern
+### 3.2.4 Arten von Scrapern
 
-Für unser Projekt benötigen wir zwei Arten von Scrapern:
+Für dieses Projekt werden zwei Arten von Scrapern benötigt:
 
 #### Historische Scraper
 
 sammeln die Artikel, die in der Vergangenheit auf den Webseiten veröffentlicht wurden.
-Diese müssen nur einmalig laufen gelassen werden, da sie alte Daten .
+Diese müssen nur einmalig ausgeführt werden, um die historischen Daten zu extrahieren.
 
 #### Aktuelle Scraper
- werden regelmäßig ausgeführt, um kontinuierlich die neuesten Artikel von den Webseiten zu extrahieren.
 
-### 3.2.5. Der `BaseScraper`
+Aktuelle Scraper werden regelmäßig ausgeführt, um kontinuierlich die neuesten Artikel von den Webseiten zu extrahieren (z.B. einmal die Woche, immer wenn sich der Feed updated).
 
-Für die Scraper haben wir eine Basisklasse `BaseScraper` erstellt, die die allgemeinen Funktionen und Methoden enthält, die für alle Scraper benötigt werden. Die Basisklasse enthält die folgenden Methoden:
+### 3.2.5 Der `BaseScraper`
 
-- `base_metadata_dict()`: Gibt ein Dictionary zurück, das die Metadaten enthält, die wir für jeden Artikel speichern wollen (zum Beispiel Titel, Beschreibung, Datum, usw.).
-- `_get_soup()`: Lädt die Webseite und gibt ein BeautifulSoup Objekt zurück.
-- `_fetch_articles_from_feed()`: Extrahiert die Artikel-URLs aus dem Feed (oder auch anders, falls kein Feed verfügbar) der Webseite.
+Für die Scraper wurde eine Basisklasse `BaseScraper` erstellt, die allgemeine Funktionen und Methoden enthält, die für alle Scraper benötigt werden.
+Die Basisklasse enthält die folgenden Methoden:
+
+- `base_metadata_dict()`: Gibt ein Dictionary zurück, das die Metadaten enthält, die für jeden Artikel gespeichert werden sollen (zum Beispiel Titel, Beschreibung, Datum usw.).
+- `_get_soup()`: Lädt die Webseite und gibt ein BeautifulSoup-Objekt zurück.
+- `_fetch_articles_from_feed()`: Extrahiert die Artikel-URLs aus dem Feed (oder auf andere Weise, falls kein Feed verfügbar ist) der Webseite.
 - `_get_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines Artikels aus der URL.
 - `scrape()`: Führt die einzelnen Schritte zum Scrapen der Webseite aus.
 
-Dadurch müssen wir für jeden neuen Scraper nur noch die spezifischen Methoden implementieren, die für die jeweilige Webseite benötigt werden, und das Ganze ist ein wenig übersichtlicher.
+Dadurch müssen für jeden neuen Scraper nur noch die spezifischen Methoden implementiert werden, die für die jeweilige Webseite benötigt werden, was die Implementierung übersichtlicher macht.
 
 ## 3.3. MDR Scraper
 
-### 3.3.1. Warum MDR?
+### 3.3.1 Warum MDR?
 
-Der MDR Scraper extrahiert Daten von der Webseite des MDR. Der MDR ist ein öffentlich-rechtlicher Rundfunksender, der für Sachsen, Sachsen-Anhalt und Thüringen schreibt und eine Vielzahl von Inhalten, darunter Nachrichten, Videos, Audios und mehr anbietet. Wir haben uns aus verschiedenen Gründen für den MDR als eine der Webseiten entschieden, von der wir Daten extrahieren wollen:
+Der MDR Scraper extrahiert Daten von der Webseite des Mitteldeutschen Rundfunks (MDR). Der MDR ist ein öffentlich-rechtlicher Rundfunksender, der für Sachsen, Sachsen-Anhalt und Thüringen Inhalte bereitstellt, darunter Nachrichten, Videos, Audios und mehr. Es gibt verschiedene Gründe, warum der MDR als Datenquelle gewählt wurde:
 
 - Der MDR ist ein öffentlich-rechtlicher Sender, was eine gewisse Qualität der Daten sichert.
 - Der MDR bietet eine Vielzahl von Inhalten.
 - Das Angebot in einfacher Sprache des MDR und die normalen MDR-Nachrichten sind unter einem Dach, was bedeutet, dass es zu jedem leichten Artikel auch einen normalen Artikel gibt.
-- Die leichten Artikel verlinken immer direkt den normalen Artikel, weswegen wir hierfür keinen Matcher brauchen.
+- Die leichten Artikel verlinken meist direkt den normalen Artikel, was die Notwendigkeit eines speziellen Matchers überflüssig macht.
 - Der MDR bietet Audios an, die von Menschen eingesprochen wurden.
-- Der MDR lädt wöchentlich recht viele leichte Artikel hoch, was uns eine gute Datenbasis bietet (ca. 22 Artikel pro Woche).
+- Der MDR lädt wöchentlich eine große Anzahl leichter Artikel hoch, was eine gute Datenbasis bietet (ca. 22 Artikel pro Woche).
 
-### 3.3.2. MDR `BaseScraper` - Funktionsweise
+### 3.3.2 `MDRBaseScraper` - Funktionsweise
 
-Der MDR `BaseScraper` wurde als Klasse geschaffen, um die allgemeinen Funktionen und Methoden zu enthalten, die für sowohl den aktuellen als auch den historischen Scraper benötigt werden. Die Basisklasse enthält die folgenden Methoden:
+Der `MDRBaseScraper` wurde als Klasse geschaffen, um allgemeine Funktionen und Methoden zu enthalten, die sowohl für den aktuellen als auch den historischen MDR-Scraper benötigt werden.
+Die Basisklasse enthält die folgenden Methoden:
 
 - `_init_selenium()`: Initialisiert das Selenium-Webdriver-Objekt. Wird nur intern verwendet.
-- `_try_audio_extraction()`: Versucht, das Audio des Artikels zu extrahieren. Wird von von den `_get_metadata_and_content()`-Methoden der dieser Klasse aufgerufen und nur intern in der Klasse verwendet.
-- `_get_easy_article_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines einfachen Artikels aus der URL. Wird von der `scrape()`-Methode aufgerufen.
-- `_get_hard_article_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines schwierigen Artikels aus der URL. Wird von der `scrape()`-Methode aufgerufen.
+- `_try_audio_extraction()`: Versucht, das Audio des Artikels zu extrahieren. Wird von den `_get_metadata_and_content()`-Methoden der Klasse aufgerufen und nur intern verwendet.
+- `_get_easy_article_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines einfachen Artikels aus der URL. Wird von der `scrape()`-Methode aufgerufen und kann direkt an den `DataHandler` weitergegeben werden.
+- `_get_hard_article_metadata_and_content(url)`: Das gleiche wie `_get_easy_article_metadata_and_content()`, aber für schwere Artikel. Die Website-Struktur der schweren Artikel unterscheidet sich von der der einfachen Artikel, daher wird eine separate Methode benötigt.
 
-### 3.3.3. MDR: Aktueller Scraper - Funktionsweise
+Die `_get_article_and_metadata_...`-Methoden wurden möglichst robust gebaut, um auch bei Änderungen in der Website-Struktur weiterhin funktionieren zu können.
+Hierfür wurden verschiedene Methoden ausprobiert, um an die benötigten Daten zu gelangen.
+Die Methoden, die am besten funktionierten, wurden dann in die Methoden der Klasse integriert.
+Zudem fehlen immer wieder Teile der benötigten Metadaten auf der Website.
+Das hat immer wieder zu Problemen geführt, auch in Kombination mit dem `DataHandler`, da dieser teilweise auf die Metadaten angewiesen ist, um die Artikel zu speichern.
+Es mussten immer wieder Workarounds gefunden werden, um die fehlenden Metadaten zu ersetzen, meistens durch Platzhalter.
 
+### 3.3.3 MDR: Aktueller Scraper - Funktionsweise
 
-Der aktuelle MDR Scraper extrahiert zunächst die Links der Artikel vom Angebot in einfacher Sprache des MDR und lädt die einfachen Artikel herunter (mitsamt Audio, Metadaten, dem rohen HTML code und dem extrahierten Inhalt).
-An die Audios zu kommen ist nicht ganz einfach, da der MDR die Audios nicht direkt verlinkt, sondern sie über eine JavaScript-Datei lädt.
+Der aktuelle MDR Scraper extrahiert zunächst die Links der Artikel vom Angebot in einfacher Sprache des MDR und lädt die einfachen Artikel mitsamt Audio, Metadaten, dem rohen HTML-Code und dem extrahierten Inhalt herunter.
+An die Audios zu gelangen ist nicht ganz einfach, da der MDR die Audios nicht direkt verlinkt, sondern sie über eine JavaScript-Datei lädt.
 Daher muss hier Selenium verwendet werden.
-Da die einfachen Artikel häufig auf die normalen Artikel verlinken, benötigen wir hierfür keinen Matcher (bzw. tragen die Matches direkt ein über den `SimpleMatcher`).
-Im Anschluss an den einfachen Artikel wird der schwere Artikel gescraped.
+Da die einfachen Artikel häufig auf die normalen Artikel verlinken, wird hierfür kein spezieller Matcher benötigt.
+Die Matches werden hierbei direkt über den `SimpleMatcher` eingetragen.
+Im Anschluss an den einfachen Artikel wird jeweils der schwere Artikel gescraped.
 Ist kein schwerer Artikel auf einen einfachen Artikel verlinkt, wird nur der einfache Artikel gescraped.
 
-### 3.3.4. MDR: Historischer Scraper - Funktionsweise
+### 3.3.4 MDR: Historischer Scraper - Funktionsweise
 
-Der historische MDR Scraper hat sich ein wenig komplizierter gestaltet, da der MDR keine direkte Möglichkeit bietet, auf ein Archiv zuzugreifen.
-Trotzdem gibt es einige alte Artikel, die noch auf der Webseite verfügbar sind.
-Auf verschiedene Weisen haben wir die Links alter einfacher Artikel gesammelt, die wir in einer Liste gespeichert haben.
-Nachdem wir nicht mehr wussten, mit welchen weiteren Methoden wir diese Liste noch erweitern könnten, haben die einfachen Artikel und die verlinken schweren Artikel gescraped.
+Der historische MDR Scraper gestaltet sich etwas komplizierter, da der MDR keine direkte Möglichkeit bietet, auf ein (großes) Archiv an Artikeln zuzugreifen.
+Dennoch gibt es eine große Menge alter Artikel, die noch auf der Webseite verfügbar sind.
+Auf verschiedene Weisen wurden zunächst die Links alter einfacher Artikel gesammelt und in einer Liste gespeichert.
+Nachdem keine weiteren Methoden zur Erweiterung dieser Link-Liste gefunden wurden, wurden die einfachen Artikel und die dort verlinkten schweren Artikel gescraped.
+Hier sind die Methoden, die ausprobiert wurden, um an die Links alter einfacher Artikel des MDR zu gelangen:
 
 #### Methode 1: Eigene MDR-Suche (nicht erfolgreich)
 
-Die erste Methode, die wir ausprobiert haben, war, die MDR-Suche zu verwenden, um nach alten Artikeln zu suchen.
-Es hat sich nach einigem Ausprobieren herausgestellt, dass die Suche nicht sehr zuverlässig ist und insgesamt nur wenige Artikel gefunden werden konnten.
+Die erste Methode war die Verwendung der inoffiziellen MDR-Such-API, um nach alten Artikeln zu suchen.
+Nach einigen Experimenten mit der Entwicklerkonsole des Browsers wurde diese API gefunden.
+Es stellte sich jedoch heraus, dass die MDR-Suche nicht sehr zuverlässig ist und insgesamt nur wenige Artikel gefunden werden konnten.
 
 #### Methode 2: Google-Suche (erfolgreich)
 
-Mit `serpapi.com` haben wir eine Möglichkeit gefunden, Google-Suchergebnisse zu extrahieren.
-Folgende Suchanfrage haben wir verwendet: `site:mdr.de intext:"Hier können Sie diese Nachricht auch in schwerer Sprache lesen:"`.
-Diese Suchanfrage hat uns die Links zu den alten einfachen Artikeln geliefert, da in jedem einfachen Artikel vom MDR, der über eine Verlinkung zu einem schweren Artikel enthält, der `intext:`-Text enthalten ist.
+Mit `serpapi.com` konnte eine Möglichkeit gefunden werden, Google-Suchergebnisse zu extrahieren.
+Folgende Suchanfrage stellte sich als am effizientesten heraus: `site:mdr.de intext:"Hier können Sie diese Nachricht auch in schwerer Sprache lesen:"`.
+Diese Suchanfrage lieferte die Links zu den alten einfachen Artikeln, da in jedem einfachen Artikel vom MDR, der eine Verlinkung zu einem schweren Artikel enthält, dieser Text vorhanden ist.
 Damit haben alle diese Links automatisch auch einen verlinkten schweren Artikel.
-Da dieser API aber sehr limitiert ist (100 kostenlose Suchanfragen pro Monat), haben wir nicht viel sammeln können (hierrüber ca. 330 alte einfache Artikel).
-Zudem kann man bei Google nur die ersten ca. 300-400 Suchergebnisse abfragen, was die Anzahl der gefundenen Artikel weiter einschränkt.
+Da der `SerpAPI` jedoch sehr limitiert ist (100 kostenlose Suchanfragen pro Monat), konnten nur etwa 330 alte einfache Artikel gesammelt werden.
+Zudem kann bei Google nur auf die ersten ca. 300-400 Suchergebnisse zugegriffen werden, was die Anzahl der gefundenen Artikel weiter einschränkt.
 
 #### Methode 3: Bing API (erfolgreich)
 
-Nach einigem Suchen haben wir eine kostenlose Bing API gefunden, die es uns ermöglicht, Suchergebnisse von Bing zu extrahieren.
-Diese API ist nicht so limitiert wie die `SerpAPI` Google API und hat uns mehr Konfigurationsmöglichkeiten geboten.
-Außerdem hat man mit der Bing API pro Monat 1000 kostenlose Suchanfragen.
-Im Endeffekt haben wir die Suchanfragen jeweils immer wieder anders variieren können hierbei (z.B. verschiedene Datumsbereiche, verschiedene Suchbegriffe, etc.).
-Somit haben wir hiermit zumindest noch einmal ca 230 zusätzliche alte einfache Artikel sammeln können.
-
+Nach weiterem Suchen wurde eine kostenlose Bing API gefunden, die es ermöglichte, Suchergebnisse von Bing zu extrahieren.
+Diese API ist nicht so limitiert wie die `SerpAPI` Google API und bot mehr Konfigurationsmöglichkeiten.
+Außerdem stehen bei der Bing API pro Monat 1000 kostenlose Suchanfragen zur Verfügung.
+Durch verschiedene Variationen der Suchanfragen (z.B. verschiedene Datumsbereiche, verschiedene Suchbegriffe) konnten hiermit etwa 230 zusätzliche alte einfache Artikel gesammelt werden.
 
 ## 3.4 Deutschlandradio
 
-Deutschlandradio ist ein Bestandteil des öffentlich-rechtlichen Rundfunks und verantwortlich für die Produktion verschiedener Nachrichtenangebote, darunter DLF und NL, die als bedeutende Datenquellen dienen. Eigenständige Redaktionen sind dafür zuständig, die jeweiligen Inhalte zu konzipieren und zu veröffentlichen.
+Deutschlandradio ist ein Bestandteil des öffentlich-rechtlichen Rundfunks und verantwortlich für die Produktion verschiedener Nachrichtenangebote, darunter DLF und NL, die als bedeutende Datenquellen dienen.
+Eigenständige Redaktionen sind dafür zuständig, die jeweiligen Inhalte zu konzipieren und zu veröffentlichen.
 
 Die Gründe für die Berücksichtigung von Deutschlandradio sind divers:
 
@@ -270,11 +281,13 @@ Matcher sind toll. #FIXME: (mit matches.csv erklärt!)
 
 #### Der `BaseMatcher`
 
-ist die Basis-Klasse aller Matcher. Sie stellt vor allem sicher, dass der richtige Pfad verwendet wird und bietet mit der Funktion `write_match` die Möglichkeit, Matches in jeweils `mdr_matches.csv` und `dlf_matches.csv` zu schreiben.
+ist die Basis-Klasse aller Matcher.
+Sie stellt vor allem sicher, dass der richtige Pfad verwendet wird und bietet mit der Funktion `write_match` die Möglichkeit, Matches in jeweils `mdr_matches.csv` und `dlf_matches.csv` zu schreiben.
 
 #### Der `SimpleMatcher`
 
-ist eine Klasse die auf dem `BaseMatcher` aufbaut und vor allem von den MDR-Scrapern verwendet wird, da beim MDR die leichten auf die schweren Artikel verweisen. Mit der Funktion `match_by_url` bietet er die Möglichkeit, Matches mithilfe von URLs des einfachen und schweren Artikels in die jeweilige Datei zu schreiben.
+ist eine Klasse die auf dem `BaseMatcher` aufbaut und vor allem von den MDR-Scrapern verwendet wird, da beim MDR die leichten auf die schweren Artikel verweisen.
+Mit der Funktion `match_by_url` bietet er die Möglichkeit, Matches mithilfe von URLs des einfachen und schweren Artikels in die jeweilige Datei zu schreiben.
 
 ### 3.9 TF-IDF
 
@@ -322,6 +335,7 @@ Zusammengefasst bietet dieser Ansatz eine flexible und anpassbare Methode zur Ar
 
 
 ### 3.10. Dokumentation 
+
 Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts, dass es als Grundlage für weitere Forschung beispielsweise eine Bachelorarbeit dienen kann. Dies wurde nicht nur beim Aufbau berücksichtigt, sondern besonders auch in der Dokumentation. Die Dokumentation nimmt deswegen bei diesem Projekt einen wichtigen Stellenwert ein. Sicher sind viele Ergebnisse auch im Bericht verarbeitet, es ist aber unklar in welchem Umfang dieser in Zukunft zur Verfügung stehen wird. Deshalb enthält das Repository im `README.md` eine Art kurzen Developer Guide. Hier wird nicht nur der Ursprung, der ganz grobe Aufbau dokumentiert, sondern auch wichtige Hinweise die sich zum Beispiel auch im Bericht finden wie die Datenstruktur. Da die Scraper darauf angelegt sind regelmäßig auf einem Server aufzuführen, um stets neue Daten zu generieren, findet sich hier auch eine Tabelle, die die Executables der Scraper kurz beschreibt und einen Hinweis gibt in welchem Intervall sich eine Ausführung anbietet. Für den DataHandler wurde wie bereits erwähnt ein Beispiele Notebook erstellt, in dem die Funktionen des DataHandlers demonstriert werden. 
 
 ## 4. Ergebnisse
