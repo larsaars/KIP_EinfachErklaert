@@ -71,6 +71,7 @@ def transcribe():
         # print(results["segments"])
 
         test_audio = extract_audio_features(filepath)
+        os.remove(filepath)
         with open('model_all.pkl', 'rb') as f:
             classification_model = pickle.load(f)
 
@@ -78,11 +79,7 @@ def transcribe():
         test_audio = scaler.transform(test_audio.values.reshape(1, -1))
 
         classification = {"prediction": classification_model.predict(test_audio)[0],
-                          "probability": classification_model.predict_proba(test_audio)[0]}
-
-        # print(classification)
-
-        os.remove(filepath)
+                          "probability": classification_model.predict_proba(test_audio)[:, 1]}
 
         database = {}
         # clip string if . is at the end and/or whitespace at the beginning
