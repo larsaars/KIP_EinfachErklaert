@@ -40,7 +40,7 @@ Trotz dieser zusätzlichen Schwierigkeiten wurden alle Herausforderungen bisher 
 
 ### 2.2. Überblick
 
-![Die Pipeline](./documentation/final_report/images/pipe3.png)
+![Die Pipeline](./images/pipe3.png)
 
 Die Abbildung 1 stellt den aktuellen Stand der Pipeline des Projekts dar. Unterteilt werden kann in die Scraper, den DataHandler und die Matcher, die alle miteinander interagieren. Die Scraper sammeln für die jeweilige Nachrichtenquelle Artikel, die der DataHandler dann in ein einheitliches Format bringt und mit ihrem Inhalt und den Metadaten speichert. Der Matcher vergleicht leichte und normale Artikel und versucht diese zu verbinden. Details zu den einzelnen Modulen finden sich in den jeweiligen Kapiteln.
 
@@ -315,14 +315,14 @@ Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts
 ### 4.1. Gesamelte Daten
 
 Da ein Hauptziel des Berichts war Daten zu sammeln findet an dieser Stelle ein Auswertung des gewonnen Datenmaterials anhand der Features statt. Durch Matching und Analyse der Daten konnte weitere Erkenntnisse über die Beschaffenheit der Daten gewonnen werden. Diese sind in 4.2. Erkenntnisse über die Daten zusammengefasst.
-![Kreisdiagramme](./documentation/final_report/images/cakes.png)
+![Kreisdiagramme](./images/cakes.png)
 
 ### 4.2. Erkenntnisse über die Daten
 
 Nicht nur die Quantitative Analyse der Daten, sondern auch die Qualitative Analyse der Daten ist von Bedeutung. Dies spielte zum Beispiel bei der Forschun an einem geeigneten Matching verfahren eine Rolle.
 
-![hard](./documentation/final_report/images/wordcluster_dlf_hard_alldata.jpg)
-![easy](./documentation/final_report/images/wordcluster_dlf_easy_alldata.jpg)
+![hard](./images/wordcluster_dlf_hard_alldata.jpg)
+![easy](./images/wordcluster_dlf_easy_alldata.jpg)
 
 
 ### Unterschiedlichkeit in der Wortwahl
