@@ -1,9 +1,6 @@
 # ignore the data folder
 data/
 
-# midterm review stuff
-midterm_review/MidtermReviewFelix.pdf
-
 # python cache and jupyter nb cache
 __pycache__/
 .ipynb_checkpoints/

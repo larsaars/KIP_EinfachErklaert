@@ -75,8 +75,6 @@ class MDRHistoricScraper(MDRBaseScraper):
             newly_scraped = self.data_handler.save_article('hard', hard_metadata, hard_content, hard_html,
                                                            download_audio=True) or newly_scraped
 
-            print(easy_article_url, hard_article_url, newly_scraped)
-
             # match the articles via simple matcher function
             # if newly scraped (prevents from duplicate match writing)
             if newly_scraped:
