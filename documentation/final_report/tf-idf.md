@@ -1,6 +1,6 @@
 ## Matching
 
-Für das Matching der Artikel wurde das Tf-idf-Maß (Term Frequency - Inverse Document Frequency) verwendet, ein weit verbreitetes Verfahren im Bereich der Informationsretrieval und Textanalyse. Der Prozess umfasst folgende Schritte:
+Für das Matching der Artikel wurde das Tf-idf-Maß (Term Frequency - Inverse Document Frequency) verwendet, ein weit verbreitetes Verfahren im Bereich der Informationsretrieval und Textanalyse. Sie dient dazu, die Bedeutung eines Wortes in einem Dokument relativ zu einer Sammlung von Dokumenten (Korpus) zu bewerten. Der Prozess umfasst folgende Schritte:
 
 1. Vektorisierung des Artikels
 2. Transformation in die Tf-idf Darstellung
@@ -28,25 +28,40 @@ Die Klasse verwendet die Natural Language Toolkit (NLTK) Bibliothek um Stoppwör
 
 Neben der Hauptfunktionalität verwendet der `ArticleVectorizer` zusätzliche Hilfsfunktionen wie `get_ngrams_with_capitalized`, `is_segmented_word` und `convert_segmented_word`, um spezifische Bereinigungs- und Transformationsschritte auf Tokens oder n-Grammen anzuwenden. Diese Funktionen tragen zur Präzision und Flexibilität des Vektorisierungsprozesses bei, indem sie spezifische sprachliche oder strukturelle Eigenschaften der Textdaten berücksichtigen.
 
-### Matching
+### Matcher
 
-Eine sklearn Pipeline wurde genutzt, um die vektorisierten Artikel mit dem TfidfTransformer zu verarbeiten. Die Tf-idf-Matrix des gesamten Korpus wurde mittels Cosine Similarity bewertet, und der Artikel mit dem höchsten Score wird als Matches identifiziert.
+#### TF-IDF und TfidfTransformer
 
-Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing durch den Article Vectorizer und das Matching zwischen leichten und schweren Artikeln ermöglicht. Weitere artikelbezogene Matching-Kriterien könnten implementiert werden:
+TF-IDF ist eine statistische Methode, die dazu dient die Bedeutung eines Wortes in einem Dokument relativ zu einer Sammlung von Dokumenten (Korpus) zu bewerten.
+
+- **Term Frequency (TF):** Dies ist eine Maßzahl für die Häufigkeit eines Begriffs in einem Dokument.
+- **Inverse Document Frequency (IDF):** Dies misst, wie wichtig ein Begriff in einem Korpus ist.
+
+Das Produkt aus TF und IDF ergibt den TF-IDF-Wert eines Begriffs in einem Dokument. Ein hoher TF-IDF-Wert deutet darauf hin, dass der Begriff für das spezifische Dokument wichtig ist, aber in der gesamten Dokumentensammlung eher selten vorkommt.
+Der `TfidfTransformer` aus der `scikit-learn` Bibliothek realisiert diese transformation.
+
+#### Pipeline 
+
+Die Häufigkeitsmatrix des `ArticleVectorizer` wird durch den `TfidfTransformer` in eine Tfidf-Matrix-Darstellung gebracht. Diese kann daraufhin verwendet werden um mit der Kosinus-Ähnlichkeit die Ähnlichkeit zwischen zwei Texten (bzw. zwischen Artikeln in leichter und normaler Sprache) zu berechnen. 
+Das Artikel-Paar mit der größten Kosinus-Ähnlichkeit wird als Match identifiziert.
+
+#### Ausblick
+
+Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` und das Matching zwischen leichten und schweren Artikeln automatisiert ermöglicht. Weitere artikelbezogene Matching-Kriterien und Parametereinstellungen könnten implementiert werden:
 
 - Berücksichtigung des Veröffentlichungsdatums
-    - Maximale Differenz
-    - time-decay in Evaluation
+    - Maximale Differenz zwischen den Artikeln
+    - time-decay als Bestrafungsterm
 - Zeitrahmen des Korpus
     Einschränken des Zeitraums, aus dem Artikel stammen
-- Vokabularbeschränkung (z.B. nur NL- bzw. DLF-Artikel)
+- Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
 - Kombination aus Titel, Teaser, Beschreibung und Inhalt
 - Berücksichtigung der Platzierung im Ranking
     - Auswahl aus den Score-Plätzen
     
 
-Der zeitliche Rahmen des Projekts ermöglichte leider nicht die vollständige Entwicklung des Matchers. Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den Article Vectorizer mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den "passenden" Artikel auszuwählen.
+Der zeitliche Rahmen des Projekts ermöglichte leider nicht die vollständige Entwicklung des Matchers. Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den `ArticleVectorizer` mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den "passenden" Artikel auszuwählen.
 
-Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden. Ein naiver Ansatz wäre Soft Voting, aber auch lineare Regression könnte als Evaluationsmethode dienen. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden, da hier eine bijektive Zuweisung besteht.
+Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden. Ein naiver Ansatz wäre Soft Voting, aber auch lineare Regression könnte als Evaluationsmethode dienen. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden, da hier eine injektive Zuweisung besteht.
 
 Zusammengefasst bietet dieser Ansatz eine flexible und anpassbare Methode zur Artikelverarbeitung und -matching, die durch weitere Verfeinerungen und die Implementierung zusätzlicher Kriterien noch präziser und leistungsfähiger gemacht werden kann.
