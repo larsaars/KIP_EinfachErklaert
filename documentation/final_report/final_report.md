@@ -56,22 +56,33 @@ Wir erwogen auch eine Zusammenarbeit mit der anderen Gruppe, die das gleiche Pro
 
 #### Was ist ein Scraper?
 
-Ein Scraper ist ein Programm, das automatisch Daten von Webseiten extrahiert. Es gibt verschiedene Arten von Scrapern, die sich in ihrer Funktionsweise und ihren Anwendungsmöglichkeiten unterscheiden. Wir verwenden zwei Scraper-Bibliotheken: BeautifulSoup und Selenium. Diese unterscheiden sich in ihren Funktionen und Anwendungsbereichen.
+Ein Scraper ist ein Programm, das automatisch Daten von Webseiten extrahiert.
+Es gibt verschiedene Arten von Scrapern, die sich in ihrer Funktionsweise und ihren Anwendungsmöglichkeiten unterscheiden. 
+Wir verwenden zwei Scraper-Bibliotheken: BeautifulSoup und Selenium. 
+Diese unterscheiden sich in ihren Funktionen und Anwendungsbereichen.
 
 #### BeautifulSoup
 
- ist eine Bibliothek, die es ermöglicht, Daten aus HTML- und XML-Dateien zu extrahieren. Sie ist jedoch nicht in der Lage, Formulare zu bearbeiten oder JavaScript auszuführen, weshalb sie nur für statische Webseiten geeignet ist. Das bedeutet, dass sie lediglich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden (zum Beispiel nach dem Drücken eines Buttons).
+ist eine Bibliothek, die es ermöglicht, Daten aus HTML- und XML-Dateien zu extrahieren.
+Sie ist jedoch nicht in der Lage, Formulare zu bearbeiten oder JavaScript auszuführen, weshalb sie nur für statische Webseiten geeignet ist.
+Das bedeutet, dass sie lediglich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden (zum Beispiel nach dem Drücken eines Buttons).
 
 #### Selenium
 
- ist ein Webdriver, der es ermöglicht, Webseiten zu steuern und mit ihnen zu interagieren. Ein Webdriver ist ein Programm, das die Steuerung eines Webbrowsers ermöglicht, also tatsächlich ein Browserfenster öffnet und dieses dann steuert. Selenium kann auch dynamische Webseiten auslesen, da es JavaScript ausführen kann. Selenium ist langsamer als BeautifulSoup und benötigt auch mehr Rechenleistung, deshalb wird BeautifulSoup bevorzugt, wenn es möglich ist.
+ist ein Webdriver, der es ermöglicht, Webseiten zu steuern und mit ihnen zu interagieren.
+Ein Webdriver ist ein Programm, das die Steuerung eines Webbrowsers ermöglicht, also tatsächlich ein Browserfenster öffnet und dieses dann steuert.
+Das Öffnen des Browserfensters kann auch im Hintergrund erfolgen, sodass der Nutzer nichts davon mitbekommt (somit kann es auch ohne GUI auf dem KI-Server von uns genutzt werden).
+Selenium kann auch dynamische Webseiten auslesen, da es JavaScript ausführen kann.
+Selenium ist langsamer als BeautifulSoup und benötigt auch mehr Rechenleistung, deshalb wird BeautifulSoup bevorzugt, wenn es möglich ist.
 
 ### 3.2.4. Arten von Scrapern
 
 Für unser Projekt benötigen wir zwei Arten von Scrapern:
 
 #### Historische Scraper
- sammeln die Artikel, die in der Vergangenheit auf den Webseiten veröffentlicht wurden. Diese lassen wir einmalig laufen, um das Archiv der Webseiten zu erstellen.
+
+sammeln die Artikel, die in der Vergangenheit auf den Webseiten veröffentlicht wurden.
+Diese müssen nur einmalig laufen gelassen werden, da sie alte Daten .
 
 #### Aktuelle Scraper
  werden regelmäßig ausgeführt, um kontinuierlich die neuesten Artikel von den Webseiten zu extrahieren.
