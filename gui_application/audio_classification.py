@@ -83,7 +83,7 @@ def train(df):
 
     svg_pipe = Pipeline([
         ('scaler', MinMaxScaler()),
-        ('svc', SVC())
+        ('svc', SVC(probability=True))
     ])
 
     param_grid = {'svc__C': [0.1, 1, 10, 100, 1000],

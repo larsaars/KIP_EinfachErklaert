@@ -1,5 +1,3 @@
-#TODO: make captions saveable
-
 import instaloader
 import logging
 import sys
@@ -33,6 +31,7 @@ def clean_text(text):
     text = re.sub(r'\b[A-Z]+\b', '', text)
 
     return text
+
 
 def text_from_image(url):
     image = Image.open(BytesIO(requests.get(url).content))
