@@ -29,14 +29,10 @@ def load_text_data():
 def load_audio_data():
     dh_mdr = DataHandler("mdr")
     df_mdreasy = dh_mdr.get_audio_paths("e")
-    # print("mdreasy", df_mdreasy['label'])
     df_mdrhard = dh_mdr.get_audio_paths("h")
-    # print("mdrhard", df_mdrhard['label'])
     dh_dlf = DataHandler("dlf")
     df_dlfeasy = dh_dlf.get_audio_paths("e")
-    # print("dlfeasy", df_dlfeasy['label'])
     df_dlfhard = dh_dlf.get_audio_paths("h")
-    # print("dlfhard", df_dlfhard['label'])
     # join dataframes which are not none with check
     df = pd.concat([df_mdreasy, df_mdrhard, df_dlfeasy, df_dlfhard], ignore_index=True)
 
@@ -49,6 +45,7 @@ def extract_text_features(texts):
     vectorizer = TfidfVectorizer()
     X = vectorizer.fit_transform(texts)
     return X
+
 
 def load_and_split_audio(audio_path):
     y, sr = librosa.load(audio_path)
@@ -67,15 +64,13 @@ def extract_audio_features(audio_path):
     features = {
         'spectral_centroid': np.mean(librosa.feature.spectral_centroid(y=y, sr=sr)),
         'zero_crossing_rate': np.mean(librosa.feature.zero_crossing_rate(y)),
-        # andere Merkmale?
     }
     for i, mfcc in enumerate(np.mean(mfccs.T, axis=0)):
         features[f'mfcc_{i}'] = mfcc
     return pd.Series(features)
 
+
 def evaluate_audio(df):
-    # num_easy = len(df[df['label'] == 0])
-    # num_hard = len(df[df['label'] == 1])
 
     df = df.join(df['audio_path'].progress_apply(extract_audio_features))
     print("Extracted audio features")
@@ -86,6 +81,19 @@ def train(df):
     # training and testsplit
     X_train, X_test, y_train, y_test = train_test_split(df.drop(['label', 'audio_path'], axis=1), df['label'], test_size=0.2, random_state=42)
 
+    svg_pipe = Pipeline([
+        ('scaler', MinMaxScaler()),
+        ('svc', SVC())
+    ])
+
+    param_grid = {'svc__C': [0.1, 1, 10, 100, 1000],
+                  'svc__gamma': [1, 0.1, 0.01, 0.001, 0.0001],
+                  'svc__kernel': ['rbf', 'linear', 'poly', 'sigmoid']}
+
+    grid = GridSearchCV(svg_pipe, param_grid, cv=5, n_jobs=-1)
+    grid.fit(X_train, y_train)
+
+    """
     # setting up a pipeline
     knn_pipe = Pipeline([
         ('scaler', MinMaxScaler()),
@@ -100,27 +108,18 @@ def train(df):
 
     grid = GridSearchCV(knn_pipe, param_grid, cv=5, n_jobs=-1)
     grid.fit(X_train, y_train)
-
-    # modeltraining
-    # model = SVC(kernel='linear')
-    # model.fit(X_train, y_train)
+    """
 
     # evaluation
     y_pred = grid.predict(X_test)
     print(pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)))
     return df, grid
 
-    def plot_results():
-        pass
-
-
 if __name__ == '__main__':
     df = load_audio_data()
     df = evaluate_audio(df)
 
-    print(len(list(df['label'] == 0)))
-    print(len(list(df['label'] == 1)))
-
+    # print(df['label'])
     df, grid = train(df)
     with open('model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)

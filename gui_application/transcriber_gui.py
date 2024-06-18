@@ -77,10 +77,10 @@ def transcribe():
         scaler = classification_model.best_estimator_.named_steps['scaler']
         test_audio = scaler.transform(test_audio.values.reshape(1, -1))
 
-        classification = {"prediction": classification_model.predict(test_audio),
-                          "probability": classification_model.predict_proba(test_audio)}
+        classification = {"prediction": classification_model.predict(test_audio)[0],
+                          "probability": classification_model.predict_proba(test_audio)[0]}
 
-        print(classification)
+        # print(classification)
 
         os.remove(filepath)
 
