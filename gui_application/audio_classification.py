@@ -118,7 +118,9 @@ if __name__ == '__main__':
     df = load_audio_data()
     df = evaluate_audio(df)
 
-    # print(df['label'])
+    print(len(list(df['label'] == 0)))
+    print(len(list(df['label'] == 1)))
+
     df, grid = train(df)
     with open('model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)
