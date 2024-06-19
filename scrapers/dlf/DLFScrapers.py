@@ -80,8 +80,12 @@ class DeutschlandfunkScraper(DeutschlandradioScraper):
 
 
 class NachrichtenleichtScraper(DeutschlandradioScraper):
-    def __init__(self):
-        super().__init__(nl_feed_url, "easy")
+    def __init__(self, alternative_feed_url=None):
+        if alternative_feed_url is None:
+            alternative_feed_url = nl_feed_url
+        
+
+        super().__init__(alternative_feed_url, "easy")
 
     def _get_audio_metadata(self, article) -> dict:
         data = None
