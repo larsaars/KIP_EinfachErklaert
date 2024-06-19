@@ -56,8 +56,10 @@ mdr_easy_data['niveau'] = 'easy'
 mdr_hard_data = mdr.get_all("hard")
 mdr_hard_data['source'] = 'mdr'
 mdr_hard_data['niveau'] = 'hard'
-mdr_easy_data['article'] = BeautifulSoup(" ".join(mdr_easy_data["text"].tolist()), 'lxml').get_text()
-mdr_hard_data['article'] = BeautifulSoup(" ".join(mdr_hard_data["text"].tolist()), 'lxml').get_text()
+#mdr_easy_data['article'] = BeautifulSoup(" ".join(mdr_easy_data["text"].tolist()), 'lxml').get_text()
+#mdr_hard_data['article'] = BeautifulSoup(" ".join(mdr_hard_data["text"].tolist()), 'lxml').get_text()
+mdr_easy_data['article'] = mdr_easy_data['text']
+mdr_hard_data['article'] = mdr_hard_data['text']
 
 # DLF
 dlf_easy_data = dlf.get_all("easy")
@@ -156,7 +158,7 @@ plt.clf()
 
 # ---------------------------------------- LENGTH BOXPLOT ---------------------------------------- 
 
-dlf_part = all_data[all_data['source'] == 'dlf']
+dlf_part = all_data[all_data['source'] == 'mdr']
 
 plt.figure(figsize=(16, 12))  
 sns.boxplot(x='niveau', y='article_length', data=dlf_part, palette='pastel', showfliers=False)
