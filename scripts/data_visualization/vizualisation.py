@@ -56,10 +56,10 @@ mdr_easy_data['niveau'] = 'easy'
 mdr_hard_data = mdr.get_all("hard")
 mdr_hard_data['source'] = 'mdr'
 mdr_hard_data['niveau'] = 'hard'
-#mdr_easy_data['article'] = BeautifulSoup(" ".join(mdr_easy_data["text"].tolist()), 'lxml').get_text()
-#mdr_hard_data['article'] = BeautifulSoup(" ".join(mdr_hard_data["text"].tolist()), 'lxml').get_text()
-mdr_easy_data['article'] = mdr_easy_data['text']
-mdr_hard_data['article'] = mdr_hard_data['text']
+# Process each row individually
+mdr_easy_data['article'] = mdr_easy_data['text'].apply(lambda x: BeautifulSoup(x, 'lxml').get_text())
+mdr_hard_data['article'] = mdr_hard_data['text'].apply(lambda x: BeautifulSoup(x, 'lxml').get_text())
+
 
 # DLF
 dlf_easy_data = dlf.get_all("easy")
@@ -165,7 +165,7 @@ dlf_part = all_data[all_data['source'] == 'mdr']
 
 plt.figure(figsize=(16, 12))  
 sns.boxplot(x='niveau', y='article_length', data=dlf_part, palette='pastel', showfliers=False)
-plt.title('Wörter pro Artikel bei DLF/ NL')
+plt.title('Wörter pro Artikel bei MDR')
 plt.xlabel('Sprachniveau')
 plt.ylabel('Wörter')
 plt.tight_layout()  # Adjust the layout
