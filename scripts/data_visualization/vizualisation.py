@@ -39,6 +39,10 @@ def extract_date_from_path(path):
         return match.group(0)
     return None
 
+# Function to remove invisible characters
+def remove_invisible_chars(text):
+    return re.sub(r'[\u200b-\u200d\uFEFF]', '', text)
+
 print("STARTING VISUALIZATION")
 print("IMAGE OUT DIRECTORY: ", image_svg)
 # ---------------------------------------- DATA COLLECTION ---------------------------------------- 
@@ -75,12 +79,12 @@ all_data['path_date'] = pd.to_datetime(all_data['path_date'], errors='coerce')
 
 all_data = all_data.replace([np.inf, -np.inf], np.nan)
 
+all_data['article'] = all_data['article'].apply(remove_invisible_chars)
+
 # calculate article length in words
-all_data['article_length'] = all_data['article'].apply(lambda x : len(re.findall(r'\w+', x)))
-all_data['article_length'].fillna(all_data['article_length'].median(), inplace=True)
+all_data['article_length'] = all_data['article'].apply(lambda x : len(x.split(" ")))
 
 all_data.drop(columns=['audio_audio_url', 'audio_download_url', 'audio_duration', 'text', 'match', 'date'], inplace=True)
-
 
 # ---------------------------------------- VISUALIZATION ---------------------------------------- 
 # Adjusting font sizes
@@ -151,9 +155,12 @@ plt.clf()
 
 
 # ---------------------------------------- LENGTH BOXPLOT ---------------------------------------- 
+
+dlf_part = all_data[all_data['source'] == 'dlf']
+
 plt.figure(figsize=(16, 12))  
-sns.boxplot(x='niveau', y='article_length', data=all_data, palette='pastel')
-plt.title('Wörter pro Artikel')
+sns.boxplot(x='niveau', y='article_length', data=dlf_part, palette='pastel', showfliers=False)
+plt.title('Wörter pro Artikel bei DLF/ NL')
 plt.xlabel('Sprachniveau')
 plt.ylabel('Wörter')
 plt.tight_layout()  # Adjust the layout
@@ -176,6 +183,24 @@ plt.tight_layout()
 
 plt.savefig(os.path.join(image_svg, 'articles_over_time.svg'))
 plt.savefig(os.path.join(image_png, 'articles_over_time.png'))
+
+# log scale
+all_data['path_date'] = pd.to_datetime(all_data['path_date'])
+articles_over_time = all_data.groupby(all_data['path_date'].dt.to_period('W')).size().reset_index(name='count')
+articles_over_time['path_date'] = articles_over_time['path_date'].dt.to_timestamp()
+
+plt.figure(figsize=(24, 12))
+sns.lineplot(x='path_date', y='count', data=articles_over_time, marker='o', linestyle='-')
+plt.title('Veröffentlichungsdatum')
+plt.xlabel('Datum')
+plt.ylabel('Anzahl Artikel')
+plt.yscale('log')  
+plt.grid(True)
+plt.tight_layout()
+
+plt.savefig(os.path.join(image_svg, 'articles_over_time_log.svg'))
+plt.savefig(os.path.join(image_png, 'articles_over_time_log.png'))
+plt.clf()
 # ---------------------------------------- WORD CLUSTER ----------------------------------------
 dlf_word_cluster()
 mdr_word_cluster()
