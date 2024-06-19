@@ -8,6 +8,7 @@ Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
    1. Projektmanagement und organisatorische Herausforderungen (Felix)
    2. Überblick (alle)
    3. Kommunikation mit Nachrichtenquellen (Ben)
+   4. Kommunikation mit anderer Gruppe 
 3. Entwicklung
    1. Scraper (Lars)
    2. MDR Scraper (Lars)
@@ -16,11 +17,10 @@ Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
    5. Weitere Nachrichtenangebote (Simon)
    6. KI-Server (Ben)
    7. Technische Herausforderungen (Simon)
-4. Ergebnisse
+   8. Dokumentation zur Übergabe
+4. Datenauswertung
    1. Gesamelte Daten
    2. Erkenntnisse über die Daten
-   3. Matcher
-   4. Dokumentation zur Übergabe
 5. Fazit (alle)
 
 

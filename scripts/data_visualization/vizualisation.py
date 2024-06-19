@@ -56,10 +56,15 @@ dlf_hard_data['article'] = dlf_hard_data['text']
 all_data = pd.concat([mdr_easy_data, mdr_hard_data, dlf_easy_data, dlf_hard_data])
 all_data['has_audio'] = all_data['audio_audio_url'].apply(lambda x : isinstance(x, str))
 all_data['has_match'] = all_data['match'].apply(lambda x : isinstance(x, str))
+
 all_data.drop(columns=['audio_audio_url', 'audio_download_url', 'audio_duration', 'text', 'match'], inplace=True)
 all_data['date'] = pd.to_datetime(all_data['date'], errors='coerce')
+
 all_data = all_data.replace([np.inf, -np.inf], np.nan)
-total_articles = all_data['article'].nunique()
+all_data['article_length'] = all_data['article'].apply(lambda x : len(x.split()))
+all_data['article_length'].fillna(all_data['article_length'].median(), inplace=True)
+
+print(f"Insgesamt {all_data.shape[0]} Artikel gefunden.")
 
 # ---------------------------------------- VISUALIZATION ---------------------------------------- 
 # Adjusting font sizes
@@ -85,7 +90,7 @@ axs[2].pie(articles_with_audio, labels=articles_with_audio.index, autopct='%1.1f
 axs[2].set_title('Artikel mit Audio', fontsize=30)
 
 plt.tight_layout()
-plt.savefig(os.path.join(image_dir, 'cakes_x3.jpg'))
+plt.savefig(os.path.join(image_dir, 'cakes_x3.svg'))
 plt.clf() 
 
 # x4 cakes
@@ -114,21 +119,18 @@ axs[1, 1].pie(articles_with_audio, labels=articles_with_audio.index, autopct='%1
 axs[1, 1].set_title('Artikel mit Match')
 
 plt.tight_layout()
-plt.savefig(os.path.join(image_dir, 'cakes_x4.jpg'))
+plt.savefig(os.path.join(image_dir, 'cakes_x4.svg'))
 plt.clf() 
 
 
 # ---------------------------------------- LENGTH BOXPLOT ---------------------------------------- 
-# Length difference between easy and hard articles using seaborn box plot
-all_data['length'] = all_data['article'].apply(lambda x : len(x.split()))
-
 plt.figure(figsize=(16, 12))  
-sns.boxplot(x='niveau', y='length', data=all_data, palette='pastel')
+sns.boxplot(x='niveau', y='article_length', data=all_data, palette='pastel')
 plt.title('Wörter pro Artikel')
 plt.xlabel('Sprachniveau')
 plt.ylabel('Wörter')
 plt.tight_layout()  # Adjust the layout
-plt.savefig(os.path.join(image_dir, 'box_plot_length.jpg'))
+plt.savefig(os.path.join(image_dir, 'box_plot_length.svg'))
 plt.clf()
 
 # ---------------------------------------- ERSCHEINUNGSDATUM ---------------------------------------- 
@@ -144,7 +146,7 @@ plt.ylabel('Anzahl Artikel')
 plt.grid(True)
 plt.tight_layout()
 
-plt.savefig(os.path.join(image_dir, 'articles_over_time.jpg'))
+plt.savefig(os.path.join(image_dir, 'articles_over_time.svg'))
 # ---------------------------------------- WORD CLUSTER ----------------------------------------
 dlf_word_cluster()
 mdr_word_cluster()

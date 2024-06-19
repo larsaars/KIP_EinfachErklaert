@@ -42,7 +42,7 @@ def mdr_word_cluster():
         plt.imshow(wordcloud, interpolation="bilinear")
         plt.title(title, fontsize=20)
         plt.axis("off")
-        file_path = os.path.join(git_root, "documentation", "images", f"wordcluster_mdr_{lvl}.jpg")
+        file_path = os.path.join(git_root, "documentation", "images", f"wordcluster_mdr_{lvl}.png")
         plt.savefig(file_path, dpi=300, bbox_inches='tight')
         # plt.show()
 
