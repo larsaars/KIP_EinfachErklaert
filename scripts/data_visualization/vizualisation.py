@@ -88,6 +88,8 @@ all_data['article_length'] = all_data['article'].apply(lambda x : len(x.split(" 
 
 all_data.drop(columns=['audio_audio_url', 'audio_download_url', 'audio_duration', 'text', 'match', 'date'], inplace=True)
 
+all_data.to_csv('all_data.csv', index=False)
+
 # ---------------------------------------- VISUALIZATION ---------------------------------------- 
 # Adjusting font sizes
 plt.rcParams.update({'font.size': 25})  # Set the global font size
@@ -154,6 +156,7 @@ plt.tight_layout()
 plt.savefig(os.path.join(image_svg, 'cakes_x4.svg'))
 plt.savefig(os.path.join(image_png, 'cakes_x4.png'))
 plt.clf() 
+
 
 
 # ---------------------------------------- LENGTH BOXPLOT ---------------------------------------- 
