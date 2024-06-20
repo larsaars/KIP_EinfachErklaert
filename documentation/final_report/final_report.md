@@ -290,7 +290,7 @@ Sie stellt vor allem sicher, dass der richtige Pfad verwendet wird und bietet mi
 ist eine Klasse die auf dem `BaseMatcher` aufbaut und vor allem von den MDR-Scrapern verwendet wird, da beim MDR die leichten auf die schweren Artikel verweisen.
 Mit der Funktion `match_by_url` bietet er die Möglichkeit, Matches mithilfe von URLs des einfachen und schweren Artikels in die jeweilige Datei zu schreiben.
 
-### Matching mit Tf-idf
+### 3.9. Matching mit Tf-idf
 
 Das Matching von Artikeln dient dazu, Texte in einfacher Sprache mit ihren äquivalenten in normaler Sprache zu verknüpfen. Das Verfahren nutzt statistische Textanalyse und Informationsretrieval-Techniken wie das Tf-idf-Maß und Cosine-Similarity, um die inhaltliche Übereinstimmung zwischen Texten zu bewerten.
 Der Prozess umfasst folgende Schritte:
@@ -300,7 +300,7 @@ Der Prozess umfasst folgende Schritte:
 3. Vergleich der Artikel-Vektoren mit Cosine-Similarity
 4. Evaluation des Matchers mit zusätzlichen Kriterien
 
-#### ArticleVectorizer
+#### 3.9.1. ArticleVectorizer
 
 Die Klasse `ArticleVectorizer` implementiert eine Textvektorisierungsfunktion, die speziell für die Verarbeitung von Texten in einfacher Sprache entwickelt wurde. 
 Die Klasse implementiert anwendungsspezifische Funktionen und dient dazu Texte zu verarbeiten und sie in ein Format zu transformieren, das für maschinelles Lernen verwendet werden kann.
@@ -322,7 +322,7 @@ Sie verwendet die Natural Language Toolkit (NLTK) Bibliothek zur Tokenisierung u
 
 Zusätzliche Hilfsfunktionen wie `get_ngrams_with_capitalized`, `is_segmented_word` und `convert_segmented_word` unterstützen spezifische Bereinigungs- und Transformationsschritte, um die Präzision und Flexibilität des Vektorisierungsprozesses zu erhöhen, indem sie spezifische sprachliche oder strukturelle Eigenschaften der Textdaten und leichten Sprache berücksichtigen.
 
-#### Matcher
+#### 3.9.2. Matcher
 
 ##### TF-IDF und TfidfTransformer
 
@@ -339,7 +339,7 @@ Der `TfidfTransformer` aus der `scikit-learn` Bibliothek realisiert diese Transf
 Die Häufigkeitsmatrix des `ArticleVectorizer` wird durch den `TfidfTransformer` in eine Tf-idf-Matrix überführt. Diese dient zur Berechnung der Ähnlichkeit zwischen Texten (bzw. Artikeln in leichter und normaler Sprache) mittels Cosine-Similarity. 
 Das Artikel-Paar mit der größten Kosinus-Ähnlichkeit wird als Match identifiziert.
 
-##### Ausblick
+#### 3.9.3 Ausblick
 
 Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` sowie das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
 Mögliche Kriterien und Einstellungen:
