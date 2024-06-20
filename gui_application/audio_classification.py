@@ -77,8 +77,6 @@ def extract_audio_features(audio_path):
 def evaluate_audio(df):
     df = df.join(df['audio_path'].progress_apply(extract_audio_features))
     df.dropna(inplace=True)
-    with open('audio_features.pkl', 'wb') as f:
-        pickle.dump(df, f)
     print("Extracted audio features")
     return df
 
@@ -136,12 +134,15 @@ def train(df):
     return df, grid
 
 if __name__ == '__main__':
-    try:
-        with open('audio_features.pkl', 'rb') as f:
+    load_existing = input("Do you want to load data from 'audio_features.pkl'? (y/n): ")
+    if load_existing.lower() == 'y':
+        with open('/data/projects/einfach/KIP_EinfachErklaert/gui_application/audio_features.pkl', 'rb') as f:
             df = pickle.load(f)
-    except (FileNotFoundError, IOError):
+    else:
         df = load_audio_data()
         df = evaluate_audio(df)
+        with open('/data/projects/einfach/KIP_EinfachErklaert/gui_application/audio_features.pkl', 'wb') as f:
+            pickle.dump(df, f)
 
     print(f"Number of samples: {len(df)}")
     print(f"Number of features: {len(df.columns) - 2}")
@@ -149,7 +150,7 @@ if __name__ == '__main__':
     print(df.head())
 
     df, grid = train(df)
-    with open('model_all.pkl', 'wb') as f:
+    with open('/data/projects/einfach/KIP_EinfachErklaert/gui_application/model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)
     print(grid.best_params_)
 
