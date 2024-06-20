@@ -129,6 +129,7 @@ def train(df):
 
     # evaluation
     y_pred = grid.predict(X_test)
+    y_train_pred = grid.predict(X_train)
 
     print(pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)))
     return df, grid

@@ -57,18 +57,13 @@ def transcribe():
         # save file temporarily in script directory
         filename = secure_filename(audio_file.filename)
         filepath = os.path.join(os.getcwd(), filename)
-
-        # print(filepath)
-
         audio_file.save(filepath)
 
         audio = whisperx.load_audio(filepath)
         results = model.transcribe(audio, batch_size=__BATCH_SIZE__, language="de")
-        # print(results["segments"])
 
         model_a, metadata = whisperx.load_align_model(language_code=results["language"], device=__DEVICE__)
         results = whisperx.align(results["segments"], model_a, metadata, audio, __DEVICE__, return_char_alignments=False)
-        # print(results["segments"])
 
         test_audio = extract_audio_features(filepath)
         os.remove(filepath)
@@ -78,18 +73,20 @@ def transcribe():
         scaler = classification_model.best_estimator_.named_steps['scaler']
         test_audio = scaler.transform(test_audio.values.reshape(1, -1))
 
+        print(classification_model.predict_proba(test_audio))
+
         classification = {"prediction": classification_model.predict(test_audio)[0],
                           "probability": classification_model.predict_proba(test_audio)[:, 1]}
 
         database = {}
         # clip string if . is at the end and/or whitespace at the beginning
+        # problems occur when transcriber does not recognize end of title
+
         article_title = results["segments"][0]["text"]
         if article_title[-1] == ".":
             article_title = article_title[:-1]
         if article_title[0] == " ":
             article_title = article_title[1:]
-
-        # print(article_title)
 
         if dh_dlf.search_by("e", "title", article_title):
             database["source"] = "dlf"
@@ -107,15 +104,11 @@ def transcribe():
             database["source"] = "unknown"
             database["level"] = "unknown"
 
-        # print(results["segments"][:5])
-
         processing_time = round(time.time() - start_time, 3)
         session['transcription'] = results["segments"]
         session['processing_time'] = processing_time
         session['database'] = database
         session['classification'] = classification
-        # print("check session")
-        # print(session.get('transcription')[:2])
 
         return redirect(url_for('results'))
 
@@ -126,11 +119,6 @@ def results():
     processing_time = session.get('processing_time')
     database = session.get('database')
     classification = session.get('classification')
-    # print("check session before clear")
-    # print(transcription)
-    # session.clear()
-    # print("check session after clear")
-    # print(transcription)
     return render_template('results.html',
                            transcription=transcription,
                            processing_time=processing_time,
