@@ -6,12 +6,14 @@ import os
 import sys
 import subprocess
 import pickle
+import warnings
 from werkzeug.utils import secure_filename
 from audio_classification import extract_audio_features
 
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 from datahandler.DataHandler import DataHandler
 
+warnings.filterwarnings("ignore")
 
 app = Flask(__name__)
 app.config['SESSION_TYPE'] = 'filesystem'
