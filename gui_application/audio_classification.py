@@ -77,6 +77,8 @@ def extract_audio_features(audio_path):
 def evaluate_audio(df):
     df = df.join(df['audio_path'].progress_apply(extract_audio_features))
     df.dropna(inplace=True)
+    with open('audio_features.pkl', 'wb') as f:
+        pickle.dump(df, f)
     print("Extracted audio features")
     return df
 
