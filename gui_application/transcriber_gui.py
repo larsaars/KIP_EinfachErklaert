@@ -1,5 +1,7 @@
 from flask import Flask, request, redirect, url_for, render_template, session
 from flask_session import Session
+import matplotlib.pyplot as plt
+import numpy as np
 import whisperx
 import time
 import os
@@ -9,6 +11,7 @@ import pickle
 import warnings
 from werkzeug.utils import secure_filename
 from audio_classification import extract_audio_features
+
 
 sys.path.append(subprocess.check_output('git rev-parse --show-toplevel'.split()).decode('utf-8').strip())
 from datahandler.DataHandler import DataHandler
@@ -27,6 +30,8 @@ __TYPE__ = "float16"
 __BATCH_SIZE__ = 16
 
 model = whisperx.load_model("large-v2", __DEVICE__, compute_type=__TYPE__, language="de", device_index=[0, 1, 2, 3])
+
+def plot_model
 
 
 @app.route('/')
@@ -76,10 +81,10 @@ def transcribe():
         test_audio = test_audio.to_numpy().reshape(1, -1)
 
         print(classification_model.predict(test_audio))
-        print(classification_model.predict_proba(test_audio))
+        print(classification_model.predict_proba(test_audio)[0])
 
-        classification = {"prediction": classification_model.predict(test_audio)[0],
-                          "probability": classification_model.predict_proba(test_audio)[:, 1]}
+        classification = {"prediction": classification_model.predict(test_audio)[0]}
+        classification["probability"] = classification_model.predict_proba(test_audio)[0][classification["prediction"]]
 
         database = {}
         # clip string if . is at the end and/or whitespace at the beginning
