@@ -1,4 +1,4 @@
-Das Skript ```scrape_InstaCaptions.py``` ist ein an den ```BaseScraper``` angelehnter Web-Scraper, der speziell für Instagram Captions von Nachrichtenleicht entwickelt wurde. Es verwendet die ```instaloader``` Bibliothek, um Daten von Instagram zu extrahieren. Dies ist eine der wenigen Insta Bibliotheken, die zuverlässig funktionieren und auch nicht gesperrt werden, da kein Login benötigt wird. Die Hauptfunktionen des Skripts sind:
+Das Skript ```scrape_InstaCaptions.py``` ist ein an den ```BaseScraper``` angelehnter Web-Scraper, der speziell für Instagram Captions von Nachrichtenleicht entwickelt wurde. Es verwendet die ```instaloader``` Bibliothek, um Daten von Instagram zu extrahieren. Dies ist eine der wenigen Insta Bibliotheken, die zuverlässig funktionieren und auch nicht gesperrt werden, da kein Login benötigt wird. Der Scraper funktioniert außerdem auch für vergangene Posts und speichert nur die neusten ab. Die Hauptfunktionen des Skripts sind:
 
 - Extrahieren von Metadaten und Inhalten von Instagram-Posts
 - Extrahieren von Text als Titel aus den dazugehörigen Insta-Bildern
