@@ -125,10 +125,10 @@ def train(df):
     return df, grid
 
 if __name__ == '__main__':
-    if open('audio_features.pkl', 'rb'):
+    try:
         with open('audio_features.pkl', 'rb') as f:
             df = pickle.load(f)
-    else:
+    except (FileNotFoundError, IOError):
         df = load_audio_data()
         df = evaluate_audio(df)
 
