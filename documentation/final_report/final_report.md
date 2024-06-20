@@ -348,12 +348,12 @@ Mögliche Kriterien und Einstellungen:
 - Einschränkung des Zeitraums aus dem Artikel stammen
 - Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
 - Kombination aus Titel, Teaser, Beschreibung und Inhalt
-- Berücksichtigung der Platzierung im Ranking (z.B. Auswahl aus den Score-Plätzen)
+- Berücksichtigung der Platzierung im Ranking (Auswahl aus den Score-Plätzen)
     
 
 Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den `ArticleVectorizer` mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den passenden Artikel auszuwählen.
 
-Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden, z.B. durch Soft Voting oder lineare Regression. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden.
+Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden, z.B. Ensemble-Methoden wie Bagging und Stacking. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden.
 
 ### 3.10. Hilfs-Skripte
 
@@ -371,7 +371,7 @@ Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts
 
 ## 4. Ergebnisse
 
-### 4.1. Gesamelte Daten
+### 4.1. Gesammelte Daten
 
 Ein Hauptziel des Projekts war das Sammeln von Daten. Die zentrale Datenbank der Artikel ist auf dem KIGS der OTH im Projektordner in der oben beschriebenen Datenstruktur gespeichert. Die Datenbank besteht aus den Daten der historischen Scraper, der aktuellen Scraper und des Instagram Scrapers für NL. Artikel des NL Webscrapers und des Instagram Scrapers werden nicht unterschieden. Die historischen Scraper und der Instagram Scraper sind so angelegt, dass sie einmal ausgeführt werden. Die aktuellen Scraper werden allerdings über das Projekt hinaus auf dem Server laufen und kontinuierlich neue Artikel sammeln, die für weitere Projekte benutzt werden können. Zum Zeitpunkt der finalen Erstellung der Statistik lagen insgesamt **6914 Artikel** vor. Die Grafik zeigt eine erweiterte Statistik über die wesentlichsten Merkmale.
 
