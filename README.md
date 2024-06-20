@@ -11,7 +11,8 @@ The code is built modularly. Main modules are:
 
 - [Scrapers](./scrapers/): scrape the data from the sources
 - [DataHandler](./datahandler/): manages the scraped data uniformly and provides an interface for reading, writing, and searching the data
-- [Matchers](./matchers/): matches corresponding articles one on one (easy to standard) from the same source. In the future they may also match individual sentences or audio
+- [Matchers](./matchers/): matches corresponding articles one on one (easy to standard) from the same source. This is only a sneak peak on what could be possible
+- [Gui App and audio transcriber](./gui_application/): a GUI application which can pick audios, transcribe them and detect certain characteristics of the audio that are relevant for the project
 
 Modules may be used individually as needed. The current simplified pipeline is:
 
@@ -60,10 +61,6 @@ The scrapers are designed to be executed on a regular basis (e.g., by weekly cro
 #### DataHandler
 
 The DataHandler is not an executable but a module to use when further developing scrapers or matcher and dealing with data storage (read, write search). Examples how to use the DataHandler can be found [here](./datahandler/datahandler_examples.ipynb).
-
-#### Matchers
-
-Work in progress.
 
 
 
