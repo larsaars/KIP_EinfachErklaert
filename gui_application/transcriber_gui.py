@@ -31,7 +31,8 @@ __BATCH_SIZE__ = 16
 
 model = whisperx.load_model("large-v2", __DEVICE__, compute_type=__TYPE__, language="de", device_index=[0, 1, 2, 3])
 
-def plot_model
+def plot_model:
+    pass
 
 
 @app.route('/')
