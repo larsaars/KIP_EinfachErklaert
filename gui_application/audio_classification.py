@@ -71,7 +71,7 @@ def extract_audio_features(audio_path):
         return pd.Series(features)
     except Exception as e:
         print(f"Error loading {audio_path}: {e}")
-        return None
+        return pd.Series()
 
 
 def evaluate_audio(df):
