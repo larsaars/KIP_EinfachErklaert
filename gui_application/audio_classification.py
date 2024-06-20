@@ -73,6 +73,8 @@ def extract_audio_features(audio_path):
 def evaluate_audio(df):
 
     df = df.join(df['audio_path'].progress_apply(extract_audio_features))
+    with open('audio_features.pkl', 'wb') as f:
+        pickle.dump(df, f)
     print("Extracted audio features")
     return df
 
@@ -116,8 +118,12 @@ def train(df):
     return df, grid
 
 if __name__ == '__main__':
-    df = load_audio_data()
-    df = evaluate_audio(df)
+    if open('audio_features.pkl', 'rb'):
+        with open('audio_features.pkl', 'rb') as f:
+            df = pickle.load(f)
+    else:
+        df = load_audio_data()
+        df = evaluate_audio(df)
 
     # print(df['label'])
     df, grid = train(df)
