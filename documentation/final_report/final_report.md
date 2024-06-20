@@ -388,12 +388,12 @@ Wie die durch die Boxplots dargestellte Variabilität der Länge der Texte (in W
 
 Aber nicht nur die Länge der Texte unterscheidet sich. Texte in ihrer sprachlichen Charakteristik darzustellen, stellt sich schwierig dar. Der hier gewählte Ansatz sind sogenannte _Wordcluster_. Auf den Bildern sieht man die 20 häufigsten Wörter der MDR Texte (ohne _Stopwords_).
 
-![Wordcloud von MDR leicht](./images/wordcluster_mdr_easy.png){ width=45% }
-![Wordcloud von MDR normal](./images/wordcluster_mdr_hard.png){ width=45% }
+![Wordcluster von MDR leicht](./images/wordcluster_mdr_easy.png){ width=45% }
+![Wordcluster von MDR normal](./images/wordcluster_mdr_hard.png){ width=45% }
 
 _Figure: Links Wordcluster von MDR leicht, rechts von normal_
 
-Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unterscheiden. Im der linken Wordcluster für leichte Sprache fallen sofort die Wörter "Menschen", "Sachsen" und "viele" auf, die in größerer Schrift dargestellt sind, was ihre häufige Verwendung anzeigt. Die rechte Wordcloud für Standardsprache zeigt hingegen "Sachsen", "sei" und "Menschen" als besonders häufige Wörter. Das Wort Sachen in beiden Texten ist dadruch zu erklären dass die Quelle MDR die Rudfunkanstallt unter anderem "Sachsen" als Sendegebiet hat. Leichte Sprache verwendet häufig einfachere und klarere Begriffe, während die Standardsprache komplexer und vielfältiger ist. Die Wordcluster sind ein Versuch dies prägnant darzustellen.
+Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unterscheiden. Im der linken Wordcluster für leichte Sprache fallen sofort die Wörter "Menschen", "Sachsen" und "viele" auf, die in größerer Schrift dargestellt sind, was ihre häufige Verwendung anzeigt. Das rechte Wordcluster für Standardsprache zeigt hingegen "Sachsen", "sei" und "Menschen" als besonders häufige Wörter. Das Wort Sachen in beiden Texten ist dadruch zu erklären dass die Quelle MDR die Rundfunkanstallt unter anderem "Sachsen" als Sendegebiet hat. Leichte Sprache verwendet häufig einfachere und klarere Begriffe, während die Standardsprache komplexer und vielfältiger ist. Die Wordcluster sind ein Versuch dies prägnant darzustellen.
 
 
 ## 5. Fazit
