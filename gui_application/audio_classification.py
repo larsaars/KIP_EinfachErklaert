@@ -59,20 +59,25 @@ def load_and_split_audio(audio_path):
 
 
 def extract_audio_features(audio_path):
-    y, sr = librosa.load(audio_path)
-    mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
-    features = {
-        'spectral_centroid': np.mean(librosa.feature.spectral_centroid(y=y, sr=sr)),
-        'zero_crossing_rate': np.mean(librosa.feature.zero_crossing_rate(y)),
-    }
-    for i, mfcc in enumerate(np.mean(mfccs.T, axis=0)):
-        features[f'mfcc_{i}'] = mfcc
-    return pd.Series(features)
+    try:
+        y, sr = librosa.load(audio_path)
+        mfccs = librosa.feature.mfcc(y=y, sr=sr, n_mfcc=13)
+        features = {
+            'spectral_centroid': np.mean(librosa.feature.spectral_centroid(y=y, sr=sr)),
+            'zero_crossing_rate': np.mean(librosa.feature.zero_crossing_rate(y)),
+        }
+        for i, mfcc in enumerate(np.mean(mfccs.T, axis=0)):
+            features[f'mfcc_{i}'] = mfcc
+        return pd.Series(features)
+    except Exception as e:
+        print(f"Error loading {audio_path}: {e}")
+        return None
 
 
 def evaluate_audio(df):
     try:
         df = df.join(df['audio_path'].progress_apply(extract_audio_features))
+        df.dropna(inplace=True)
     except Exception as e:
         print(f"Error: {e}")
         with open('audio_features_backup.pkl', 'wb') as f:
