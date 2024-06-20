@@ -77,17 +77,13 @@ def extract_audio_features(audio_path):
 def evaluate_audio(df):
     try:
         df = df.join(df['audio_path'].progress_apply(extract_audio_features))
-        df.dropna(inplace=True)
     except Exception as e:
         print(f"Error: {e}")
         with open('audio_features_backup.pkl', 'wb') as f:
             pickle.dump(df, f)
         print("Backup created")
-        raise
-    else:
-        with open('audio_features.pkl', 'wb') as f:
-            pickle.dump(df, f)
-        print("Extracted audio features")
+
+    df.dropna(inplace=True)
     return df
 
 def train(df):
@@ -123,9 +119,23 @@ def train(df):
     grid = GridSearchCV(knn_pipe, param_grid, cv=5, n_jobs=-1)
     grid.fit(X_train, y_train)
     """
+    """
+    # setting up a pipeline for decision tree
+    dt_pipe = Pipeline([
+        ('scaler', MinMaxScaler()),
+        ('dt', DecisionTreeClassifier())
+    ])
+    # setting up a parameter grid
+    param_grid = {
+        'dt__max_depth': [3, 5, 7, 9, 11],
+        'dt__min_samples_split': [2, 3, 4, 5, 6],
+        'dt__min_samples_leaf': [1, 2, 3, 4, 5]
+    }
+    """
 
     # evaluation
     y_pred = grid.predict(X_test)
+
     print(pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)))
     return df, grid
 
@@ -137,7 +147,11 @@ if __name__ == '__main__':
         df = load_audio_data()
         df = evaluate_audio(df)
 
-    # print(df['label'])
+    print(f"Number of samples: {len(df)}")
+    print(f"Number of features: {len(df.columns) - 2}")
+    print(f"Number of samples per class: {df['label'].value_counts()}")
+    print(df.head())
+
     df, grid = train(df)
     with open('model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)
