@@ -75,15 +75,9 @@ def extract_audio_features(audio_path):
 
 
 def evaluate_audio(df):
-    try:
-        df = df.join(df['audio_path'].progress_apply(extract_audio_features))
-    except Exception as e:
-        print(f"Error: {e}")
-        with open('audio_features_backup.pkl', 'wb') as f:
-            pickle.dump(df, f)
-        print("Backup created")
-
+    df = df.join(df['audio_path'].progress_apply(extract_audio_features))
     df.dropna(inplace=True)
+    print("Extracted audio features")
     return df
 
 def train(df):
