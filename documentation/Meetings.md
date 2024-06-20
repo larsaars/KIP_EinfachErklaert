@@ -281,5 +281,27 @@
     - Poster übernächste Woche 
     - Nächste Woche letztes Meeting
 
+### Meeting 19.06.24
 
+- Poster A0:
+    - Kurzbeschreibung (W-Fragen) (Simon)
+    - Nachrichtenquellen/ Leichte Sprache (Simon)
+    - Module (aus Bericht, Simon)
+        - Scraper
+        - DataHandler
+        - GUI - Transcriber
+    - Daten + Zahlen (Grafiken) (Felix)
 
+- Bericht fertig
+    - Einleitung
+    - Kommunikation mit anderer Gruppe
+    - Kommunkation mit Nachrichtenquellen ergänzen
+    - KIGS Maintainance
+    - Service Scipte
+    - Datenanalyse
+    - Gui + Transciber
+    - Fazit
+
+- Historische Nachrichtenleicht Artikel scrapen (Lars)
+- Nächstes Meeting: 24.06. 18Uhr
+- Danach Poster drucken

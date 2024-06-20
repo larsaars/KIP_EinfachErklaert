@@ -242,6 +242,7 @@ class DataHandlerHelper(DataHandler):
             text_content = content_file.read()
 
         metadata_df["text"] = text_content
+        metadata_df["path"] = article_path
         return metadata_df
 
     def _dir_len(self, dir):
