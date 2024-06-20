@@ -72,6 +72,9 @@ def transcribe():
         with open('model_all.pkl', 'rb') as f:
             classification_model = pickle.load(f)
 
+        # handling a single sample needs to be reshaped to 2D array
+        test_audio = test_audio.to_numpy().reshape(1, -1)
+
         print(classification_model.predict(test_audio))
         print(classification_model.predict_proba(test_audio))
 
