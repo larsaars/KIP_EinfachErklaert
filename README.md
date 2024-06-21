@@ -14,9 +14,7 @@ The code is built modularly. Main modules are:
 - [Matchers](./matchers/): matches corresponding articles one on one (easy to standard) from the same source. This is only a sneak peak on what could be possible
 - [Gui App and audio transcriber](./gui_application/): a GUI application which can pick audios, transcribe them and detect certain characteristics of the audio that are relevant for the project
 
-Modules may be used individually as needed. The current simplified pipeline is:
-
-![Pipeline](./documentation/images/pipe.png)
+Modules may be used individually as needed. 
 
 ### Data Structure of Scraped Data
 

@@ -394,8 +394,8 @@ Wie die durch die Boxplots dargestellte Variabilität der Länge der Texte (in W
 
 Aber nicht nur die Länge der Texte unterscheidet sich. Texte in ihrer sprachlichen Charakteristik darzustellen, stellt sich schwierig dar. Der hier gewählte Ansatz sind sogenannte _Wordcluster_. Auf den Bildern sieht man die 20 häufigsten Wörter der MDR Texte (ohne _Stopwords_).
 
-![Wordcluster von MDR leicht](./images/wordcluster_mdr_easy.png){ width=45% }
-![Wordcluster von MDR normal](./images/wordcluster_mdr_hard.png){ width=45% }
+![Wordcluster von MDR leicht](./images/wordcluster_mdr_easy.png){ width=50% }
+![Wordcluster von MDR normal](./images/wordcluster_mdr_hard.png){ width=50% }
 
 _Figure: Links Wordcluster von MDR leicht, rechts von normal_
 
