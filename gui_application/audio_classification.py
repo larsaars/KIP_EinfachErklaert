@@ -124,9 +124,9 @@ def train(df):
         ('svc', SVC(C=svg_c, gamma=svg_gamma, kernel=svg_kernel, probability=True))
     ])
 
-    grid.fit(X_train, y_train)
+    svg_pipe.fit(X_train, y_train)
     print("Finished training")
-    return df, grid
+    return df, svg_pipe
 
 if __name__ == '__main__':
     load_existing = input("Do you want to load data from 'audio_features.pkl'? (y/n): ")
