@@ -112,17 +112,18 @@ def train(df):
     print("Start training")
     X_train = df.drop(['label', 'audio_path'], axis=1)
     y_train = df['label']
+    with open('model_all.pkl', 'rb') as f:
+        classification_model = pickle.load(f)
+
+    svg_c = classification_model.best_params_['svc__C']
+    svg_gamma = classification_model.best_params_['svc__gamma']
+    svg_kernel = classification_model.best_params_['svc__kernel']
 
     svg_pipe = Pipeline([
         ('scaler', MinMaxScaler()),
-        ('svc', SVC(probability=True))
+        ('svc', SVC(C=svg_c, gamma=svg_gamma, kernel=svg_kernel, probability=True))
     ])
 
-    param_grid = {'svc__C': [0.1, 1, 10, 100, 1000],
-                  'svc__gamma': [1, 0.1, 0.01, 0.001, 0.0001],
-                  'svc__kernel': ['rbf', 'linear', 'poly', 'sigmoid']}
-
-    grid = GridSearchCV(svg_pipe, param_grid, cv=5, n_jobs=-1)
     grid.fit(X_train, y_train)
     print("Finished training")
     return df, grid
