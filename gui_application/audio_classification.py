@@ -80,11 +80,12 @@ def evaluate_audio(df):
     print("Extracted audio features")
     return df
 
-def train(df):
-    print("Start training")
+def train_test(df):
+    print("Start training and testing")
     # training and testsplit
     X_train, X_test, y_train, y_test = train_test_split(df.drop(['label', 'audio_path'], axis=1), df['label'], test_size=0.2, random_state=42)
 
+    # setting up a pipeline
     svg_pipe = Pipeline([
         ('scaler', MinMaxScaler()),
         ('svc', SVC(probability=True))
@@ -97,36 +98,6 @@ def train(df):
     grid = GridSearchCV(svg_pipe, param_grid, cv=5, n_jobs=-1)
     grid.fit(X_train, y_train)
 
-    """
-    # setting up a pipeline
-    knn_pipe = Pipeline([
-        ('scaler', MinMaxScaler()),
-        ('knn', KNeighborsClassifier())
-    ])
-    # setting up a parameter grid
-    param_grid = {
-        'knn__n_neighbors': [2, 3, 5, 7, 9, 11],
-        'knn__weights': ['uniform', 'distance'],
-        'knn__metric': ['euclidean', 'manhattan']
-    }
-
-    grid = GridSearchCV(knn_pipe, param_grid, cv=5, n_jobs=-1)
-    grid.fit(X_train, y_train)
-    """
-    """
-    # setting up a pipeline for decision tree
-    dt_pipe = Pipeline([
-        ('scaler', MinMaxScaler()),
-        ('dt', DecisionTreeClassifier())
-    ])
-    # setting up a parameter grid
-    param_grid = {
-        'dt__max_depth': [3, 5, 7, 9, 11],
-        'dt__min_samples_split': [2, 3, 4, 5, 6],
-        'dt__min_samples_leaf': [1, 2, 3, 4, 5]
-    }
-    """
-
     # evaluation
     y_pred = grid.predict(X_test)
     y_train_pred = grid.predict(X_train)
@@ -134,6 +105,26 @@ def train(df):
     print(pd.DataFrame(classification_report(y_train, y_train_pred, output_dict=True)))
     print("Test:")
     print(pd.DataFrame(classification_report(y_test, y_pred, output_dict=True)))
+    return df, grid
+
+
+def train(df):
+    print("Start training")
+    X_train = df.drop(['label', 'audio_path'], axis=1)
+    y_train = df['label']
+
+    svg_pipe = Pipeline([
+        ('scaler', MinMaxScaler()),
+        ('svc', SVC(probability=True))
+    ])
+
+    param_grid = {'svc__C': [0.1, 1, 10, 100, 1000],
+                  'svc__gamma': [1, 0.1, 0.01, 0.001, 0.0001],
+                  'svc__kernel': ['rbf', 'linear', 'poly', 'sigmoid']}
+
+    grid = GridSearchCV(svg_pipe, param_grid, cv=5, n_jobs=-1)
+    grid.fit(X_train, y_train)
+    print("Finished training")
     return df, grid
 
 if __name__ == '__main__':
@@ -152,7 +143,12 @@ if __name__ == '__main__':
     print(f"Number of samples per class: {df['label'].value_counts()}")
     print(df.head())
 
-    df, grid = train(df)
+    testing = input("Do you want to test the model? (y/n): ")
+    if testing.lower() == 'y':
+        df, grid = train_test(df)
+    else:
+        df, grid = train(df)
+
     with open('/data/projects/einfach/KIP_EinfachErklaert/gui_application/model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)
     print(grid.best_params_)
