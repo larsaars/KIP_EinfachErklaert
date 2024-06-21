@@ -197,22 +197,16 @@ Dank der redaktionellen Nähe zwischen DLF und NL sind die Internetseiten größ
 Auf Anraten von Professor Baumann wird für die Speicherung keine SQL-Datenbank benutzt, sondern wie in der Abbildung dargestellt eine Ordnerstruktur.
 
 ```
-|-- data
-|   |-- DLF
-|   |   |-- easy
-|   |   |   |-- 2024-03-15-Bundes-Wehr_beteiligt_sich_an_[...]
-|   |   |   |   |-- audio.mp3
-|   |   |   |   |-- content.txt
-|   |   |   |   |-- metadata.json
-|   |   |   |   |-- raw.html
-|   |   |   |-- lookup_DLF_easy.csv
-|   |   |-- hard
-|   |   |   |-- 2024-04-25-Angebliche_Drohnenangriffe_[...]
-|   |   |   |   |-- content.txt
-|   |   |   |   |-- metadata.json
-|   |   |   |   |-- raw.html
-|   |   |   |-- lookup_DLF_hard.csv
-|   |   |-- matches_DLF.csv
+data/
+|-- <source>/ (dlf or mdr)
+|   |-- matches_<source>.csv
+|   |-- <language niveau>/ (easy or hard)
+|   |   |-- lookup_<source>_<niveau>.csv
+|   |   |-- 2023-06-01-Sample_Article/
+|   |   |   |-- Metadata.json
+|   |   |   |-- Content.txt
+|   |   |   |-- Raw.html
+|   |   |   |-- Audio.mp3 (if available)
 ```
 _Figure 2: Struktur des zur Speicherung genutzten Dateisystems am Beispiel von DLF (hard) und NL (easy) (reduziert auf jeweils einen Artikel)_
 
@@ -400,8 +394,8 @@ Wie die durch die Boxplots dargestellte Variabilität der Länge der Texte (in W
 
 Aber nicht nur die Länge der Texte unterscheidet sich. Texte in ihrer sprachlichen Charakteristik darzustellen, stellt sich schwierig dar. Der hier gewählte Ansatz sind sogenannte _Wordcluster_. Auf den Bildern sieht man die 20 häufigsten Wörter der MDR Texte (ohne _Stopwords_).
 
-![Wordcluster von MDR leicht](./images/wordcluster_mdr_easy.png){ width=45% }
-![Wordcluster von MDR normal](./images/wordcluster_mdr_hard.png){ width=45% }
+![Wordcluster von MDR leicht](./images/wordcluster_mdr_easy.png){ width=50% }
+![Wordcluster von MDR normal](./images/wordcluster_mdr_hard.png){ width=50% }
 
 _Figure: Links Wordcluster von MDR leicht, rechts von normal_
 
