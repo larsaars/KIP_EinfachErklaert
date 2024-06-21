@@ -152,5 +152,5 @@ if __name__ == '__main__':
 
     with open('/data/projects/einfach/KIP_EinfachErklaert/gui_application/model_all.pkl', 'wb') as f:
         pickle.dump(grid, f)
-    print(grid.best_params_)
+    print("Model saved")
 
