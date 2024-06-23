@@ -26,8 +26,6 @@ Das Projekt nutzt eine Ordnerstruktur zur Datenspeicherung anstelle einer SQL-Da
 Der eigens definierte DataHandler bietet Funktionen für den Zugriff, die Speicherung und die Suche in diesem Dateisystem und wurde speziell für die Anforderungen des Projekts entwickelt, inklusive der Nutzung in einer Windows- und Linux-Umgebung. Die Infrastruktur wird auf einem leistungsstarken KI-Server der OTH betrieben, der regelmäßige Scraping-Jobs für die Aktualisierung der Artikel durchführt und eine robuste Plattform für die Speicherung und Verarbeitung der Daten bietet.
 Aktuell sind ca. 7000 Artikel gespeichert. Die Grafik zeigt eine aufschlüsselung nach wesentlichen Merkmalen.
 
-[Grafik mit den Kuchen]
-
 
 ## Matching 
 
@@ -36,3 +34,17 @@ Der Bereich "Matcher" in unserem Projekt umfasst verschiedene Komponenten zur Ve
 Besonders im Kontext des MDR erfolgt das Matching durch den SimpleMatcher automatisch, da die leichten Artikel direkt auf die entsprechenden schweren Artikel verweisen. Dies eliminiert die Notwendigkeit eines aufwändigen Matchings und ermöglicht eine effiziente Extraktion und Zuordnung der Inhalte.
 
 Eine fortgeschrittene Matching-Methode, die im Projekt implementiert wurde, ist das Tf-idf-Verfahren (Term frequency-inverse document frequency) mit Abgleich durch die cosine-similarity. Dieses statistische Verfahren analysiert und bewertet die inhaltliche Ähnlichkeit zwischen Texten. Im Rahmen des Projekts wurde der ArticleVectorizer entwickelt, der Nachrichtenartikel (in einfacher Sprache) tokenisiert, n-Gramme extrahiert und diese mittels Tf-idf in eine numerische Darstellung transformiert. Dabei unterstützt der ArticleVectorizer spezifische Sprachmerkmale und berücksichtigt die Besonderheiten von Texten in leichter Sprache, wie die Entfernung von Stoppwörtern, das Auflösen Segmentierter Wörter und ein naiver Named-Entity-Recognition Ansatz.
+
+
+## Daten 
+
+Ein Hauptziel des Projekts war das Sammeln von Daten. Aktuell sind ca. 7000 Artikel gespeichert. Die Grafik zeigt eine aufschlüsselung nach wesentlichen Merkmalen.
+
+[Grafik mit den Kuchen]
+
+Die Grafik zeigt, dass 59,6% der Artikel in einfacher Sprache vorliegen, was auf den zusätzlichen Scraper für Instagram Captions des Nachrichtenleicht-Accounts zurückzuführen ist. Der Datensatz wird von DLF/NL-Artikeln dominiert. Das Scrapen von Websites variiert je nach Aufbau und Feed-Zugang; MDR-Websites, besonders für historische Artikel, sind schwieriger zu scrapen als DLF-Seiten. Ein Vorteil der MDR-Artikel ist, dass sie bereits Matches zwischen einfachen und normalen Artikeln enthalten, die als Trainingsdaten dienen können. Weniger als die Hälfte der Artikel enthält Audio; Artikel in einfacher Sprache haben häufiger Audios als solche in Standardsprache.
+
+[Wordcluster von MDR leicht]
+[Wordcluster von MDR normal]
+
+Die Wordcluster der MDR-Daten zeigen die 20 häufigsten Wörter (ohne Stopwords). Im Wordcluster der einfachen Sprache sind "Menschen", "Sachsen" und "viele" häufig, während im Wordcluster der Standardsprache "Sachsen", "sei" und "Menschen" dominieren. Dies reflektiert die Unterschiede in der Wortwahl zwischen einfacher und Standardsprache. Leichte Sprache verwendet häufigere und klarere Begriffe, während Standardsprache komplexer ist. Die Wordcluster veranschaulichen diese Unterschiede prägnant.
