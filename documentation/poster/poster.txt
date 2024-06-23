@@ -1,0 +1,38 @@
+In diesem Projekt entwickeln wir verschiedene Scraper und Matcher, um Artikel in einfacher Sprache mit ihren äquivalenten in normaler Sprache zu verknüpfen
+
+## Nachrichtenquellen
+
+Für dieses Projekt wurden MDR und Deutschlandradio als Nachrichtenquellen ausgewählt, da beide Teil des öffentlich-rechtlichen Rundfunks sind und eine hohe Datenqualität bieten.
+
+Der MDR liefert vielfältige Inhalte, einschließlich Nachrichten in einfacher Sprache und Audios, die von menschlichen Sprechern eingesprochen werden. Diese Inhalte sind besonders wertvoll, da sie sowohl normale als auch leicht verständliche Artikel verlinken, was die Datenqualität und Zugänglichkeit erhöht.
+
+Deutschlandradio bietet ebenfalls eine deutschlandweite breite inhaltliche Abdeckung aktueller Themen wie Politik, Wirtschaft, Wissenschaft, Gesellschaft und Kultur. Besonders die „Nachrichtenleicht“-Artikel, die wöchentlich in leicht verständlicher Sprache mit Audi veröffentlicht werden, sind von hoher Qualität und oft mit Audios ergänzt.
+
+Die Auswahl dieser Quellen sichert eine konstante und qualitativ hochwertige Datenbasis, die für dieses und zukünftige Projekte mit diesen Daten essenziell ist.
+
+
+## Scraping
+
+
+Für das Projekt wurden zwei Arten von Scrapern implementiert: historische und aktuelle. Historische Scraper sammeln einmalig alle vergangenen Artikel von Webseiten, während aktuelle Scraper regelmäßig die neuesten Artikel extrahieren. Eine zentrale BaseScraper-Klasse bietet allgemeine Funktionen wie URL-Extraktion, HTML-Parsing und Datenverarbeitung, um die Artikel inklusive Audiodateien, Metadaten, rohem HTML-Code und extrahiertem Inhalt herunterzuladen.
+
+Der MDR-Scraper umfasst den MDRBaseScraper, der allgemeine Funktionen für das Scraping von MDR-Inhalten bereitstellt. Der aktuelle MDR-Scraper extrahiert regelmäßig Artikel-Links von der MDR-Seite in einfacher Sprache. Da die Audios über JavaScript geladen werden, kommt Selenium zum Einsatz. Der historische MDR-Scraper nutzt alternative Methoden zur Link-Extraktion, da MDR kein umfassendes Archiv bietet. Erfolgreiche Ansätze waren die Google-Suche mittels serpapi.com und die Bing API, die beide erlaubten, eine Vielzahl alter Artikel-Links zu sammeln.
+
+Der Deutschlandradio-Scraper, basierend auf der BaseScraper-Klasse, profitiert von den strukturellen Ähnlichkeiten der Webseiten von Deutschlandradio und Nachrichtenleicht. Durch eine API-Schnittstelle können effizient Artikel-Links extrahiert und die entsprechenden Inhalte heruntergeladen werden.
+
+## Datahandling
+
+Das Projekt nutzt eine Ordnerstruktur zur Datenspeicherung anstelle einer SQL-Datenbank, wie von Professor Baumann empfohlen. Für jede Nachrichtenquelle (DLF oder MDR) existiert ein separater Unterordner im Hauptverzeichnis "data". Innerhalb dieser Unterordner sind die Artikel nach Schwierigkeitsgrad (easy oder hard) organisiert, jeder Artikel hat dort seinen eigenen Ordner mit Metadaten, Inhalt und optional einem Audiofile. Eine Lookup-Tabelle in Form von CSV-Dateien erleichtert die schnelle Suche nach Artikeln und deren URLs.
+Der eigens definierte DataHandler bietet Funktionen für den Zugriff, die Speicherung und die Suche in diesem Dateisystem und wurde speziell für die Anforderungen des Projekts entwickelt, inklusive der Nutzung in einer Windows- und Linux-Umgebung. Die Infrastruktur wird auf einem leistungsstarken KI-Server der OTH betrieben, der regelmäßige Scraping-Jobs für die Aktualisierung der Artikel durchführt und eine robuste Plattform für die Speicherung und Verarbeitung der Daten bietet.
+Aktuell sind ca. 7000 Artikel gespeichert. Die Grafik zeigt eine aufschlüsselung nach wesentlichen Merkmalen.
+
+[Grafik mit den Kuchen]
+
+
+## Matching 
+
+Der Bereich "Matcher" in unserem Projekt umfasst verschiedene Komponenten zur Verknüpfung von Artikeln in einfacher und normaler Sprache. Der BaseMatcher bildet die Grundlage mit Funktionen zur Speicherung von Matches in CSV-Dateien. Aufbauend darauf nutzt der SimpleMatcher speziell für MDR-Scrapern URLs, um entsprechende Artikel zuzuordnen.
+
+Besonders im Kontext des MDR erfolgt das Matching durch den SimpleMatcher automatisch, da die leichten Artikel direkt auf die entsprechenden schweren Artikel verweisen. Dies eliminiert die Notwendigkeit eines aufwändigen Matchings und ermöglicht eine effiziente Extraktion und Zuordnung der Inhalte.
+
+Eine fortgeschrittene Matching-Methode, die im Projekt implementiert wurde, ist das Tf-idf-Verfahren (Term frequency-inverse document frequency) mit Abgleich durch die cosine-similarity. Dieses statistische Verfahren analysiert und bewertet die inhaltliche Ähnlichkeit zwischen Texten. Im Rahmen des Projekts wurde der ArticleVectorizer entwickelt, der Nachrichtenartikel (in einfacher Sprache) tokenisiert, n-Gramme extrahiert und diese mittels Tf-idf in eine numerische Darstellung transformiert. Dabei unterstützt der ArticleVectorizer spezifische Sprachmerkmale und berücksichtigt die Besonderheiten von Texten in leichter Sprache, wie die Entfernung von Stoppwörtern, das Auflösen Segmentierter Wörter und ein naiver Named-Entity-Recognition Ansatz.
