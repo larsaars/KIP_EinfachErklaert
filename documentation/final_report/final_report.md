@@ -3,10 +3,7 @@
 
 Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
 
-TODO bericht lesen und einmal korriegieren  kleinscheiss simon
-
-TODO: gliederung anpassen BEN (und im text)
-1. Einleitung (Ben)
+1. Einleitung (Lars)
 2. Allgemein
    1. Überblick (alle)
    2. Projektmanagement und organisatorische Herausforderungen (Felix)
@@ -17,13 +14,16 @@ TODO: gliederung anpassen BEN (und im text)
    4. Deutschlandradio Scraper (Simon)
    5. Weitere Nachrichtenangebote (Simon)
    6. Datenstruktur und Datahandler (Felix)
-   7. KI-Server (Ben)
-   8. Technische Herausforderungen (Simon)
-   9. Dokumentation zur Übergabe
-4. Datenauswertung
-   1. Gesamelte Daten
+   7. Hilfs-Skripte (Simon)
+   8. KI-Server (Ben)
+   9. Matching 
+   10. WhisperX Transcriber (Ben)
+   11. Audio classification (Ben)
+   12. GUI Anwendung (Ben)
+4. Datenauswertung (Felix)
+   1. Gesammelte Daten
    2. Erkenntnisse über die Daten
-5. Fazit (alle)
+5. Fazit und Ausblick (alle)
 
 
 ## 1. Einleitung
@@ -263,7 +263,7 @@ Dieses Skript aktualisiert alte Matches mithilfe des `SimpleMatcher`-Moduls. Es 
 
 
 
-### 3.7. KI-Server
+### 3.8. KI-Server
 
 Die Datenspeicherung und das Scraping, sowie das Training des Klassifizierungsmodells und das Hosten der Webanwendung finden über den KI-Server der OTH statt. Dies war von Anfang an die Idee, da dieser eine hohe Rechenleistung bietet und somit das Scraping und unsere kommenden Schritte schneller und effizienter gestaltet. Hier existieren die genannten Ordnerstrukturen und die Daten werden automatisiert gespeichert. 
 
@@ -271,7 +271,7 @@ Mithilfe eines Cronjobs werden die Scraping-Skripte regelmäßig ausgeführt, um
 
 Der KI-Server erwies sich als äußerst hilfreich, da das Scraping automatisiert funktioniert und wir einen zentralen Ort der Datenspeicherung haben. Zusätzlich haben wir so auch kein Problem mit der Speicherung der Audiodateien, da genug Festplattenspeicher vorhanden ist. Es entstehen jedoch auch einige Nachteile und ein weiteres Feld in dem Troubleshooting oder Debugging betrieben werden muss. Vor allem die Berechtigungen für die einzelnen User waren aus uns nicht erklärbaren Gründen nicht immer korrekt gesetzt, was zu Problemen beim Schreiben und Lesen von Dateien führte. Auch die Verbindung mit dem Server war nicht immer einfach, da es keine direkte Möglichkeit gibt, auf den Server zuzugreifen. Über den Hochschuleigenen VPN und dann per SSH oder über das JupyterHub auf den Server zuzugreifen, erwies sich bei schlechter Internetverbindung als schwierig. Und auch das Remote Development über z. B. Pycharm ist mit Latenz verbunden.
 
-### 3.8. Matcher
+### 3.9. Matching
 
 #### Der `BaseMatcher`
 
@@ -283,7 +283,7 @@ Sie stellt vor allem sicher, dass der richtige Pfad verwendet wird und bietet mi
 ist eine Klasse die auf dem `BaseMatcher` aufbaut und vor allem von den MDR-Scrapern verwendet wird, da beim MDR die leichten auf die schweren Artikel verweisen.
 Mit der Funktion `match_by_url` bietet er die Möglichkeit, Matches mithilfe von URLs des einfachen und schweren Artikels in die jeweilige Datei zu schreiben.
 
-### 3.9. Matching mit Tf-idf
+### 3.9.1 Matching mit Tf-idf
 
 Das Matching von Artikeln dient dazu, Texte in einfacher Sprache mit ihren äquivalenten in normaler Sprache zu verknüpfen. Das Verfahren nutzt statistische Textanalyse und Informationsretrieval-Techniken wie das Tf-idf-Maß und Cosine-Similarity, um die inhaltliche Übereinstimmung zwischen Texten zu bewerten.
 Der Prozess umfasst folgende Schritte:
@@ -293,7 +293,7 @@ Der Prozess umfasst folgende Schritte:
 3. Vergleich der Artikel-Vektoren mit Cosine-Similarity
 4. Evaluation des Matchers mit zusätzlichen Kriterien
 
-#### 3.9.1. ArticleVectorizer
+#### ArticleVectorizer
 
 Die Klasse `ArticleVectorizer` implementiert eine Textvektorisierungsfunktion, die speziell für die Verarbeitung von Texten in einfacher Sprache entwickelt wurde. 
 Die Klasse implementiert anwendungsspezifische Funktionen und dient dazu Texte zu verarbeiten und sie in ein Format zu transformieren, das für maschinelles Lernen verwendet werden kann.
@@ -315,9 +315,9 @@ Sie verwendet die Natural Language Toolkit (NLTK) Bibliothek zur Tokenisierung u
 
 Zusätzliche Hilfsfunktionen wie `get_ngrams_with_capitalized`, `is_segmented_word` und `convert_segmented_word` unterstützen spezifische Bereinigungs- und Transformationsschritte, um die Präzision und Flexibilität des Vektorisierungsprozesses zu erhöhen, indem sie spezifische sprachliche oder strukturelle Eigenschaften der Textdaten und leichten Sprache berücksichtigen.
 
-#### 3.9.2. Matcher
+### 3.9.2. ArticleMatcher
 
-##### TF-IDF und TfidfTransformer
+#### TF-IDF und TfidfTransformer
 
 TF-IDF ist eine statistische Methode, die dazu dient die Bedeutung eines Wortes in einem Dokument relativ zu einer Sammlung von Dokumenten (Korpus) zu bewerten.
 
@@ -327,20 +327,20 @@ TF-IDF ist eine statistische Methode, die dazu dient die Bedeutung eines Wortes 
 Das Produkt aus TF und IDF ergibt den TF-IDF-Wert eines Begriffs in einem Dokument. Ein hoher TF-IDF-Wert deutet darauf hin, dass der Begriff für das spezifische Dokument wichtig ist, aber in der gesamten Dokumentensammlung eher selten vorkommt.
 Der `TfidfTransformer` aus der `scikit-learn` Bibliothek realisiert diese Transformation.
 
-##### Pipeline 
+#### Pipeline 
 
 Die Häufigkeitsmatrix des `ArticleVectorizer` wird durch den `TfidfTransformer` in eine Tf-idf-Matrix überführt. Diese dient zur Berechnung der Ähnlichkeit zwischen Texten (bzw. Artikeln in leichter und normaler Sprache) mittels Cosine-Similarity. 
 Das Artikel-Paar mit der größten Kosinus-Ähnlichkeit wird als Match identifiziert.
 
 
 
-### WhisperX Transcriber
+### 3.10. WhisperX Transcriber
 
 WhisperX ist ein modernes pre-trained-model mit zugrundeliegenden Transformer-Modellen, das in unserem Fall zur Transkription von Audioinhalten verwendet wird. Es ist ein Open-Source-Tool, das auf der Basis OpenAIs Whisper entwickelt wurde. 
 
 Das Modell "large-v2" wird benutzt, um die Transkription durchzuführen. Hierbei handelt es sich um ein sehr großes Modell, das auf einer Vielzahl von Daten trainiert wurde und daher eine hohe Genauigkeit bei der Transkription von Audioinhalten aufweist. Der KI-Server ermöglicht es uns die Transkription auf den GPUs durchzuführen, was die Geschwindigkeit des Prozesses erhöht. Hierfür werden die globalen Variablen `__DEVICE__`, `__TYPE__` und `__BATCH_SIZE__` verwendet. Das Modell wird mit den `device_index=[0, 1, 2, 3]` auf den GPUs parallelisiert. Die Audiodatei wird anschließend aus der Datenbank geladen und transkribiert. Danach wird zusammen mit dem Ausrichtungsmodell von WhisperX die Transkription auf Wortebene mit einem Zeitstempel versehen. Zuletzt passiert eine Rückgabe der einzelnen Segmente in einem kombinierten Dictonary- und Listenobjekt, dass alle nötigen Infos enthält.
 
-### Audio classification
+### 3.11. Audio classification
 
 `audio_classification.py` ist für das Trainieren eines Modells und einer Pipeline für die Klassifizierung von Audiodateien zuständig. Es verwendet die Bibliothek `librosa` für die Feature-Extraktion aud den Audiodateien und `sklearn` für das Trainieren des Modells. `pandas` wird für die Datenmanipulation und -speicherung verwendet, und `pickle` für das Speichern des Modells.
 
@@ -351,7 +351,7 @@ Nun folgt das Training des Modells. Es wird unterschieden zwischen einem Trainin
 Die beiden ungenutzten Funktionen `extract_text_features()` und `load_and_split_audio()` waren ursprünglich für die Implementierung eines weiteren Modells für die Textklassifizierung und die Aufteilung der Audios in kleiner Segmente gedacht. Diese wurden jedoch nicht weiter verfolgt, da die Klassifizierung der Audios in leichter und schwerer Sprache ausreichend war und keine Zeit für weiterführende Aufgaben mehr bestand.
 
 
-## GUI Anwendung
+### 3.12. GUI Anwendung
 
 Die GUI-Anwendung ist mit `Flask` erstellt worden. Sie ermöglicht es Nutzer*innen Audiodateien hochzuladen und diese zu transkribieren. 
 1. **Importe und Konfiguration**: Nach einer Reihe von Importen und Konfigurationen wird die Flask-App initialisiert. Ein Secret Key wird gesetzt, um Sessions zu verwalten. Diese werden auf Serverseite verwaltet, um größere Datenübertragungen zu ermöglichen. Zusätzlich werden Data handler für die beiden Datenquellen initialisiert.
@@ -360,7 +360,7 @@ Die GUI-Anwendung ist mit `Flask` erstellt worden. Sie ermöglicht es Nutzer*inn
    - `/` ist die Startseite, die eine Begrüßungsnachricht anzeigt.
    - Die erste Route `/upload` ist die Seite, die die Möglichkeit bietet, eine Audiodatei hochzuladen.
    - Die zweite Route `/transcribe` erhält die Audiodatei von `/upload` und überprüft im ersten Schritt, ob eine Audiodatei hochgeladen wurde. Wenn eine Datei hochgeladen wurde, wird sie temporär auf dem Server gespeichert. Anschließend wird die Audiodatei an das WhisperX-Modell zur Transkription übergeben. Die Transkriptionsergebnisse werden in der `results` Variable gespeichert. Die transkribierten Segmente werden mit dem Ausrichtungsmodell von WhisperX auf Wortebene ausgerichtet. Dies ermöglicht es, Zeitstempel für jedes Wort in der Transkription zu erhalten. Nun werden die Audio-Features der Audiodatei extrahiert, um sie für die Klassifikation vorzubereiten. Das Klassifikationsmodell aus der `audio_classification.py` wird geladen und verwendet, um die Audiodatei zu klassifizieren. Die Klassifikationsergebnisse werden in der classification Variable gespeichert. Es findet eine Suche in den Datenbanken "dlf" und "mdr" nach dem transkribierten Titel des Artikels statt. Wenn der Titel gefunden wird, werden die Quelle und der Schwierigkeitsgrad des Artikels in der database Variable gespeichert, ansonsten wird er als "unknown" markiert. Die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse werden in der Sitzung gespeichert.
-   - `/results` zeigt die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse in einerneinfachen Oberfläche an.
+   - `/results` zeigt die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse in einer einfachen Oberfläche an.
 
 
 ## 4. Ergebnisse
