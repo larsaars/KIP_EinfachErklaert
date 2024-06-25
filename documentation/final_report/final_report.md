@@ -34,15 +34,15 @@ Die Umsetzung eines Projekts ist oft von technischen, organisatorischen und zwis
 
 ### 2.1. Überblick
 
-Das Projekt zielt darauf ab, eine umfassende Datenbank von Nachrichtenartikeln in einfacher und Standardsprache zu erstellen. Hierfür wurden eine Reihe von Webscrapern entwickelt. Die Artikel werden in einer strukturierten Ordnerhierarchie gespeichert und verwaltet. Eine GUI-Anwendung ermöglicht das Hochladen, Transkribieren und Klassifizieren von Audiodateien mithilfe eines Transkriptionsmodells. Für das Matching von Artikeln in einfacher und Standardsprache wurden Verfahren zur Vektorisierung und Ähnlichkeitsberechnung implementiert. Ins gesamt wurden ca. 7000 Artikel gesammelt. Ziel ist es, dass die Datenbank kontinuierlich über das Projekt hinaus wächst und die Ergebnisse dieses Projekts für zukünftige Forschung weiter genutzt werden können.
+Das Projekt zielt darauf ab, eine umfassende Datenbank von Nachrichtenartikeln in einfacher und Standardsprache zu erstellen. Hierfür wurden eine Reihe von Webscrapern entwickelt. Die Artikel werden in einer strukturierten Ordnerhierarchie gespeichert und verwaltet. Eine GUI-Anwendung ermöglicht das Hochladen, Transkribieren und Klassifizieren von Audiodateien mithilfe eines Transkriptionsmodells. Für das Matching von Artikeln in einfacher und Standardsprache wurden Verfahren zur Vektorisierung und Ähnlichkeitsberechnung implementiert. Ins gesamt wurden ca. 7000 Artikel gesammelt. Ziel ist es, dass die Datenbank über das Projekt hinaus kontinuierlich wächst und die Ergebnisse dieses Projekts für zukünftige Forschung genutzt werden können.
 
 ### 2.2. Projektmanagement und organisatorische Herausforderungen
 
-Neben technischen Herausforderungen in der Umsetzung des Projekts stellten sich auch einige zusätzliche organisatorische Herausforderungen.
+Neben technischen Herausforderungen in der Umsetzung des Projekts traten auch einige zusätzliche organisatorische Herausforderungen auf.
 
-Durch die nach dem Projektstart erfolgte Zuteilung eines Teammitglieds in das Team, war eine schnelle Kontaktaufnahme und Integration des neuen Teammitglieds notwendig. Dies erforderte eine schnelle Einarbeitung und Anpassung der Teamdynamik. In Folge sollten auch die wöchentlichen Meetings remote absolviert werden.
+Durch die nach dem Projektstart erfolgte Zuteilung eines Teammitglieds in das Team war eine schnelle Kontaktaufnahme und Integration des neuen Teammitglieds notwendig. Dies erforderte eine schnelle Einarbeitung und Anpassung der Teamdynamik. In der Folge sollten auch die wöchentlichen Meetings remote absolviert werden.
 
-Trotz dieser zusätzlichen Schwierigkeiten wurden alle Herausforderungen hervorragend bewältigt. Um die Ressourcen für alle Teammitglieder ständig bereitzuhalten, war bereits ein [Repository auf GitHub](https://github.com/larsaars/KIP_EinfachErklaert) angelegt, dieses wurde um eine Datei `Meetings.md` zur Protokollierung der in den remote Meetings besprochenen Inhalte erweitert. Die Meetings wurden fest wöchentlich und zusätzlich nach Bedarf angesetzt und finden virtuell über Zoom statt, des Weiteren ist ein ständiger Kommunikationskanal zum Austausch über WhatsApp, für kurzfristige Änderungen oder dringende Probleme, verfügbar. Neben der bekannten Herausforderung von Videokonferenzen, bietet Zoom die Chance, den Bildschirm für "Code-Reviews" und "Code-Vorstellungen" zu teilen.
+Trotz dieser zusätzlichen Schwierigkeiten wurden alle Herausforderungen hervorragend bewältigt. Um die Ressourcen für alle Teammitglieder ständig bereitzuhalten, war bereits ein [Repository auf GitHub](https://github.com/larsaars/KIP_EinfachErklaert) angelegt, dieses wurde um eine Datei `Meetings.md` zur Protokollierung der in den remote Meetings besprochenen Inhalte erweitert. Die Meetings wurden fest wöchentlich und zusätzlich nach Bedarf angesetzt und fanden virtuell über Zoom statt. Des Weiteren ist ein ständiger Kommunikationskanal für kurzfristige Änderungen oder dringende Probleme zum Austausch über WhatsApp verfügbar. Neben der bekannten Herausforderung von Videokonferenzen bietet Zoom die Möglichkeit den Bildschirm für Code-Reviews und Code-Vorstellungen zu teilen.
 
 
 ## 3. Entwicklung
@@ -50,7 +50,7 @@ Trotz dieser zusätzlichen Schwierigkeiten wurden alle Herausforderungen hervorr
 ### 3.1. Kommunikation
 
 #### Nachrichtenquellen
-Die Kommunikation mit den Nachrichtenquellen wurde ein Bestandteil unseres Projekts. Wir wandten uns an DLF, NL und MDR, um Zugang zu ihren Nachrichteninhalten zu erhalten, da wir bereits bei DLF auf Schwierigkeiten beim Scrapen historischer Daten gestoßen sind und es als eine alternative Möglichkeit gesehen haben, dort direkt anzufragen. Es ist hier deutlich schwerer an die Daten zu kommen, da einerseits viel mehr publiziert wird im Vergleich zu NL und es keine einfach abrufbare API gibt. 
+Die Kommunikation mit den Nachrichtenquellen wurde ein Bestandteil unseres Projekts. Wir wandten uns an DLF, NL und MDR, um Zugang zu ihren Nachrichteninhalten zu erhalten, da wir beim Scrapen historischer Daten bei DLF auf Schwierigkeiten gestoßen sind und es als eine alternative Möglichkeit gesehen haben, direkt anzufragen. Es ist hier deutlich schwerer an die Daten zu kommen, da einerseits viel mehr publiziert wird im Vergleich zu NL und es keine einfach abrufbare API gibt. 
 
 Über verschiedene Kanäle wie E-Mail, Instagram, TikTok und LinkedIn versuchten wir, Kontakt herzustellen. Nach mehreren Versuchen erhielten wir zuerst eine Antwort auf TikTok, dass es an das Team von NL weitergeleitet wurde. Einen Tag später kam dann eine Antwort von Herrn Bertolaso, einem leitenden Nachrichtenredakteur bei DLF. Er leitete unsere Anfrage weiter an Frau Gnad. Nach einem Telefonat mit ihr stellte sich heraus, dass noch die Möglichkeit besteht tagesaktuelle Daten aus den Instagram Captions von NL zu scrapen, was inzwischen Teil unserer Scraper geworden ist. Des Weiteren hat sie uns mit dem Archiv in Verbindung gesetzt. Wir haben dort einen direkten Ansprechpartner, da das Projekt nun aber schon abgeschlossen ist, kann dieser nur noch weiter für Herrn Baumann wichtig sein um in Zukunft an weitere Daten zu gelangen. 
 Bei MDR entstand auch ein direkter Kontakt mit Patrick Herz, auch hier stellte sich heraus, dass ein direkter Zugang zu den Daten leider nicht möglich ist, da ihm keine Möglichkeit bekannt war uns da weiterzuhelfen. Wir haben uns hier nicht mehr an das Archiv gewendet, da eine weitere Anfrage zusammen mit einem bevorstehenden E-Mail-Verkehr zu lange gedauert hätte. Vielen Dank an Herrn Herz für die schnelle und freundliche Antwort und dem MDR sowie dem Übersetzungsbüro „Leicht ist klar“ für die Erlaubnis die Daten im Rahmen des Projekts zu verwenden.
@@ -69,16 +69,16 @@ In diesem Kontext werden zwei Scraper-Bibliotheken verwendet: BeautifulSoup und 
 #### 3.2.2 BeautifulSoup
 
 ist eine Bibliothek, die es ermöglicht, Daten aus HTML- und XML-Dateien zu extrahieren.
-Sie kann jedoch keine Formulare bearbeiten oder JavaScript ausführen, weshalb sie nur für statische Webseiten geeignet ist.
-Dies bedeutet, dass sie lediglich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden, wie beispielsweise nach dem Drücken eines Buttons.
+Sie kann jedoch keine Formulare manipulieren oder JavaScript ausführen, weshalb sie nur für statische Webseiten geeignet ist.
+Dies bedeutet, dass sie ausschließlich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden, wie beispielsweise nach dem Ausführen eines Buttons.
 
 #### 3.2.3 Selenium
 
 ist ein Webdriver, der es ermöglicht, Webseiten zu steuern und mit ihnen zu interagieren.
 Ein Webdriver ist ein Programm, das die Steuerung eines Webbrowsers ermöglicht, indem es tatsächlich ein Browserfenster öffnet und dieses dann steuert.
-Dieses Öffnen des Browserfensters kann auch im Hintergrund erfolgen, sodass der Nutzer nichts davon mitbekommt, was bedeutet, dass es auch ohne GUI auf einem Server (dem KI-Server) verwendet werden kann.
+Das Öffnen des Browserfensters kann auch im Hintergrund erfolgen, sodass der Nutzer nichts davon mitbekommt, was bedeutet, dass es auch ohne GUI auf einem Server (dem KI-Server) verwendet werden kann.
 Selenium kann auch dynamische Webseiten auslesen, da es JavaScript ausführen kann.
-Es ist jedoch langsamer als BeautifulSoup und benötigt mehr Rechenleistung, weshalb BeautifulSoup bevorzugt wird, wenn es möglich ist.
+Es ist jedoch langsamer als BeautifulSoup und benötigt mehr Rechenleistung, weshalb BeautifulSoup, wenn möglich, verwendet wird.
 
 ### 3.2.4 Arten von Scrapern
 
@@ -98,13 +98,13 @@ Aktuelle Scraper werden regelmäßig ausgeführt, um kontinuierlich die neuesten
 Für die Scraper wurde eine Basisklasse `BaseScraper` erstellt, die allgemeine Funktionen und Methoden enthält, die für alle Scraper benötigt werden.
 Die Basisklasse enthält die folgenden Methoden:
 
-- `base_metadata_dict()`: Gibt ein Dictionary zurück, das die Metadaten enthält, die für jeden Artikel gespeichert werden sollen (zum Beispiel Titel, Beschreibung, Datum usw.).
+- `base_metadata_dict()`: Gibt ein Dictionary zurück, das die Metadaten enthält, die für jeden Artikel gespeichert werden sollen (zum Beispiel Titel, Beschreibung, Datum, usw.).
 - `_get_soup()`: Lädt die Webseite und gibt ein BeautifulSoup-Objekt zurück.
 - `_fetch_articles_from_feed()`: Extrahiert die Artikel-URLs aus dem Feed (oder auf andere Weise, falls kein Feed verfügbar ist) der Webseite.
 - `_get_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines Artikels aus der URL.
 - `scrape()`: Führt die einzelnen Schritte zum Scrapen der Webseite aus.
 
-Dadurch müssen für jeden neuen Scraper nur noch die spezifischen Methoden implementiert werden, die für die jeweilige Webseite benötigt werden, was die Implementierung übersichtlicher macht.
+Dadurch müssen für jeden neuen Scraper nur noch die spezifischen Methoden implementiert werden, die für die zugehörige Webseite benötigt werden, was die Implementierung übersichtlicher macht.
 
 ### 3.3. MDR Scraper
 
@@ -121,7 +121,7 @@ Der MDR Scraper extrahiert Daten von der Webseite des Mitteldeutschen Rundfunks 
 
 ### 3.3.2 `MDRBaseScraper` - Funktionsweise
 
-Der `MDRBaseScraper` wurde als Klasse geschaffen, um allgemeine Funktionen und Methoden zu enthalten, die sowohl für den aktuellen als auch den historischen MDR-Scraper benötigt werden.
+Der `MDRBaseScraper` wurde als Klasse definiert, um allgemeine Funktionen und Methoden zu enthalten, die sowohl für den aktuellen als auch den historischen MDR-Scraper benötigt werden.
 Die Basisklasse enthält die folgenden Methoden:
 
 - `_init_selenium()`: Initialisiert das Selenium-Webdriver-Objekt. Wird nur intern verwendet.
@@ -129,18 +129,18 @@ Die Basisklasse enthält die folgenden Methoden:
 - `_get_easy_article_metadata_and_content(url)`: Extrahiert die Metadaten und den Inhalt eines einfachen Artikels aus der URL. Wird von der `scrape()`-Methode aufgerufen und kann direkt an den `DataHandler` weitergegeben werden.
 - `_get_hard_article_metadata_and_content(url)`: Das gleiche wie `_get_easy_article_metadata_and_content()`, aber für schwere Artikel. Die Webseitenstruktur der schweren Artikel unterscheidet sich von der der einfachen Artikel, daher wird eine separate Methode benötigt.
 
-Die `_get_article_and_metadata_...`-Methoden wurden möglichst robust gebaut, um auch bei Änderungen in der Website-Struktur weiterhin funktionieren zu können.
-Hierfür wurden verschiedene Methoden ausprobiert, um an die benötigten Daten zu gelangen.
+Die `_get_article_and_metadata_...`-Methoden wurden möglichst robust gebaut, um auch bei Änderungen in der Webseitenstruktur weiterhin funktionieren zu können.
+Hierfür wurden verschiedene Methoden geteste, um an die benötigten Daten zu gelangen.
 Die Methoden, die am besten funktionierten, wurden dann in die Methoden der Klasse integriert.
 Zudem fehlen immer wieder Teile der benötigten Metadaten auf der Website.
-Das hat immer wieder zu Problemen geführt, auch in Kombination mit dem `DataHandler`, da dieser teilweise auf die Metadaten angewiesen ist, um die Artikel zu speichern.
-Es mussten immer wieder Workarounds gefunden werden, um die fehlenden Metadaten zu ersetzen, meistens durch Platzhalter.
+Das hat immer wieder zu Problemen geführt, insbesondere in Kombination mit dem `DataHandler`, da dieser teilweise auf die Metadaten angewiesen ist, um die Artikel zu speichern.
+Es mussten immer wieder Workarounds gefunden werden, um die fehlenden Metadaten zu ersetzen. Meistens erfolgte dies durch Platzhalter.
 
 ### 3.3.3 MDR: Aktueller Scraper - Funktionsweise
 
 Der aktuelle MDR Scraper extrahiert zunächst die Links der Artikel vom Angebot in einfacher Sprache des MDR und lädt die einfachen Artikel mitsamt Audio, Metadaten, dem rohen HTML-Code und dem extrahierten Inhalt herunter.
 An die Audios zu gelangen ist nicht ganz einfach, da der MDR die Audios nicht direkt verlinkt, sondern sie über eine JavaScript-Datei lädt.
-Daher muss hier Selenium verwendet werden.
+Daher musste hier auf Selenium zurückgegriffen werden.
 Da die einfachen Artikel häufig auf die normalen Artikel verlinken, wird hierfür kein spezieller Matcher benötigt.
 Die Matches werden hierbei direkt über den `SimpleMatcher` eingetragen.
 Im Anschluss an den einfachen Artikel wird jeweils der schwere Artikel gescraped.
@@ -202,7 +202,7 @@ Dank der redaktionellen Nähe zwischen DLF und NL sind die Internetseiten größ
 Zur Auswahl standen auch die Nachrichtenangebote der APA (Austria Presse Agentur), des NDR und des SR. Die APA bietet Nachrichten in leichter Sprache an, die von capito.ai generiert werden, einem vollautomatisierten KI-Tool zur Übersetzung von Texten aus der Standardsprache in leicht verständliche Sprache. Auf ihrer Webseite sind die Originalartikel sowie Übersetzungen in die Sprachniveaus B1 und A2 verfügbar. Wir haben uns gegen die Verwendung der APA als Datenquelle entschieden, da keine Audioversionen der Artikel vorhanden sind und die Artikel in leichter Sprache ausschließlich von KI generiert werden, was zu einem möglichen Bias in den Daten führen könnte. Darüber hinaus erreichen die Artikel nicht die qualitativen Standards der öffentlich-rechtlichen Sender. Sowohl der NDR als auch der SR sind Mitglieder des öffentlich-rechtlichen Rundfunkverbunds ARD und bieten ebenfalls Nachrichten in leichter Sprache mit Audio an. Allerdings unterscheiden sich die Texte in leichter Sprache formell stark von denen des Deutschlandradios und des MDR. Zudem gibt es keinen separaten Nachrichtenfeed, was das Scrapen der Artikel erschwert. Das Angebot des SR in leichter Sprache konzentriert sich hauptsächlich auf regionale Nachrichten aus dem Saarland. Aus diesen Gründen haben wir vorläufig beschlossen, diese Nachrichtenangebote nicht zu berücksichtigen.
 
 ### 3.6. Datenstruktur und Datahandler
-Auf Anraten von Professor Baumann wird für die Speicherung keine SQL-Datenbank benutzt, sondern wie in der Abbildung dargestellt eine Ordnerstruktur.
+Auf Anraten von Professor Baumann wird für die Speicherung keine SQL-Datenbank benutzt, sondern eine Ordnerstruktur, wie in der Abbildung dargestellt.
 
 ```
 data/
@@ -241,7 +241,7 @@ Die Speicherung im eigenen Format bietet viel Flexibilität und Unabhängigkeit 
 
 #### Der `DataHandler`
 
-übernimmt diese Rolle. Er bietet ein Interface für den **Zugriff** auf die Daten durch Funktionen wie `head`, welcher die ersten n Artikel als Pandas DataFrame zurückgibt. Des Weiteren soll eine einheitliche **Speicherung** durch vordefinierte Speicherfunktionen sichergestellt werden. Auch ermöglicht der DataHandler eine **Suche** im Verzeichnis nach Metadaten. Um keine Artikel doppelt zu Scrapen gibt es außerdem die Funktion `is_already_saved`, welche sich die bessere Sucheffizienz der Lookuptable zunutze macht. Sie gibt zurück, ob die URL bereits gescraped und gespeichert wurde. Das DataHandler Objekt muss mit der jeweiligen Nachrichtenquelle initialisiert werden (aktuell `“dlf“`, oder `“mdr“`) und kann dann für das jeweilige Unterverzeichnis genutzt werden. Die Initialisierung mit der Nachrichtenquelle soll unter anderem einer Vermischung der Daten vorbeugen. Den meisten Funktionen muss übergeben werden, ob im `“hard“` (`“h“`), oder `“easy“` (`“e“`) Unterverzeichnis gelesen oder geschrieben werden soll.
+übernimmt diese Rolle. Er bietet ein Interface für den **Zugriff** auf die Daten durch Funktionen wie `head`, welcher die ersten n Artikel als Pandas DataFrame zurückgibt. Des Weiteren soll eine einheitliche **Speicherung** durch vordefinierte Speicherfunktionen sichergestellt werden. Auch ermöglicht der DataHandler eine **Suche** im Verzeichnis nach Metadaten. Um keine Artikel mehrfach zu Scrapen gibt es außerdem die Funktion `is_already_saved`, welche sich die bessere Sucheffizienz der Lookuptable zunutze macht. Sie gibt zurück, ob die URL bereits gescraped und gespeichert wurde. Das DataHandler Objekt muss mit der jeweiligen Nachrichtenquelle initialisiert werden (aktuell `“dlf“`, oder `“mdr“`) und kann dann für das jeweilige Unterverzeichnis genutzt werden. Die Initialisierung mit der Nachrichtenquelle soll unter anderem einer Vermischung der Daten vorbeugen. Den meisten Funktionen muss übergeben werden, ob im `“hard“` (`“h“`), oder `“easy“` (`“e“`) Unterverzeichnis gelesen oder geschrieben werden soll.
 
 #### Entwicklung und Debugging 
 
@@ -353,11 +353,11 @@ Das Modell "large-v2" wird benutzt, um die Transkription durchzuführen. Hierbei
 
 `audio_classification.py` ist für das Trainieren eines Modells und einer Pipeline für die Klassifizierung von Audiodateien zuständig. Es verwendet die Bibliothek `librosa` für die Feature-Extraktion aud den Audiodateien und `sklearn` für das Trainieren des Modells. `pandas` wird für die Datenmanipulation und -speicherung verwendet, und `pickle` für das Speichern des Modells.
 
-Nach dem Starten des skripts gibt es zuerst die Möglichkeit zu entscheiden, ob die Audiofeatures neu berechnet werden sollen oder ob bereits gespeicherte Features verwendet werden sollen. Bei einem Datensatz von 3596 Audiodateien, wovon ca. 90 % in leichter Sprache sind, hat die Extraktion mit librosa ca. 30 Minuten gedauert. Dementsprechend war die Implementierung einer Speicherfunktion für die Features sinnvoll. Je nachdem wird nun mithilfe von `pickle` entweder der Dataframe geladen oder `load_audio_data()` und `extract_audio_features()` aufgerufen. Diese Funktionen nutzen Teile des Datahandlers um sämtliche Pfade zu Audiodateien zu erhalten. Hier wurde zur Übersicht mit `tqdm` gearbeitet, damit eine Fortschrittsanzeige für die Iterationen der Extraktion zu sehen ist. Die Schlüsselfunktionen sind größtenteils Fehlerresistent damit es nicht zu einem Abbruch kommt und der Fortschritt verloren geht. 
+Nach dem Starten des Skripts gibt es zuerst die Möglichkeit zu entscheiden, ob die Audiofeatures neu berechnet oder bereits gespeicherte Features verwendet werden sollen. Bei einem Datensatz von 3596 Audiodateien, wovon ca. 90 % in leichter Sprache sind, hat die Extraktion mit librosa ca. 30 Minuten gedauert. Dementsprechend war die Implementierung einer Speicherfunktion für die Features sinnvoll. Je nachdem wird nun mithilfe von `pickle` entweder der Dataframe geladen oder `load_audio_data()` und `extract_audio_features()` aufgerufen. Diese Funktionen nutzen Teile des Datahandlers um sämtliche Pfade zu Audiodateien zu erhalten. Hier wurde zur Übersicht mit `tqdm` gearbeitet, damit eine Fortschrittsanzeige für die Iterationen der Extraktion zu sehen ist. Die Schlüsselfunktionen sind größtenteils Fehlerresistent damit es nicht zu einem Abbruch kommt und der Fortschritt verloren geht. 
 
-Nun folgt das Training des Modells. Es wird unterschieden zwischen einem Training, das gleichzeitig zu Testzwecken und Evaluation des Modells dient und den Datensatz in einen Trainingsdatensatz und einen Testdatensatz teilt und einem reinen Training für das finale Modell, dass die besten Hyperparameter aus einem vorherigen getesteten Modell verwendet. Bei Tests mit einem KNN Modell stellte sich heraus, dass dieses sich schwertat die schweren Audios zu erkennen, deswegen fiel die Entscheidung nach einigen weiteren Tests auf einen Support Vector Classifier, hierbei wird in einer Pipeline zunächst ein `MinMaxScaler` für die normalisierung verwendet und anschließend die SVM. Eine GridSearch mit integrierter Cross-Validation wird durchgeführt, um die besten Hyperparameter zu finden.
+Nun folgt das Training des Modells. Es wird unterschieden zwischen einem Training, das gleichzeitig zu Testzwecken und Evaluation des Modells dient und den Datensatz in einen Trainingsdatensatz und einen Testdatensatz teilt und einem reinen Training für das finale Modell, dass die besten Hyperparameter aus einem vorherigen getesteten Modell verwendet. Bei Tests mit einem KNN Modell stellte sich heraus, dass dieses Probleme hatte die schweren Audios zu erkennen, deswegen fiel die Entscheidung nach einigen weiteren Tests auf einen Support Vector Classifier, hierbei wird in einer Pipeline zunächst ein `MinMaxScaler` für die Normalisierung verwendet und anschließend die SVM angewendet. Eine GridSearch mit integrierter Cross-Validation wird durchgeführt, um die besten Hyperparameter zu finden.
 
-Die beiden ungenutzten Funktionen `extract_text_features()` und `load_and_split_audio()` waren ursprünglich für die Implementierung eines weiteren Modells für die Textklassifizierung und die Aufteilung der Audios in kleiner Segmente gedacht. Diese wurden jedoch nicht weiter verfolgt, da die Klassifizierung der Audios in leichter und schwerer Sprache ausreichend war und keine Zeit für weiterführende Aufgaben mehr bestand.
+Die beiden ungenutzten Funktionen `extract_text_features()` und `load_and_split_audio()` waren ursprünglich für die Implementierung eines weiteren Modells für die Textklassifizierung und die Aufteilung der Audios in kleiner Segmente gedacht. Diese wurden jedoch nicht weiter verfolgt, da die Klassifizierung der Audios in leichter und schwerer Sprache ausreichend war und für weiterführende Aufgaben keine Zeit mehr bestand.
 
 
 ### 3.12. GUI Anwendung
@@ -406,11 +406,11 @@ Aber nicht nur die Länge der Texte unterscheidet sich. Texte in ihrer sprachlic
 
 _Figure: Links Wordcluster von MDR leicht, rechts von normal_
 
-Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unterscheiden. In der linken Wordcluster für leichte Sprache fallen sofort die Wörter "Menschen", "Sachsen" und "viele" auf, die in größerer Schrift dargestellt sind, was ihre häufige Verwendung anzeigt. Das rechte Wordcluster für Standardsprache zeigt hingegen "Sachsen", "sei" und "Menschen" als besonders häufige Wörter. Das Wort Sachen in beiden Texten ist dadurch zu erklären, dass die Quelle MDR die Rundfunkanstalt unter anderem "Sachsen" als Sendegebiet hat. Leichte Sprache verwendet häufig einfachere und klarere Begriffe, während die Standardsprache komplexer und vielfältiger ist. Die Wordcluster sind ein Versuch dies prägnant darzustellen.
+Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unterscheiden. In dem linken Wordcluster für leichte Sprache fallen sofort die Wörter "Menschen", "Sachsen" und "viele" auf, die in größerer Schrift dargestellt sind, was auf ihre häufige Verwendung deutet. Das rechte Wordcluster für Standardsprache zeigt hingegen "Sachsen", "sei" und "Menschen" als besonders häufige Wörter. Das Wort "Sachen" in beiden Texten ist dadurch zu erklären, dass die Quelle MDR die Rundfunkanstalt unter anderem Sachsen als Sendegebiet hat. Leichte Sprache verwendet häufig einfachere und verständlichere Begriffe, während die Standardsprache komplexer und vielfältiger ist. Die Wordcluster sind ein Versuch dies prägnant darzustellen.
 
 
 ## 5. Fazit und Ausblick
 
 Das Projekt in seiner jetzigen Form stellt bereits eine Vielzahl von Daten und Tools bereit, mit denen aktuelle technische Herausforderungen gelöst werden konnten. Sollte sich aus dem Projekt weitere Forschung ergeben, so stehen auch in Zukunft mögliche Herausforderungen an, die es zu bewältigen gilt. Beispielsweise werden Webseiten kontinuierlich aktualisiert, was eine Anpassung der Scraping-Skripte notwendig machen würde. Der auf dem Server stetig wachsende Datensatz ist sicherlich eine große Chance, stellt jedoch auch eine Herausforderung in der effizienten Verarbeitung und Speicherung dar. Uns war es wichtig zu ermöglichen, dass auch weitere Leute an diesen stetigen Herausforderungen arbeiten und mithilfe der Daten forschen können. Im Repository wurde hierfür im `README` ein kurzer Developer Guide verfasst, der wichtige Fakten aus dem Bericht darstellt, aber auch technischere Details, wie Intervalle, in denen sich eine automatisierte Ausführung der Scraper anbietet, aufschlüsselt. 
 
-Der Bericht präsentiert bereits einige fortgeschrittene Ansätze, wie den Audio-Transcriber, die einen Ausblick darauf geben, was in einem weiteren Projekt mit den nun bereits vorhandenen Daten möglich wäre. Auch verfolgt der `ArticleVectorizer` bereits den Ansatz des weiteren Matching der Artikel von leicht zu schwer und könnte, beispielsweise durch Training einer Ensemble-Methode noch verbessert werden. Die dadurch entstehenden neuen Matches, wären eine Möglichkeit den Datensatz auch qualitativ aufzuwerten und eine noch genauere Analyse und ein besseres Verständnis, des Themas der Nachrichten in leichter Sprache, zu ermöglichen.
+Der Bericht präsentiert bereits einige fortgeschrittene Ansätze, wie den Audio-Transcriber, die einen Ausblick darauf geben, was in einem weiteren Projekt mit den nun bereits vorhandenen Daten möglich wäre. Auch verfolgt der `ArticleVectorizer` bereits den Ansatz des weiteren Matching der Artikel von leicht zu schwer und könnte, beispielsweise durch Training einer Ensemble-Methode darüberhinaus noch verbessert werden. Die dadurch entstehenden neuen Matches, wären eine Möglichkeit den Datensatz qualitativ aufzuwerten und eine noch genauere Analyse und ein besseres Verständnis, des Themas der Nachrichten in leichter Sprache, zu ermöglichen.
