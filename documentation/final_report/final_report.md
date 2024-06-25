@@ -29,8 +29,7 @@ TODO: gliederung anpassen BEN (und im text)
 
 ## 1. Einleitung
 
-TODO einleitung schreiben LARS
-Die Umsetzung eines Projekts ist häufig mit einer Vielzahl von Herausforderungen verbunden, die sowohl technischer als auch organisatorischer Natur sein können. In diesem Bericht werden die organisatorischen Hürden beleuchtet, denen wir im Verlauf des Projekts begegnet sind, sowie die Maßnahmen, die ergriffen wurden, um diese erfolgreich zu meistern. Insbesondere wird auf die Integration neuer Teammitglieder, die Umstellung auf remote Meetings und die effiziente Nutzung von Kommunikationstools eingegangen. Zudem wird erläutert, wie diese organisatorischen Maßnahmen zur Erreichung der Projektziele beigetragen haben und welche Vorteile sie für die Projektkoordination und Zusammenarbeit gebracht haben.
+Die Umsetzung eines Projekts ist oft von technischen, organisatorischen und zwischenmenschlichen Herausforderungen geprägt. Im Rahmen des KIP-Projekts "Einfach Erklärt" wird dieser Bericht aufzeigen, wie diese Herausforderungen bewältigt wurden und welche Erkenntnisse und Ergebnisse aus der Projektentwicklung hervorgegangen sind. Der Fokus liegt dabei auf der Kommunikation mit Nachrichtenquellen, den Prozessen des Daten-Scrapings und der Datenverwaltung sowie der Nutzung der gesammelten Daten. Abschließend wird ein Ausblick auf die zukünftige Nutzung und Weiterentwicklung des Projekts gegeben.
 
 ## 2. Allgemein
 
