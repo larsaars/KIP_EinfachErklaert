@@ -8,19 +8,18 @@ TODO bericht lesen und einmal korriegieren  kleinscheiss simon
 TODO: gliederung anpassen BEN (und im text)
 1. Einleitung (Ben)
 2. Allgemein
-   1. Projektmanagement und organisatorische Herausforderungen (Felix)
-   2. Überblick (alle)
-   3. Kommunikation mit Nachrichtenquellen (Ben)
-   4. Kommunikation mit anderer Gruppe 
+   1. Überblick (alle)
+   2. Projektmanagement und organisatorische Herausforderungen (Felix)
 3. Entwicklung
-   1. Scraper (Lars)
-   2. MDR Scraper (Lars)
-   3. Deutschlandradio (Simon)
-   4. Datenstruktur und Datahandler (Felix)
+   1. Kommunikation (Ben)
+   2. Scraper (Lars)
+   3. MDR Scraper (Lars)
+   4. Deutschlandradio Scraper (Simon)
    5. Weitere Nachrichtenangebote (Simon)
-   6. KI-Server (Ben)
-   7. Technische Herausforderungen (Simon)
-   8. Dokumentation zur Übergabe
+   6. Datenstruktur und Datahandler (Felix)
+   7. KI-Server (Ben)
+   8. Technische Herausforderungen (Simon)
+   9. Dokumentation zur Übergabe
 4. Datenauswertung
    1. Gesamelte Daten
    2. Erkenntnisse über die Daten
@@ -52,27 +51,28 @@ Trotz dieser zusätzlichen Schwierigkeiten wurden alle Herausforderungen hervorr
 
 #### Nachrichtenquellen
 Die Kommunikation mit den Nachrichtenquellen wurde ein Bestandteil unseres Projekts. Wir wandten uns an DLF, NL und MDR, um Zugang zu ihren Nachrichteninhalten zu erhalten, da wir bereits bei DLF auf Schwierigkeiten beim Scrapen historischer Daten gestoßen sind und es als eine alternative Möglichkeit gesehen haben, dort direkt anzufragen. Es ist hier deutlich schwerer an die Daten zu kommen, da einerseits viel mehr publiziert wird im Vergleich zu NL und es keine einfach abrufbare API gibt. 
+
 Über verschiedene Kanäle wie E-Mail, Instagram, TikTok und LinkedIn versuchten wir, Kontakt herzustellen. Nach mehreren Versuchen erhielten wir zuerst eine Antwort auf TikTok, dass es an das Team von NL weitergeleitet wurde. Einen Tag später kam dann eine Antwort von Herrn Bertolaso, einem leitenden Nachrichtenredakteur bei DLF. Er leitete unsere Anfrage weiter an Frau Gnad. Nach einem Telefonat mit ihr stellte sich heraus, dass noch die Möglichkeit besteht tagesaktuelle Daten aus den Instagram Captions von NL zu scrapen, was inzwischen Teil unserer Scraper geworden ist. Des Weiteren hat sie uns mit dem Archiv in Verbindung gesetzt. Wir haben dort einen direkten Ansprechpartner, da das Projekt nun aber schon abgeschlossen ist, kann dieser nur noch weiter für Herrn Baumann wichtig sein um in Zukunft an weitere Daten zu gelangen. 
-Bei MDR entstand auch ein direkter Kontakt mit Patrick Herz, auch hier stellte sich heraus, dass ein direkter Zugang zu den Daten leider nicht möglich ist, da ihm leider keine Möglichkeit bekannt war uns da weiterzuhelfen. Wir haben uns hier nicht mehr an das Archiv gewendet, da eine weitere Anfrage zusammen mit einem bevorstehenden E-Mail-Verkehr zu lange gedauert hätte. Vielen Dank an Herrn Herz für die schnelle und freundliche Antwort und dem MDR sowie dem Übersetzungsbüro „Leicht ist klar“ für die Erlaubnis die Daten im Rahmen des Projekts zu verwenden.
+Bei MDR entstand auch ein direkter Kontakt mit Patrick Herz, auch hier stellte sich heraus, dass ein direkter Zugang zu den Daten leider nicht möglich ist, da ihm keine Möglichkeit bekannt war uns da weiterzuhelfen. Wir haben uns hier nicht mehr an das Archiv gewendet, da eine weitere Anfrage zusammen mit einem bevorstehenden E-Mail-Verkehr zu lange gedauert hätte. Vielen Dank an Herrn Herz für die schnelle und freundliche Antwort und dem MDR sowie dem Übersetzungsbüro „Leicht ist klar“ für die Erlaubnis die Daten im Rahmen des Projekts zu verwenden.
 
 #### Andere Gruppe
 Wir haben auch eine Zusammenarbeit mit der anderen Gruppe in Betracht gezogen, die das gleiche Projekt durchführt. In einem Gespräch mit Prof. Baumann stellte sich heraus, dass es sinnvoll sein könnte, sich beim Scrapen die Arbeit zu teilen. Leider lehnte die andere Gruppe unsere Anfrage ab, da sie befürchteten, dass eine Auslagerung des Webscrapings zu einem Bewertungsverlust führen könnte, da dies ebenfalls Teil der Aufgabenstellung und des Arbeitsaufwandes ist. Nach den Midterm Reviews haben wir erneut versucht, in enger Zusammenarbeit mit der anderen Gruppe zu treten, um durch das Teilen der Arbeit mehr Daten zu gewinnen und verschiedene Ansätze für das Matching oder die Datenauswertung zu entwickeln. Prof. Baumann betonte, dass dies allen helfen würde. Leider stellte sich heraus, dass die Absprachen mit der anderen Gruppe nicht zuverlässig waren. Daher haben wir uns entschieden, die Zusammenarbeit nicht weiterzuverfolgen und uns auf unsere eigenen Daten und Ideen zu konzentrieren. Aufgrund von wenig erfolgreicher Kommunikation war es uns leider nicht möglich die Daten der beiden Gruppen bis zum Ende des Projekts zusammenzuführen.
 
-## 3.2 Scraper
+### 3.2 Scraper
 
-### Was ist ein Scraper?
+#### 3.2.1 Was ist ein Scraper?
 
 Ein Scraper ist ein Programm, das automatisch Daten von Webseiten extrahiert.
 Es gibt verschiedene Arten von Scrapern, die sich in ihrer Funktionsweise und ihren Anwendungsmöglichkeiten unterscheiden.
 In diesem Kontext werden zwei Scraper-Bibliotheken verwendet: BeautifulSoup und Selenium, die sich in ihren Funktionen und Anwendungsbereichen unterscheiden.
 
-### BeautifulSoup
+#### 3.2.2 BeautifulSoup
 
 ist eine Bibliothek, die es ermöglicht, Daten aus HTML- und XML-Dateien zu extrahieren.
 Sie kann jedoch keine Formulare bearbeiten oder JavaScript ausführen, weshalb sie nur für statische Webseiten geeignet ist.
 Dies bedeutet, dass sie lediglich den HTML-Code der Webseite auslesen kann und nicht die dynamischen Inhalte, die durch JavaScript generiert werden, wie beispielsweise nach dem Drücken eines Buttons.
 
-### Selenium
+#### 3.2.3 Selenium
 
 ist ein Webdriver, der es ermöglicht, Webseiten zu steuern und mit ihnen zu interagieren.
 Ein Webdriver ist ein Programm, das die Steuerung eines Webbrowsers ermöglicht, indem es tatsächlich ein Browserfenster öffnet und dieses dann steuert.
@@ -106,7 +106,7 @@ Die Basisklasse enthält die folgenden Methoden:
 
 Dadurch müssen für jeden neuen Scraper nur noch die spezifischen Methoden implementiert werden, die für die jeweilige Webseite benötigt werden, was die Implementierung übersichtlicher macht.
 
-## 3.3. MDR Scraper
+### 3.3. MDR Scraper
 
 ### 3.3.1 Warum MDR?
 
@@ -176,7 +176,7 @@ Diese API ist nicht so limitiert wie die `SerpAPI` Google API und bot mehr Konfi
 Außerdem stehen bei der Bing API pro Monat 1000 kostenlose Suchanfragen zur Verfügung.
 Durch verschiedene Variationen der Suchanfragen (z.B. verschiedene Datumsbereiche, verschiedene Suchbegriffe) konnten hiermit etwa 230 zusätzliche alte einfache Artikel gesammelt werden.
 
-## 3.4 Deutschlandradio
+### 3.4 Deutschlandradio Scraper
 
 Deutschlandradio ist ein Bestandteil des öffentlich-rechtlichen Rundfunks und verantwortlich für die Produktion verschiedener Nachrichtenangebote, darunter DLF und NL, die als bedeutende Datenquellen dienen.
 Eigenständige Redaktionen sind dafür zuständig, die jeweiligen Inhalte zu konzipieren und zu veröffentlichen.
@@ -197,11 +197,11 @@ Auf der Internetseite von NL werden jeden Freitagnachmittag etwa fünf bis sechs
 
 Dank der redaktionellen Nähe zwischen DLF und NL sind die Internetseiten größtenteils strukturell identisch aufgebaut. Dadurch konnte ein `DeutschlandradioScraper` basierend auf dem BaseScraper entwickelt werden, um Redundanzen zu vermeiden. Die Unterschiede liegen hauptsächlich in den Metadaten und der Verfügbarkeit von Audio bei NL-Artikeln. Ausgehend vom `DeutschlandradioScraper` konnten entsprechende Scraper für DLF und NL abgeleitet werden. Für den NL-Feed wurde eine API-Schnittstelle gefunden, die das Scrapen erleichtert.
 
-## 3.5. Weitere Nachrichtenangebote
+### 3.5. Weitere Nachrichtenangebote
 
 Zur Auswahl standen auch die Nachrichtenangebote der APA (Austria Presse Agentur), des NDR und des SR. Die APA bietet Nachrichten in leichter Sprache an, die von capito.ai generiert werden, einem vollautomatisierten KI-Tool zur Übersetzung von Texten aus der Standardsprache in leicht verständliche Sprache. Auf ihrer Webseite sind die Originalartikel sowie Übersetzungen in die Sprachniveaus B1 und A2 verfügbar. Wir haben uns gegen die Verwendung der APA als Datenquelle entschieden, da keine Audioversionen der Artikel vorhanden sind und die Artikel in leichter Sprache ausschließlich von KI generiert werden, was zu einem möglichen Bias in den Daten führen könnte. Darüber hinaus erreichen die Artikel nicht die qualitativen Standards der öffentlich-rechtlichen Sender. Sowohl der NDR als auch der SR sind Mitglieder des öffentlich-rechtlichen Rundfunkverbunds ARD und bieten ebenfalls Nachrichten in leichter Sprache mit Audio an. Allerdings unterscheiden sich die Texte in leichter Sprache formell stark von denen des Deutschlandradios und des MDR. Zudem gibt es keinen separaten Nachrichtenfeed, was das Scrapen der Artikel erschwert. Das Angebot des SR in leichter Sprache konzentriert sich hauptsächlich auf regionale Nachrichten aus dem Saarland. Aus diesen Gründen haben wir vorläufig beschlossen, diese Nachrichtenangebote nicht zu berücksichtigen.
 
-## 3.6. Datenstruktur 
+### 3.6. Datenstruktur und Datahandler
 Auf Anraten von Professor Baumann wird für die Speicherung keine SQL-Datenbank benutzt, sondern wie in der Abbildung dargestellt eine Ordnerstruktur.
 
 ```
@@ -239,15 +239,15 @@ im April um 20.000")
 
 Die Speicherung im eigenen Format bietet viel Flexibilität und Unabhängigkeit von Versionen eines Datenbankmanagementsystems. Allerdings stellt sich die Herausforderung eines komfortablen, einheitlichen und effizienten Zugriffs auf die Daten. 
 
-##### Der `DataHandler`
+#### Der `DataHandler`
 
 übernimt diese Rolle. Er bietet ein Interface für den **Zugriff** auf die Daten durch Funktionen wie `head`, welcher die ersten n Artikel als Pandas DataFrame zurückgibt. Des Weiteren soll eine einheitliche **Speicherung** durch vordefinierte Speicherfunktionen sichergestellt werden. Auch ermöglicht der DataHandler eine **Suche** im Verzeichnis nach Metadaten. Um keine Artikel doppelt zu Scrapen gibt es außerdem die Funktion `is_already_saved`, welche sich die bessere Sucheffizienz der Lookuptable zunutze macht. Sie gibt zurück, ob die URL bereits gescraped und gesaved wurde. Das DataHandler Objekt muss mit der jeweiligen Nachrichtenquelle initialisiert werden (aktuell `“dlf“`, oder `“mdr“`) und kann dann für das jeweilige Unterverzeichnis genutzt werden. Die Initialisierung mit der Nachrichtenquelle soll unter anderem einer Vermischung der Daten vorbeugen. Den meisten Funktionen muss übergeben werden, ob im `“hard“` (`“h“`), oder `“easy“` (`“e“`) Unterverzeichnis gelesen oder geschrieben werden soll.
 
-##### Entwicklung und Debugging 
+#### Entwicklung und Debugging 
 
 Als zentrales Modul für die Speicherung und den Zugriff auf die Daten war es wichtig sicherzustellen, dass der DataHandler zuverlässig und effizient arbeitet. Viele Features wurden von Anfang an (per design) angelegt, um die Effizienz des DataHandlers zu optimieren und direkt die meisten Funktionen bereitzustellen. Dazu gehörte zum Beispiel der Lookup Table, um eine effiziente Suche zu ermöglichen. Durch die Zentralität des Moduls und die Schwierigkeit das Modul zu testen ohne, dass größere Datenmengen verfügbar waren, entwickelte sich die Robustheit des Moduls mit der Entwicklung der anderen Module, in denen er Anwendung fand. Hier wurden des Öfteren Issues zurückgemeldet, die gefixt werden mussten. Da der DataHandler mit dem Dateisystem arbeitet und unter Windows 11 entwickelt wurde, traten im Verlauf vor allem Fehler auf, die auf den Unterschied zwischen Linux und Windows zurückzuführen waren. Diese konnten behoben werden, indem die Pfade in den Funktionen angepasst wurden. Ziel ist es, dass der DataHandler sowohl auf Windows als auch auf Linux lauffähig ist. Auch einige kleinere Erweiterungen wurden vorgenommen, um weitere Funktionen bereitzustellen, beispielsweise das Abrufen der Audios. Im Laufe der Entwicklung fand außerdem ein großes Refactoring statt, um den Code übersichtlicher und wartbarer zu machen. Hierfür wurden alle Funktionen die nicht direkt als Interface für den Nutzer gedacht waren, in eine eigene Klasse `DataHandlerHelper` ausgelagert.
 
-##### Examples 
+#### Examples 
 
 Da der Datahandler, wie das gesamte Projekt so angelegt ist, der er zur Weiterentwicklung und Forschung dienen kann, wurden ein Notebook mit Beispielen erstellt, indem die Funktionen des DataHandlers demonstriert werden. Ein weiterer Fokus lag, in der ausführlichen Dokumentation der Klasse und Funktionen durch Python Docstrings. 
 
