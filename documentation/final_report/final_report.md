@@ -3,6 +3,7 @@
 
 Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
 
+TODO: gliederung anpassen
 1. Einleitung (Ben)
 2. Allgemein
    1. Projektmanagement und organisatorische Herausforderungen (Felix)
@@ -26,11 +27,16 @@ Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
 
 ## 1. Einleitung
 
-Die Umsetzung eines Projekts ist oft von technischen und organisatorischen Herausforderungen geprägt. In diesem Projektbericht werden sowohl technische als auch organisatorische Aspekte beleuchtet, die bisher bewältigt wurden. Darunter sind, die remote Durchführung von Meetings sowie die Kommunikation mit Nachrichtenquellen wie Deutschlandfunk (DLF), Nachrichtenleicht (NL) und Mitteldeutscher Rundfunk (MDR). Zudem wird die Datenstruktur für die Speicherung und das Scraping erläutert sowie ein Ausblick auf den Matching-Prozess gegeben, der für die Nutzung des aufgebauten Datensatzes von zentraler Bedeutung ist. Zuletzt geben wir einen kleinen Ausblick auf den weiteren Verlauf des Projekts.
+TODO einleitung schreiben
+Die Umsetzung eines Projekts ist häufig mit einer Vielzahl von Herausforderungen verbunden, die sowohl technischer als auch organisatorischer Natur sein können. In diesem Bericht werden die organisatorischen Hürden beleuchtet, denen wir im Verlauf des Projekts begegnet sind, sowie die Maßnahmen, die ergriffen wurden, um diese erfolgreich zu meistern. Insbesondere wird auf die Integration neuer Teammitglieder, die Umstellung auf remote Meetings und die effiziente Nutzung von Kommunikationstools eingegangen. Zudem wird erläutert, wie diese organisatorischen Maßnahmen zur Erreichung der Projektziele beigetragen haben und welche Vorteile sie für die Projektkoordination und Zusammenarbeit gebracht haben.
 
 ## 2. Allgemein
 
-### 2.1. Projektmanagement und organisatorische Herausforderungen
+### 2.1. Überblick
+
+Das Projekt zielt darauf ab, eine umfassende Datenbank von Nachrichtenartikeln in einfacher und Standardsprache zu erstellen. Hierfür wurden eine Reihe von Webscrapern entwickelt. Die Artikel werden in einer strukturierten Ordnerhierarchie gespeichert und verwaltet. Eine GUI-Anwendung ermöglicht das Hochladen, Transkribieren und Klassifizieren von Audiodateien mithilfe eines Transkriptionsmodells. Für das Matching von Artikeln in einfacher und Standardsprache wurden Verfahren zur Vektori sierung und Ähnlichkeitsberechnung implementiert. Ins gesamt wurden ca. 7000 Artikel gesammelt. Ziel ist es, dass die Datenbank kontinuierlich über das Projekt hinaus wächst und die Ergebnisse dieses Projekts für zukünftige Forschung weiter genutzt werden können.
+
+### 2.2. Projektmanagement und organisatorische Herausforderungen
 
 Neben technischen Herausforderungen in der Umsetzung des Projekts stellten sich auch einige zusätzliche organisatorische Herausforderungen.
 
@@ -38,11 +44,6 @@ Durch die nach dem Projektstart erfolgte Zuteilung eines Teammitglieds in das Te
 
 Trotz dieser zusätzlichen Schwierigkeiten wurden alle Herausforderungen bisher hervorragend bewältigt. Um die Ressourcen für alle Teammitglieder ständig bereitzuhalten, war bereits ein Repository auf GitHub angelegt, dieses wurde um eine Datei `Meetings.md` zur Protokollierung der in den remote Meetings besprochenen Inhalte erweitert. Die Meetings wurden fest wöchentlich und zusätzlich nach Bedarf angesetzt und finden virtuell über Zoom statt, des Weiteren ist ein ständiger Kommunikationskanal zum Austausch über WhatsApp, für kurzfristige Änderungen oder dringende Probleme, verfügbar. Neben der bekannten Herausforderung von Videokonferenzen, bietet Zoom die Chance, den Bildschirm für "Code-Reviews" und "Code-Vorstellungen" zu teilen.
 
-### 2.2. Überblick
-
-![Die Pipeline](./images/pipe3.png)
-
-Die Abbildung 1 stellt den aktuellen Stand der Pipeline des Projekts dar. Unterteilt werden kann in die Scraper, den DataHandler und die Matcher, die alle miteinander interagieren. Die Scraper sammeln für die jeweilige Nachrichtenquelle Artikel, die der DataHandler dann in ein einheitliches Format bringt und mit ihrem Inhalt und den Metadaten speichert. Der Matcher vergleicht leichte und normale Artikel und versucht diese zu verbinden. Details zu den einzelnen Modulen finden sich in den jeweiligen Kapiteln.
 
 ## 3. Aktueller Stand 
 
@@ -193,7 +194,11 @@ Auf der Internetseite von NL werden jeden Freitagnachmittag etwa fünf bis sechs
 
 Dank der redaktionellen Nähe zwischen DLF und NL sind die Internetseiten größtenteils strukturell identisch aufgebaut. Dadurch konnte ein `DeutschlandradioScraper` basierend auf dem BaseScraper entwickelt werden, um Redundanzen zu vermeiden. Die Unterschiede liegen hauptsächlich in den Metadaten und der Verfügbarkeit von Audio bei NL-Artikeln. Ausgehend vom `DeutschlandradioScraper` konnten entsprechende Scraper für DLF und NL abgeleitet werden. Für den NL-Feed wurde eine API-Schnittstelle gefunden, die das Scrapen erleichtert.
 
-## 3.5. Datenstruktur 
+## 3.5. Weitere Nachrichtenangebote
+
+Zur Auswahl standen auch die Nachrichtenangebote der APA (Austria Presse Agentur), des NDR und des SR. Die APA bietet Nachrichten in leichter Sprache an, die von capito.ai generiert werden, einem vollautomatisierten KI-Tool zur Übersetzung von Texten aus der Standardsprache in leicht verständliche Sprache. Auf ihrer Webseite sind die Originalartikel sowie Übersetzungen in die Sprachniveaus B1 und A2 verfügbar. Wir haben uns gegen die Verwendung der APA als Datenquelle entschieden, da keine Audioversionen der Artikel vorhanden sind und die Artikel in leichter Sprache ausschließlich von KI generiert werden, was zu einem möglichen Bias in den Daten führen könnte. Darüber hinaus erreichen die Artikel nicht die qualitativen Standards der öffentlich-rechtlichen Sender. Sowohl der NDR als auch der SR sind Mitglieder des öffentlich-rechtlichen Rundfunkverbunds ARD und bieten ebenfalls Nachrichten in leichter Sprache mit Audio an. Allerdings unterscheiden sich die Texte in leichter Sprache formell stark von denen des Deutschlandradios und des MDR. Zudem gibt es keinen separaten Nachrichtenfeed, was das Scrapen der Artikel erschwert. Das Angebot des SR in leichter Sprache konzentriert sich hauptsächlich auf regionale Nachrichten aus dem Saarland. Aus diesen Gründen haben wir vorläufig beschlossen, diese Nachrichtenangebote nicht zu berücksichtigen.
+
+## 3.6. Datenstruktur 
 Auf Anraten von Professor Baumann wird für die Speicherung keine SQL-Datenbank benutzt, sondern wie in der Abbildung dargestellt eine Ordnerstruktur.
 
 ```
@@ -243,10 +248,17 @@ Als zentrales Modul für die Speicherung und den Zugriff auf die Daten war es wi
 
 Da der Datahandler, wie das gesamte Projekt so angelegt ist, der er zur Weiterentwicklung und Forschung dienen kann, wurden ein Notebook mit Beispielen erstellt, indem die Funktionen des DataHandlers demonstriert werden. Ein weiterer Fokus lag, in der ausführlichen Dokumentation der Klasse und Funktionen durch Python Docstrings. 
 
+### 3.7. Hilfs-Skripte
 
-## 3.6 Weitere Nachrichtenangebote
+#### `reformat_date.py`
 
-Zur Auswahl standen auch die Nachrichtenangebote der APA (Austria Presse Agentur), des NDR und des SR. Die APA bietet Nachrichten in leichter Sprache an, die von capito.ai generiert werden, einem vollautomatisierten KI-Tool zur Übersetzung von Texten aus der Standardsprache in leicht verständliche Sprache. Auf ihrer Webseite sind die Originalartikel sowie Übersetzungen in die Sprachniveaus B1 und A2 verfügbar. Wir haben uns gegen die Verwendung der APA als Datenquelle entschieden, da keine Audioversionen der Artikel vorhanden sind und die Artikel in leichter Sprache ausschließlich von KI generiert werden, was zu einem möglichen Bias in den Daten führen könnte. Darüber hinaus erreichen die Artikel nicht die qualitativen Standards der öffentlich-rechtlichen Sender. Sowohl der NDR als auch der SR sind Mitglieder des öffentlich-rechtlichen Rundfunkverbunds ARD und bieten ebenfalls Nachrichten in leichter Sprache mit Audio an. Allerdings unterscheiden sich die Texte in leichter Sprache formell stark von denen des Deutschlandradios und des MDR. Zudem gibt es keinen separaten Nachrichtenfeed, was das Scrapen der Artikel erschwert. Das Angebot des SR in leichter Sprache konzentriert sich hauptsächlich auf regionale Nachrichten aus dem Saarland. Aus diesen Gründen haben wir vorläufig beschlossen, diese Nachrichtenangebote nicht zu berücksichtigen.
+Dieses Skript ist dafür verantwortlich, Artikel-Ordner umzubenennen, die Datumsinformationen im falschen Format enthalten. Es überprüft, ob die Artikel-Ordner ein Datum im Format TT.MM.JJJJ enthalten und konvertiert diese in das Format JJJJ-MM-TT. Dadurch wird sichergestellt, dass die Verzeichnisse ein einheitliches und standardisiertes Datumsformat haben.
+
+#### `rewrite_old_matches.py`
+
+Dieses Skript aktualisiert alte Matches mithilfe des `SimpleMatcher`-Moduls. Es durchsucht ein `/data/mdr/easy/` nach `metadata.json`, lädt die bestehenden Übereinstimmungen und übergibt diese an das `SimpleMatcher`-Modul zum erneuten, ordnungsgemäßem Eintrag des Matches. Logging wird verwendet, um den Fortschritt und mögliche Fehler zu protokollieren.
+
+
 
 ### 3.7. KI-Server
 
@@ -256,25 +268,7 @@ Mithilfe eines Cronjobs werden die Scraping-Skripte regelmäßig ausgeführt, um
 
 Der KI-Server erwies sich als äußerst hilfreich, da das Scraping automatisiert funktioniert und wir einen zentralen Ort der Datenspeicherung haben. Zusätzlich haben wir so auch kein Problem mit der Speicherung der Audiodateien, da genug Festplattenspeicher vorhanden ist. Es entstehen jedoch auch einige Nachteile und ein weiteres Feld in dem Troubleshooting oder Debugging betrieben werden muss. Vor allem die Berechtigungen für die einzelnen User waren aus uns nicht erklärbaren Gründen nicht immer korrekt gesetzt, was zu Problemen beim Schreiben und Lesen von Dateien führte. Auch die Verbindung mit dem Server war nicht immer einfach, da es keine direkte Möglichkeit gibt, auf den Server zuzugreifen. Über den Hochschuleigenen VPN und dann per SSH oder über das JupyterHub auf den Server zuzugreifen, erwies sich bei schlechter Internetverbindung als schwierig. Und auch das Remote Development über z. B. Pycharm ist mit Latenz verbunden.
 
-## 3.8. Technische Herausforderungen
-
-#### Scraper
-
-Webseiten werden kontinuierlich aktualisiert und verbessert, was zu Änderungen in der HTML-Struktur und den CSS-Klassen führen kann, die für das Scraping verwendet werden. Diese Änderungen können dazu führen, dass die Scraping-Skripte nicht mehr ordnungsgemäß funktionieren, da sie nicht mehr in der Lage sind, die benötigten Informationen korrekt zu extrahieren. Dies erfordert eine regelmäßige Überwachung der Webseite sowie eine kontinuierliche Aktualisierung der Scraping-Skripte, um sicherzustellen, dass sie weiterhin effektiv arbeiten.
-
-#### Skalierbarkeit
-
-Bei der Verarbeitung großer Datenmengen, wie beispielsweise beim Matching, kann die Leistung des DataHandlers stark beeinträchtigt werden. Im Gegensatz zu eigenständigen Datenbanksystemen ist er nicht speziell für die Bewältigung solcher Datenmengen optimiert. Dies kann zu längeren Verarbeitungszeiten, erhöhtem Ressourcenverbrauch und potenziell anderen unbekannten Problemen führen. Eine der Hauptlimitationen liegt in der Ordnerstruktur der Daten, da bei Operationen auf den Daten alle Ordner der Artikel durchlaufen werden müssen.
-
-Es ist daher entscheidend, den DataHandler gegebenenfalls entsprechend zu optimieren. Dies kann durch verschiedene Maßnahmen erfolgen, darunter Parallelisierung, Optimierung der Datenstrukturen oder die Nutzung eines dedizierten Datenbanksystems. Durch diese Optimierungen kann die Leistungsfähigkeit des DataHandlers verbessert und die Effizienz bei der Verarbeitung großer Datenmengen gesteigert werden.
-
-#### Historische Artikel
-
-Das Scrapen historischer Artikel birgt seine eigenen Herausforderungen, insbesondere in Bezug auf die Zugänglichkeit und Verfügbarkeit der URLs zu den Artikeln sowohl beim DLF als auch beim MDR. Zusätzlich dazu besteht die Schwierigkeit, die Konsistenz der gesammelten Daten sicherzustellen, da Artikel nur einmal gescraped werden und zukünftige Änderungen der Redaktionen an den Artikeln nicht überprüft und aktualisiert werden. Eine effektive Lösung hierfür könnte eine Funktionalität im DataHandler sein, die nicht nur das Datum des Scrapings berücksichtigt, sondern auch eine Versionierung der Artikel implementiert. Dadurch ließe sich diese Problematik beheben, da verschiedene Versionen eines Artikels zur Verfügung stehen und Änderungen der Redaktionen verfolgt werden könnten.
-
 ### 3.8. Matcher
-
-Matcher sind toll. #FIXME: (mit matches.csv erklärt!)
 
 #### Der `BaseMatcher`
 
@@ -335,63 +329,36 @@ Der `TfidfTransformer` aus der `scikit-learn` Bibliothek realisiert diese Transf
 Die Häufigkeitsmatrix des `ArticleVectorizer` wird durch den `TfidfTransformer` in eine Tf-idf-Matrix überführt. Diese dient zur Berechnung der Ähnlichkeit zwischen Texten (bzw. Artikeln in leichter und normaler Sprache) mittels Cosine-Similarity. 
 Das Artikel-Paar mit der größten Kosinus-Ähnlichkeit wird als Match identifiziert.
 
-#### 3.9.3 Ausblick
 
-Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` sowie das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
-Mögliche Kriterien und Einstellungen:
-
-- Berücksichtigung des Veröffentlichungsdatums (z.B. maximale Differenz, time-decay)
-- Einschränkung des Zeitraums aus dem Artikel stammen
-- Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
-- Kombination aus Titel, Teaser, Beschreibung und Inhalt
-- Berücksichtigung der Platzierung im Ranking (Auswahl aus den Score-Plätzen)
-    
-
-Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den `ArticleVectorizer` mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den passenden Artikel auszuwählen.
-
-Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden, z.B. Ensemble-Methoden wie Bagging und Stacking. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden.
-
-### 3.10. Hilfs-Skripte
-
-#### `reformat_date.py`
-
-Dieses Skript ist dafür verantwortlich, Artikel-Ordner umzubenennen, die Datumsinformationen im falschen Format enthalten. Es überprüft, ob die Artikel-Ordner ein Datum im Format TT.MM.JJJJ enthalten und konvertiert diese in das Format JJJJ-MM-TT. Dadurch wird sichergestellt, dass die Verzeichnisse ein einheitliches und standardisiertes Datumsformat haben.
-
-#### `rewrite_old_matches.py`
-
-Dieses Skript aktualisiert alte Matches mithilfe des `SimpleMatcher`-Moduls. Es durchsucht ein `/data/mdr/easy/` nach `metadata.json`, lädt die bestehenden Übereinstimmungen und übergibt diese an das `SimpleMatcher`-Modul zum erneuten, ordnungsgemäßem Eintrag des Matches. Logging wird verwendet, um den Fortschritt und mögliche Fehler zu protokollieren.
 
 ### WhisperX Transcriber
 
 WhisperX ist ein modernes pre-trained-model mit zugrundeliegenden Transformer-Modellen, das in unserem Fall zur Transkription von Audioinhalten verwendet wird. Es ist ein Open-Source-Tool, das auf der Basis OpenAIs Whisper entwickelt wurde. 
 
-Das Modell "large-v2" wird benutzt, um die Transkription durchzuführen. Hierbei handelt es sich um ein sehr großes Modell, das auf einer Vielzahl von Daten trainiert wurde und daher eine hohe Genauigkeit bei der Transkription von Audioinhalten aufweist. Der KI-Server ermöglicht es uns die Transkription auf den GPUs durchzuführen, was die Geschwindigkeit des Prozesses erhöht. Hierfür werden die globalen Variablen ```__DEVICE__```, ```__TYPE__``` und ```__BATCH_SIZE__``` verwendet. Das Modell wird mit den ```device_index=[0, 1, 2, 3]``` auf den GPUs parallelisiert. Die Audiodatei wird anschließend aus der Datenbank geladen und transkribiert. Danach wird zusammen mit dem Ausrichtungsmodell von WhisperX die Transkription auf Wortebene mit einem Zeitstempel versehen. Zuletzt passiert eine Rückgabe der einzelnen Segmente in einem kombinierten Dictonary- und Listenobjekt, dass alle nötigen Infos enthält.
+Das Modell "large-v2" wird benutzt, um die Transkription durchzuführen. Hierbei handelt es sich um ein sehr großes Modell, das auf einer Vielzahl von Daten trainiert wurde und daher eine hohe Genauigkeit bei der Transkription von Audioinhalten aufweist. Der KI-Server ermöglicht es uns die Transkription auf den GPUs durchzuführen, was die Geschwindigkeit des Prozesses erhöht. Hierfür werden die globalen Variablen `__DEVICE__`, `__TYPE__` und `__BATCH_SIZE__` verwendet. Das Modell wird mit den `device_index=[0, 1, 2, 3]` auf den GPUs parallelisiert. Die Audiodatei wird anschließend aus der Datenbank geladen und transkribiert. Danach wird zusammen mit dem Ausrichtungsmodell von WhisperX die Transkription auf Wortebene mit einem Zeitstempel versehen. Zuletzt passiert eine Rückgabe der einzelnen Segmente in einem kombinierten Dictonary- und Listenobjekt, dass alle nötigen Infos enthält.
 
 ### Audio classification
 
-```audio_classification.py``` ist für das Trainieren eines Modells und einer Pipeline für die Klassifizierung von Audiodateien zuständig. Es verwendet die Bibliothek ```librosa``` für die Feature-Extraktion aud den Audiodateien und ```sklearn``` für das Trainieren des Modells. ```pandas``` wird für die Datenmanipulation und -speicherung verwendet, und ```pickle``` für das Speichern des Modells.
+`audio_classification.py` ist für das Trainieren eines Modells und einer Pipeline für die Klassifizierung von Audiodateien zuständig. Es verwendet die Bibliothek `librosa` für die Feature-Extraktion aud den Audiodateien und `sklearn` für das Trainieren des Modells. `pandas` wird für die Datenmanipulation und -speicherung verwendet, und `pickle` für das Speichern des Modells.
 
-Nach dem Starten des skripts gibt es zuerst die Möglichkeit zu entscheiden, ob die Audiofeatures neu berechnet werden sollen oder ob bereits gespeicherte Features verwendet werden sollen. Bei einem Datensatz von 3596 Audiodateien, wovon ca. 90 % in leichter Sprache sind, hat die Extraktion mit librosa ca. 30 Minuten gedauert. Dementsprechend war die Implementierung einer Speicherfunktion für die Features sinnvoll. Je nachdem wird nun mithilfe von ```pickle``` entweder der Dataframe geladen oder ```load_audio_data()``` und ```extract_audio_features()``` aufgerufen. Diese Funktionen nutzen Teile des Datahandlers um sämtliche Pfade zu Audiodateien zu erhalten. Hier wurde zur Übersicht mit ```tqdm``` gearbeitet, damit eine Fortschrittsanzeige für die Iterationen der Extraktion zu sehen ist. Die Schlüsselfunktionen sind größtenteils Fehlerresistent damit es nicht zu einem Abbruch kommt und der Fortschritt verloren geht. 
+Nach dem Starten des skripts gibt es zuerst die Möglichkeit zu entscheiden, ob die Audiofeatures neu berechnet werden sollen oder ob bereits gespeicherte Features verwendet werden sollen. Bei einem Datensatz von 3596 Audiodateien, wovon ca. 90 % in leichter Sprache sind, hat die Extraktion mit librosa ca. 30 Minuten gedauert. Dementsprechend war die Implementierung einer Speicherfunktion für die Features sinnvoll. Je nachdem wird nun mithilfe von `pickle` entweder der Dataframe geladen oder `load_audio_data()` und `extract_audio_features()` aufgerufen. Diese Funktionen nutzen Teile des Datahandlers um sämtliche Pfade zu Audiodateien zu erhalten. Hier wurde zur Übersicht mit `tqdm` gearbeitet, damit eine Fortschrittsanzeige für die Iterationen der Extraktion zu sehen ist. Die Schlüsselfunktionen sind größtenteils Fehlerresistent damit es nicht zu einem Abbruch kommt und der Fortschritt verloren geht. 
 
-Nun folgt das Training des Modells. Es wird unterschieden zwischen einem Training, das gleichzeitig zu Testzwecken und Evaluation des Modells dient und den Datensatz in einen Trainingsdatensatz und einen Testdatensatz teilt und einem reinen Training für das finale Modell, dass die besten Hyperparameter aus einem vorherigen getesteten Modell verwendet. Bei Tests mit einem KNN Modell stellte sich heraus, dass dieses sich schwertat die schweren Audios zu erkennen, deswegen fiel die Entscheidung nach einigen weiteren Tests auf einen Support Vector Classifier, hierbei wird in einer Pipeline zunächst ein ```MinMaxScaler``` für die normalisierung verwendet und anschließend die SVM. Eine GridSearch mit integrierter Cross-Validation wird durchgeführt, um die besten Hyperparameter zu finden.
+Nun folgt das Training des Modells. Es wird unterschieden zwischen einem Training, das gleichzeitig zu Testzwecken und Evaluation des Modells dient und den Datensatz in einen Trainingsdatensatz und einen Testdatensatz teilt und einem reinen Training für das finale Modell, dass die besten Hyperparameter aus einem vorherigen getesteten Modell verwendet. Bei Tests mit einem KNN Modell stellte sich heraus, dass dieses sich schwertat die schweren Audios zu erkennen, deswegen fiel die Entscheidung nach einigen weiteren Tests auf einen Support Vector Classifier, hierbei wird in einer Pipeline zunächst ein `MinMaxScaler` für die normalisierung verwendet und anschließend die SVM. Eine GridSearch mit integrierter Cross-Validation wird durchgeführt, um die besten Hyperparameter zu finden.
 
-Die beiden ungenutzten Funktionen ```extract_text_features()``` und ```load_and_split_audio()``` waren ursprünglich für die Implementierung eines weiteren Modells für die Textklassifizierung und die Aufteilung der Audios in kleiner Segmente gedacht. Diese wurden jedoch nicht weiter verfolgt, da die Klassifizierung der Audios in leichter und schwerer Sprache ausreichend war und keine Zeit für weiterführende Aufgaben mehr bestand.
+Die beiden ungenutzten Funktionen `extract_text_features()` und `load_and_split_audio()` waren ursprünglich für die Implementierung eines weiteren Modells für die Textklassifizierung und die Aufteilung der Audios in kleiner Segmente gedacht. Diese wurden jedoch nicht weiter verfolgt, da die Klassifizierung der Audios in leichter und schwerer Sprache ausreichend war und keine Zeit für weiterführende Aufgaben mehr bestand.
 
 
 ## GUI Anwendung
 
-Die GUI-Anwendung ist mit ```Flask``` erstellt worden. Sie ermöglicht es Nutzer*innen Audiodateien hochzuladen und diese zu transkribieren. 
+Die GUI-Anwendung ist mit `Flask` erstellt worden. Sie ermöglicht es Nutzer*innen Audiodateien hochzuladen und diese zu transkribieren. 
 1. **Importe und Konfiguration**: Nach einer Reihe von Importen und Konfigurationen wird die Flask-App initialisiert. Ein Secret Key wird gesetzt, um Sessions zu verwalten. Diese werden auf Serverseite verwaltet, um größere Datenübertragungen zu ermöglichen. Zusätzlich werden Data handler für die beiden Datenquellen initialisiert.
 2. **WhisperX Modell**: Das WhisperX Modell wird bei der Audioklassifizierung geladen
 3. **Flask-Routen**: Es gibt drei wesentliche Routen, die die Anwendung bereitstellt.
-   - ```/``` ist die Startseite, die eine Begrüßungsnachricht anzeigt.
-   - Die erste Route ```/upload``` ist die Seite, die die Möglichkeit bietet, eine Audiodatei hochzuladen.
-   - Die zweite Route ```/transcribe``` erhält die Audiodatei von ```/upload``` und überprüft im ersten Schritt, ob eine Audiodatei hochgeladen wurde. Wenn eine Datei hochgeladen wurde, wird sie temporär auf dem Server gespeichert. Anschließend wird die Audiodatei an das WhisperX-Modell zur Transkription übergeben. Die Transkriptionsergebnisse werden in der ```results``` Variable gespeichert. Die transkribierten Segmente werden mit dem Ausrichtungsmodell von WhisperX auf Wortebene ausgerichtet. Dies ermöglicht es, Zeitstempel für jedes Wort in der Transkription zu erhalten. Nun werden die Audio-Features der Audiodatei extrahiert, um sie für die Klassifikation vorzubereiten. Das Klassifikationsmodell aus der ```audio_classification.py``` wird geladen und verwendet, um die Audiodatei zu klassifizieren. Die Klassifikationsergebnisse werden in der classification Variable gespeichert. Es findet eine Suche in den Datenbanken "dlf" und "mdr" nach dem transkribierten Titel des Artikels statt. Wenn der Titel gefunden wird, werden die Quelle und der Schwierigkeitsgrad des Artikels in der database Variable gespeichert, ansonsten wird er als "unknown" markiert. Die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse werden in der Sitzung gespeichert.
-   - ```/results``` zeigt die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse in einerneinfachen Oberfläche an.
+   - `/` ist die Startseite, die eine Begrüßungsnachricht anzeigt.
+   - Die erste Route `/upload` ist die Seite, die die Möglichkeit bietet, eine Audiodatei hochzuladen.
+   - Die zweite Route `/transcribe` erhält die Audiodatei von `/upload` und überprüft im ersten Schritt, ob eine Audiodatei hochgeladen wurde. Wenn eine Datei hochgeladen wurde, wird sie temporär auf dem Server gespeichert. Anschließend wird die Audiodatei an das WhisperX-Modell zur Transkription übergeben. Die Transkriptionsergebnisse werden in der `results` Variable gespeichert. Die transkribierten Segmente werden mit dem Ausrichtungsmodell von WhisperX auf Wortebene ausgerichtet. Dies ermöglicht es, Zeitstempel für jedes Wort in der Transkription zu erhalten. Nun werden die Audio-Features der Audiodatei extrahiert, um sie für die Klassifikation vorzubereiten. Das Klassifikationsmodell aus der `audio_classification.py` wird geladen und verwendet, um die Audiodatei zu klassifizieren. Die Klassifikationsergebnisse werden in der classification Variable gespeichert. Es findet eine Suche in den Datenbanken "dlf" und "mdr" nach dem transkribierten Titel des Artikels statt. Wenn der Titel gefunden wird, werden die Quelle und der Schwierigkeitsgrad des Artikels in der database Variable gespeichert, ansonsten wird er als "unknown" markiert. Die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse werden in der Sitzung gespeichert.
+   - `/results` zeigt die Transkriptionsergebnisse, die Verarbeitungszeit, die Datenbankinformationen und die Klassifikationsergebnisse in einerneinfachen Oberfläche an.
 
-### 3.11. Dokumentation 
-
-Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts, dass es als Grundlage für weitere Forschung beispielsweise eine Bachelorarbeit dienen kann. Dies wurde nicht nur beim Aufbau berücksichtigt, sondern besonders auch in der Dokumentation. Die Dokumentation nimmt deswegen bei diesem Projekt einen wichtigen Stellenwert ein. Sicher sind viele Ergebnisse auch im Bericht verarbeitet, es ist aber unklar in welchem Umfang dieser in Zukunft zur Verfügung stehen wird. Deshalb enthält das Repository im `README.md` eine Art kurzen Developer Guide. Hier wird nicht nur der Ursprung, der ganz grobe Aufbau dokumentiert, sondern auch wichtige Hinweise die sich zum Beispiel auch im Bericht finden wie die Datenstruktur. Da die Scraper darauf angelegt sind regelmäßig auf einem Server aufzuführen, um stets neue Daten zu generieren, findet sich hier auch eine Tabelle, die die Executables der Scraper kurz beschreibt und einen Hinweis gibt in welchem Intervall sich eine Ausführung anbietet. Für den DataHandler wurde wie bereits erwähnt ein Beispiele Notebook erstellt, in dem die Funktionen des DataHandlers demonstriert werden. 
 
 ## 4. Ergebnisse
 
@@ -430,7 +397,37 @@ _Figure: Links Wordcluster von MDR leicht, rechts von normal_
 Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unterscheiden. Im der linken Wordcluster für leichte Sprache fallen sofort die Wörter "Menschen", "Sachsen" und "viele" auf, die in größerer Schrift dargestellt sind, was ihre häufige Verwendung anzeigt. Das rechte Wordcluster für Standardsprache zeigt hingegen "Sachsen", "sei" und "Menschen" als besonders häufige Wörter. Das Wort Sachen in beiden Texten ist dadruch zu erklären dass die Quelle MDR die Rundfunkanstallt unter anderem "Sachsen" als Sendegebiet hat. Leichte Sprache verwendet häufig einfachere und klarere Begriffe, während die Standardsprache komplexer und vielfältiger ist. Die Wordcluster sind ein Versuch dies prägnant darzustellen.
 
 
-## 5. Fazit
-TODO: Fazit schreiben
+## 5. Fazit und Ausblick
+TODO als Fließtext
 
+### 5.1. Dokumentation 
 
+Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts, dass es als Grundlage für weitere Forschung beispielsweise eine Bachelorarbeit dienen kann. Dies wurde nicht nur beim Aufbau berücksichtigt, sondern besonders auch in der Dokumentation. Die Dokumentation nimmt deswegen bei diesem Projekt einen wichtigen Stellenwert ein. Sicher sind viele Ergebnisse auch im Bericht verarbeitet, es ist aber unklar in welchem Umfang dieser in Zukunft zur Verfügung stehen wird. Deshalb enthält das Repository im `README.md` eine Art kurzen Developer Guide. Hier wird nicht nur der Ursprung, der ganz grobe Aufbau dokumentiert, sondern auch wichtige Hinweise die sich zum Beispiel auch im Bericht finden wie die Datenstruktur. Da die Scraper darauf angelegt sind regelmäßig auf einem Server aufzuführen, um stets neue Daten zu generieren, findet sich hier auch eine Tabelle, die die Executables der Scraper kurz beschreibt und einen Hinweis gibt in welchem Intervall sich eine Ausführung anbietet. Für den DataHandler wurde wie bereits erwähnt ein Beispiele Notebook erstellt, in dem die Funktionen des DataHandlers demonstriert werden. 
+
+## 5.2. Technische Herausforderungen
+
+#### Scraper
+
+Webseiten werden kontinuierlich aktualisiert und verbessert, was zu Änderungen in der HTML-Struktur und den CSS-Klassen führen kann, die für das Scraping verwendet werden. Diese Änderungen können dazu führen, dass die Scraping-Skripte nicht mehr ordnungsgemäß funktionieren, da sie nicht mehr in der Lage sind, die benötigten Informationen korrekt zu extrahieren. Dies erfordert eine regelmäßige Überwachung der Webseite sowie eine kontinuierliche Aktualisierung der Scraping-Skripte, um sicherzustellen, dass sie weiterhin effektiv arbeiten.
+
+#### Skalierbarkeit
+
+Bei der Verarbeitung großer Datenmengen, wie beispielsweise beim Matching, kann die Leistung des DataHandlers stark beeinträchtigt werden. Im Gegensatz zu eigenständigen Datenbanksystemen ist er nicht speziell für die Bewältigung solcher Datenmengen optimiert. Dies kann zu längeren Verarbeitungszeiten, erhöhtem Ressourcenverbrauch und potenziell anderen unbekannten Problemen führen. Eine der Hauptlimitationen liegt in der Ordnerstruktur der Daten, da bei Operationen auf den Daten alle Ordner der Artikel durchlaufen werden müssen.
+
+Es ist daher entscheidend, den DataHandler gegebenenfalls entsprechend zu optimieren. Dies kann durch verschiedene Maßnahmen erfolgen, darunter Parallelisierung, Optimierung der Datenstrukturen oder die Nutzung eines dedizierten Datenbanksystems. Durch diese Optimierungen kann die Leistungsfähigkeit des DataHandlers verbessert und die Effizienz bei der Verarbeitung großer Datenmengen gesteigert werden.
+
+####TODO  3.9.3 Ausblick von Tfidf
+
+Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` sowie das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
+Mögliche Kriterien und Einstellungen:
+
+- Berücksichtigung des Veröffentlichungsdatums (z.B. maximale Differenz, time-decay)
+- Einschränkung des Zeitraums aus dem Artikel stammen
+- Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
+- Kombination aus Titel, Teaser, Beschreibung und Inhalt
+- Berücksichtigung der Platzierung im Ranking (Auswahl aus den Score-Plätzen)
+    
+
+Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den `ArticleVectorizer` mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den passenden Artikel auszuwählen.
+
+Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden, z.B. Ensemble-Methoden wie Bagging und Stacking. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden.
