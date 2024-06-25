@@ -332,7 +332,16 @@ Der `TfidfTransformer` aus der `scikit-learn` Bibliothek realisiert diese Transf
 Die Häufigkeitsmatrix des `ArticleVectorizer` wird durch den `TfidfTransformer` in eine Tf-idf-Matrix überführt. Diese dient zur Berechnung der Ähnlichkeit zwischen Texten (bzw. Artikeln in leichter und normaler Sprache) mittels Cosine-Similarity. 
 Das Artikel-Paar mit der größten Kosinus-Ähnlichkeit wird als Match identifiziert.
 
+#### Mögliche Erweiterungen
 
+Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` sowie das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
+Mögliche Kriterien und Einstellungen:
+
+- Berücksichtigung des Veröffentlichungsdatums (z.B. maximale Differenz, time-decay)
+- Einschränkung des Zeitraums aus dem Artikel stammen
+- Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
+- Kombination aus Titel, Teaser, Beschreibung und Inhalt
+- Berücksichtigung der Platzierung im Ranking (Auswahl aus den Score-Plätzen)
 
 ### 3.10. WhisperX Transcriber
 
@@ -405,14 +414,3 @@ Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unt
 Das Projekt in seiner jetzigen Form stellt bereits eine Vielzahl von Daten und Tools bereit, mit denen aktuelle technische Herausforderungen gelöst werden konnten. Sollte sich aus dem Projekt weitere Forschung ergeben, so stehen auch in Zukunft mögliche Herausforderungen an, die es zu bewältigen gilt. Beispielsweise werden Webseiten kontinuierlich aktualisiert, was eine Anpassung der Scraping-Skripte notwendig machen würde. Der auf dem Server stetig wachsende Datensatz ist sicherlich eine große Chance, stellt jedoch auch eine Herausforderung in der effizienten Verarbeitung und Speicherung dar. Uns war es wichtig zu ermöglichen, dass auch weitere Leute an diesen stetigen Herausforderungen arbeiten und mit Hilfe der Daten forschen können. Im Repository wurde hierfür im `README` ein kurzer Developer Guide verfasst, der wichtige Fakten aus dem Bericht darstellt, aber auch technischere Details, wie Intervalle in denen sich eine automatisierte Ausführung der Scraper anbietet, aufschlüsselt. 
 
 Der Bericht präsentiert bereits einige fortgeschrittene Ansätze, wie den Audio-Transcriber, die einen Ausblick darauf geben was in einem weiteren Projekt mit den nun bereits vorhandenen Daten möglich wäre. Auch verfolgt der `ArticleVectorizer` bereits den Ansatz des weiteren Matchings der Artikel von leicht zu schwer und könnte, beispielsweise durch Training einer Ensemble-Methode noch verbessert werden. Die dadurch entstehenden neuen Matches, wären eine Möglichkeit den Datensatz auch qualitativ aufzuwerten und eine noch genauere Analyse und ein besseres Verständnis, des Themas der Nachrichten in leichter Sprache, zu ermöglichen.
-
-
-# TODO: GEHÖRT DAS HIER REIN?
-Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` sowie das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
-Mögliche Kriterien und Einstellungen:
-
-- Berücksichtigung des Veröffentlichungsdatums (z.B. maximale Differenz, time-decay)
-- Einschränkung des Zeitraums aus dem Artikel stammen
-- Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
-- Kombination aus Titel, Teaser, Beschreibung und Inhalt
-- Berücksichtigung der Platzierung im Ranking (Auswahl aus den Score-Plätzen)
