@@ -3,7 +3,9 @@
 
 Lars Specht, Ben Reher, Simon Eiber und Felix Wippich, 26.06.24
 
-TODO: gliederung anpassen
+TODO bericht lesen und einmal korriegieren  kleinscheiss simon
+
+TODO: gliederung anpassen BEN (und im text)
 1. Einleitung (Ben)
 2. Allgemein
    1. Projektmanagement und organisatorische Herausforderungen (Felix)
@@ -27,7 +29,7 @@ TODO: gliederung anpassen
 
 ## 1. Einleitung
 
-TODO einleitung schreiben
+TODO einleitung schreiben LARS
 Die Umsetzung eines Projekts ist häufig mit einer Vielzahl von Herausforderungen verbunden, die sowohl technischer als auch organisatorischer Natur sein können. In diesem Bericht werden die organisatorischen Hürden beleuchtet, denen wir im Verlauf des Projekts begegnet sind, sowie die Maßnahmen, die ergriffen wurden, um diese erfolgreich zu meistern. Insbesondere wird auf die Integration neuer Teammitglieder, die Umstellung auf remote Meetings und die effiziente Nutzung von Kommunikationstools eingegangen. Zudem wird erläutert, wie diese organisatorischen Maßnahmen zur Erreichung der Projektziele beigetragen haben und welche Vorteile sie für die Projektkoordination und Zusammenarbeit gebracht haben.
 
 ## 2. Allgemein
@@ -400,7 +402,7 @@ Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unt
 
 
 ## 5. Fazit und Ausblick
-TODO als Fließtext
+TODO als Fließtext FELIX
 
 ### 5.1. Dokumentation 
 
