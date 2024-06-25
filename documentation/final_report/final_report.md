@@ -401,26 +401,13 @@ Zunächst sollte auffallen, dass sich die Grafiken links und rechts deutlich unt
 
 
 ## 5. Fazit und Ausblick
-TODO als Fließtext FELIX
 
-### 5.1. Dokumentation 
+Das Projekt in seiner jetzigen Form stellt bereits eine Vielzahl von Daten und Tools bereit, mit denen aktuelle technische Herausforderungen gelöst werden konnten. Sollte sich aus dem Projekt weitere Forschung ergeben, so stehen auch in Zukunft mögliche Herausforderungen an, die es zu bewältigen gilt. Beispielsweise werden Webseiten kontinuierlich aktualisiert, was eine Anpassung der Scraping-Skripte notwendig machen würde. Der auf dem Server stetig wachsende Datensatz ist sicherlich eine große Chance, stellt jedoch auch eine Herausforderung in der effizienten Verarbeitung und Speicherung dar. Uns war es wichtig zu ermöglichen, dass auch weitere Leute an diesen stetigen Herausforderungen arbeiten und mit Hilfe der Daten forschen können. Im Repository wurde hierfür im `README` ein kurzer Developer Guide verfasst, der wichtige Fakten aus dem Bericht darstellt, aber auch technischere Details, wie Intervalle, in denen sich eine automatisierte Ausführung der Scraper anbietet, aufschlüsselt. 
 
-Wie bereits erwähnt ist auf Wunsch von Prof. Baumann Ziel des gesamten Projekts, dass es als Grundlage für weitere Forschung beispielsweise eine Bachelorarbeit dienen kann. Dies wurde nicht nur beim Aufbau berücksichtigt, sondern besonders auch in der Dokumentation. Die Dokumentation nimmt deswegen bei diesem Projekt einen wichtigen Stellenwert ein. Sicher sind viele Ergebnisse auch im Bericht verarbeitet, es ist aber unklar in welchem Umfang dieser in Zukunft zur Verfügung stehen wird. Deshalb enthält das Repository im `README.md` eine Art kurzen Developer Guide. Hier wird nicht nur der Ursprung, der ganz grobe Aufbau dokumentiert, sondern auch wichtige Hinweise die sich zum Beispiel auch im Bericht finden wie die Datenstruktur. Da die Scraper darauf angelegt sind regelmäßig auf einem Server aufzuführen, um stets neue Daten zu generieren, findet sich hier auch eine Tabelle, die die Executables der Scraper kurz beschreibt und einen Hinweis gibt in welchem Intervall sich eine Ausführung anbietet. Für den DataHandler wurde wie bereits erwähnt ein Beispiele Notebook erstellt, in dem die Funktionen des DataHandlers demonstriert werden. 
+Der Bericht präsentiert bereits einige fortgeschrittene Ansätze, wie den Audio-Transcriber, die einen Ausblick darauf geben, was in einem weiteren Projekt mit den nun bereits vorhandenen Daten möglich wäre. Auch verfolgt der `ArticleVectorizer` bereits den Ansatz des weiteren Matchings der Artikel von leicht zu schwer und könnte, beispielsweise durch Training einer Ensemble-Methode noch verbessert werden. Die dadurch entstehenden neuen Matches, wären eine Möglichkeit den Datensatz auch qualitativ aufzuwerten und eine noch genauere Analyse und ein besseres Verständnis, des Themas der Nachrichten in leichter Sprache, zu ermöglichen.
 
-## 5.2. Technische Herausforderungen
 
-#### Scraper
-
-Webseiten werden kontinuierlich aktualisiert und verbessert, was zu Änderungen in der HTML-Struktur und den CSS-Klassen führen kann, die für das Scraping verwendet werden. Diese Änderungen können dazu führen, dass die Scraping-Skripte nicht mehr ordnungsgemäß funktionieren, da sie nicht mehr in der Lage sind, die benötigten Informationen korrekt zu extrahieren. Dies erfordert eine regelmäßige Überwachung der Webseite sowie eine kontinuierliche Aktualisierung der Scraping-Skripte, um sicherzustellen, dass sie weiterhin effektiv arbeiten.
-
-#### Skalierbarkeit
-
-Bei der Verarbeitung großer Datenmengen, wie beispielsweise beim Matching, kann die Leistung des DataHandlers stark beeinträchtigt werden. Im Gegensatz zu eigenständigen Datenbanksystemen ist er nicht speziell für die Bewältigung solcher Datenmengen optimiert. Dies kann zu längeren Verarbeitungszeiten, erhöhtem Ressourcenverbrauch und potenziell anderen unbekannten Problemen führen. Eine der Hauptlimitationen liegt in der Ordnerstruktur der Daten, da bei Operationen auf den Daten alle Ordner der Artikel durchlaufen werden müssen.
-
-Es ist daher entscheidend, den DataHandler gegebenenfalls entsprechend zu optimieren. Dies kann durch verschiedene Maßnahmen erfolgen, darunter Parallelisierung, Optimierung der Datenstrukturen oder die Nutzung eines dedizierten Datenbanksystems. Durch diese Optimierungen kann die Leistungsfähigkeit des DataHandlers verbessert und die Effizienz bei der Verarbeitung großer Datenmengen gesteigert werden.
-
-####TODO  3.9.3 Ausblick von Tfidf
-
+# TODO: GEHÖRT DAS HIER REIN?
 Der aktuelle Stand erlaubt die Definition eines Matchers, der das Preprocessing und die Vektorisierung durch den `ArticleVectorizer` sowie das Matching zwischen leichten und normalen Artikeln automatisiert und weitere artikelbezogene Matching-Kriterien und Parametereinstellungen umsetzt. 
 Mögliche Kriterien und Einstellungen:
 
@@ -429,8 +416,3 @@ Mögliche Kriterien und Einstellungen:
 - Vokabularbeschränkung (z.B. nur Artikel in leichter Sprache)
 - Kombination aus Titel, Teaser, Beschreibung und Inhalt
 - Berücksichtigung der Platzierung im Ranking (Auswahl aus den Score-Plätzen)
-    
-
-Zukünftig könnte der Matcher durch eine Ensemble-Methode verbessert werden. Es wäre sinnvoll, den `ArticleVectorizer` mit verschiedenen Parametern und Datensätzen auf die zu matchenden Artikel anzuwenden und durch ein Voting-System den passenden Artikel auszuwählen.
-
-Ein lernbarer Zusammenhang zwischen den Parameterkonfigurationen und der Genauigkeit der einzelnen Matcher könnte hergestellt werden, z.B. Ensemble-Methoden wie Bagging und Stacking. Zum Trainieren eines solchen Modells könnte der bereits gematchte Datensatz der MDR-Artikel verwendet werden.
